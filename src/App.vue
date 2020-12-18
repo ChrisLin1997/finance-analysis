@@ -33,7 +33,7 @@ export default {
 <style lang="scss">
 @import '@/assets/index.scss';
 #app {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
