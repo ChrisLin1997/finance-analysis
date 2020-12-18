@@ -41,7 +41,6 @@ export default {
   background-color: $primary-background;
   box-shadow: 0 0 8px 0 #333;
   z-index: 2;
-  overflow: auto;
 }
 
 .title {
