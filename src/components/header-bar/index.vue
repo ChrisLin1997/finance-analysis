@@ -34,8 +34,8 @@ export default {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 76px;
-  line-height: 76px;
+  height: 64px;
+  line-height: 64px;
   background-color: $primary-background;
   box-shadow: 0 0 8px 0 #333;
   z-index: 2;
@@ -59,13 +59,11 @@ export default {
 }
 
 .type-item {
-  margin: 8px;
   width: 180px;
-  height: 60px;
-  line-height: 60px;
+  height: 64px;
+  line-height: 64px;
   background-color: $active-background;
-  border: 1px solid #666;
-  border-radius: 8px;
+  border-right: 2px solid #666;
 }
 
 </style>
