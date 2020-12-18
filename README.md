@@ -1,4 +1,4 @@
-# stock
+# Finance Analysis
 
 ## Project setup
 ```
