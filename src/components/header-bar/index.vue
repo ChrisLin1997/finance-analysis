@@ -1,6 +1,6 @@
 <template lang="pug">
 .header-bar
-  .title
+  .title(@click="returnHomePage")
     span Finance
     span Analysis
 
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import router from '@/router'
+
 export default {
   name: 'header-bar',
 
@@ -21,8 +23,13 @@ export default {
       { name: 'goods', label: '商品期貨' },
     ]
 
+    const returnHomePage = () => {
+      router.push('/')
+    }
+
     return {
       financeTypes,
+      returnHomePage,
     }
   },
 }
