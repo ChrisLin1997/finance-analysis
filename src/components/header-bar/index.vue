@@ -23,9 +23,7 @@ export default {
       { name: 'goods', label: '商品期貨' },
     ]
 
-    const returnHomePage = () => {
-      router.push('/')
-    }
+    const returnHomePage = () => router.push('/')
 
     return {
       financeTypes,
@@ -55,9 +53,22 @@ export default {
   height: 100%;
   font-size: 24px;
   background-color: $background;
+  user-select: none;
+  cursor: pointer;
+  transition: all .4s;
+
   & > span:first-child {
     display: inline;
     color: $active;
+  }
+
+  &:hover {
+    background-color: #20202d;
+  }
+
+  &:active {
+    position: relative;
+    top: -1px;
   }
 }
 

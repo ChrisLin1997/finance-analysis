@@ -25,7 +25,7 @@ export default {
       const result = await getStockChartService({ symbolId: 2330, oddLot: false })
       console.log(result)
     }
-    getStickChart()
+    // getStickChart()
   },
 }
 </script>
