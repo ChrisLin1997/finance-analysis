@@ -1,38 +1,17 @@
 <template lang="pug">
-#app
-  header-bar
-  aside-menu
-  //- router-link(to="/") Home
-  //- router-link(to="/about") About
-router-view
+.layout
+  router-view
 </template>
 
 <script>
-import AsideMenu from '@/components/aside-menu'
-import HeaderBar from '@/components/header-bar'
-import { getStockChartService } from '@/api/stock'
 
 export default {
-  name: 'app',
-
-  components: {
-    AsideMenu,
-    HeaderBar,
-  },
-
-  setup () {
-    const getStickChart = async () => {
-      const result = await getStockChartService({ symbolId: 2330, oddLot: false })
-      console.log(result)
-    }
-    // getStickChart()
-  },
+  name: 'App',
 }
 </script>
 
-<style lang="scss">
-@import '@/assets/index.scss';
-#app {
+<style lang="scss" scoped>
+.layout {
   width: 100%;
   height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -41,4 +20,9 @@ export default {
   text-align: center;
   background-color: $background;
 }
+
+</style>
+
+<style lang="scss">
+@import '@/assets/index.scss';
 </style>

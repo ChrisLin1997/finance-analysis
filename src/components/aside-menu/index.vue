@@ -2,11 +2,11 @@
 .aside-menu
   .name
     h3 Chris Lin
-  router-link.menu-item(
-    v-for="item of menuList"
-    :key="item.name"
-    :to="item.path"
-  ) {{ item.name }}
+  //- router-link.menu-item(
+  //-   v-for="item of menuList"
+  //-   :key="item.name"
+  //-   :to="item.path"
+  //- ) {{ item.name }}
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
 
   setup () {
     const menuList = [
-      { name: 'Trading', path: 'Trading' },
+      { name: 'Trading', path: 'trading' },
       { name: 'Paid membership', path: 'paid' },
       { name: 'Account management', path: 'management' },
       { name: 'History', path: 'history' },

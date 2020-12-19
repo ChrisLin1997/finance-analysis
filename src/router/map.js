@@ -1,14 +1,38 @@
-import Home from '@/views/Home.vue'
-
 export const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    component: () => import('@/views/pages'),
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: () => import('@/views/pages/home'),
+      },
+      {
+        path: 'stock',
+        name: 'stock',
+        component: () => import('@/views/pages/stock'),
+      },
+      {
+        path: 'currency',
+        name: 'currency',
+        component: () => import('@/views/pages/currency'),
+      },
+    ],
   },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
-  },
+  // {
+  //   path: '/',
+  //   name: 'home',
+  //   component: () => import('@/views/pages/home'),
+  // },
+  // {
+  //   path: '/stock',
+  //   name: 'stock',
+  //   component: () => import('@/views/pages/stock'),
+  // },
+  // {
+  //   path: '/currency',
+  //   name: 'currency',
+  //   component: () => import('@/views/pages/currency'),
+  // },
 ]

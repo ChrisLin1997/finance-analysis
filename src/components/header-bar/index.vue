@@ -5,11 +5,17 @@
     span Analysis
 
   .type
-    .type-item(v-for="type of financeTypes" :key="type.name") {{ type.label }}
+    router-link.type-item(
+      v-for="type of financeTypes"
+      :key="type.name"
+      :class="{ 'active' : activeType === type.name }"
+      :to="type.name"
+    ) {{ type.label }}
 
 </template>
 
 <script>
+import { computed } from 'vue'
 import router from '@/router'
 
 export default {
@@ -19,15 +25,20 @@ export default {
     const financeTypes = [
       { name: 'stock', label: '股票' },
       { name: 'currency', label: '貨幣' },
-      { name: 'virtualCurrency', label: '虛擬貨幣' },
-      { name: 'goods', label: '商品期貨' },
+      // { name: 'virtualCurrency', label: '虛擬貨幣' },
+      // { name: 'goods', label: '商品期貨' },
     ]
 
     const returnHomePage = () => router.push('/')
 
+    // active
+    const activeType = computed(() => router.currentRoute.value.name)
+
     return {
       financeTypes,
       returnHomePage,
+
+      activeType,
     }
   },
 }
@@ -86,6 +97,12 @@ export default {
   line-height: 64px;
   background-color: $active-background;
   border-right: 2px solid #666;
+  cursor: pointer;
+  user-select: none;
+}
+
+.active {
+  color: $active;
 }
 
 </style>
