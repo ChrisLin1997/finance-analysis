@@ -8,7 +8,6 @@ main
 <script>
 import AsideMenu from '@/components/aside-menu'
 import HeaderBar from '@/components/header-bar'
-import { getStockChartService } from '@/api/stock'
 
 export default {
   name: 'layout',
@@ -19,16 +18,11 @@ export default {
   },
 
   setup () {
-    const getStickChart = async () => {
-      const result = await getStockChartService({ symbolId: 2330, oddLot: false })
-      console.log(result)
-    }
-    getStickChart()
   },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 main {
   padding: 64px 0 0 284px;
   width: 100%;
