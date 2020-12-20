@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { ref, nextTick, reactive } from 'vue'
+import { ref, nextTick } from 'vue'
 import { getStockInfoService } from '@/api/stock'
 
 export default {
@@ -31,7 +31,7 @@ export default {
     const getStockInfo = async () => {
       if (stockId.value === '') return
       const result = await getStockInfoService({ stockId: stockId.value })
-      stockInfo = reactive({ ...result })
+      stockInfo = result
     }
 
     // active
