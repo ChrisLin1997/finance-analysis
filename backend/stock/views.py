@@ -1,5 +1,26 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponse
+from datetime import datetime
+import requests
+import json
+import twstock
+
+cors = 'https://cors-anywhere.herokuapp.com/'
 
 def info (request):
-    return HttpResponse({'status': 200, 'msg': 'stock'})
+    stockInfo = twstock.Stock(request.GET['stockId'])
+    dateList = [ datetime.strftime(date, '%Y/%m/%d') for date in stockInfo.date ]
+
+    result = json.dumps({
+        'status': 200,
+        'data': {
+            'date': dateList,
+            'transAmount': stockInfo.turnover,
+            'transactions': stockInfo.transaction,
+            'open': stockInfo.close,
+            'close': stockInfo.price,
+            'high': stockInfo.high,
+            'low': stockInfo.low,
+        }
+    })
+
+    return JsonResponse(result)

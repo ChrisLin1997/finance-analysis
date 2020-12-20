@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 
 def index (request):
-  return HttpResponse('Server is running.')
+  return JsonResponse({ 'msg' : 'Server is running.' })
