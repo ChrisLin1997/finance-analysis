@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { ref, nextTick, reactive, toRef } from 'vue'
+import { ref, nextTick, reactive } from 'vue'
 import { getStockInfoService } from '@/api/stock'
 
 export default {
@@ -43,7 +43,9 @@ export default {
       if (inputElement.value) inputElement.value.focus()
     }
     const handleBlur = () => {
+      if (stockId.value !== '') return
       isActive.value = false
+      stockId.value = ''
     }
 
     return {
