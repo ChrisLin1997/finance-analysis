@@ -8,7 +8,7 @@ main
 <script>
 import AsideMenu from '@/components/aside-menu'
 import HeaderBar from '@/components/header-bar'
-// import { getStockChartService } from '@/api/stock'
+import { getStockChartService } from '@/api/stock'
 
 export default {
   name: 'layout',
@@ -19,11 +19,11 @@ export default {
   },
 
   setup () {
-    // const getStickChart = async () => {
-    //   const result = await getStockChartService({ symbolId: 2330, oddLot: false })
-    //   console.log(result)
-    // }
-    // getStickChart()
+    const getStickChart = async () => {
+      const result = await getStockChartService({ symbolId: 2330, oddLot: false })
+      console.log(result)
+    }
+    getStickChart()
   },
 }
 </script>

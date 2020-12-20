@@ -1,9 +1,8 @@
 import axios from 'axios'
-
-const apiToken = '78d23f123926ac1673a1feb2296f207b'
+import { apiUrl } from '../config'
 
 export const xhr = (options) => {
-  options.params.apiToken = apiToken
+  options.url = apiUrl + options.url
 
   return new Promise((resolve, reject) => {
     axios(options)
@@ -11,7 +10,7 @@ export const xhr = (options) => {
         resolve(res.data.data)
       })
       .catch(err => {
-        console.log(err)
+        console.warn('API錯誤', err)
         reject(err)
       })
   })
