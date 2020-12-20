@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import HttpResponse
 
 def info (request):
-    print(request.method)
-    return JsonResponse({'status': 200, 'msg': 'stock'})
+    return HttpResponse({'status': 200, 'msg': 'stock'})
