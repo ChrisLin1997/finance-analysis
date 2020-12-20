@@ -1,4 +1,4 @@
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from datetime import datetime
 import requests
 import json
@@ -23,4 +23,4 @@ def info (request):
         }
     })
 
-    return JsonResponse(result)
+    return HttpResponse(result)
