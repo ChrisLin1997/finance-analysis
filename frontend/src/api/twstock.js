@@ -1,6 +1,21 @@
 import { xhr } from './xhr'
+// import { getOpenDay } from '@/helper'
 
-export const getStockInfoService = async (formData) => {
+export const getTwstockHotService = async () => {
+  return new Promise((resolve, reject) => {
+    return xhr({
+      method: 'get',
+      url: 'stock/hot',
+    })
+      .then(res => resolve(res))
+      .catch((err) => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}
+
+export const getTwstockInfoService = async (formData) => {
   const params = {
     stockId: formData.stockId,
   }

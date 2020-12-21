@@ -18,7 +18,7 @@
 
 <script>
 import { ref, nextTick } from 'vue'
-import { getStockInfoService } from '@/api/stock'
+import { getTwstockInfoService } from '@/api/twstock'
 
 export default {
   name: 'stock',
@@ -30,7 +30,7 @@ export default {
     let stockInfo = {}
     const getStockInfo = async () => {
       if (stockId.value === '') return
-      const result = await getStockInfoService({ stockId: stockId.value })
+      const result = await getTwstockInfoService({ stockId: stockId.value })
       stockInfo = result
     }
 

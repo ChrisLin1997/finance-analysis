@@ -1,4 +1,4 @@
-export const getToday = () => {
+export const getOpenDay = () => {
   const time = new Date()
   const year = time.getFullYear().toString()
   const month = time.getMonth() + 1 < 10 ? '0' + time.getMonth() + 1 : (time.getMonth() + 1).toString()
