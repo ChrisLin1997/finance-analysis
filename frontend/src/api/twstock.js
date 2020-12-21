@@ -5,7 +5,7 @@ export const getTwstockHotService = async () => {
   return new Promise((resolve, reject) => {
     return xhr({
       method: 'get',
-      url: 'stock/hot',
+      url: 'twstock/hot',
     })
       .then(res => resolve(res))
       .catch((err) => {
@@ -22,7 +22,7 @@ export const getTwstockInfoService = async (formData) => {
   return new Promise((resolve, reject) => {
     return xhr({
       method: 'get',
-      url: 'stock/info',
+      url: 'twstock/info',
       params,
     })
       .then(res => resolve(res))

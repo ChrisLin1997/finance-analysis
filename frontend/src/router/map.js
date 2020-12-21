@@ -9,9 +9,14 @@ export const routes = [
         component: () => import('@/views/pages/home'),
       },
       {
-        path: 'stock',
-        name: 'stock',
-        component: () => import('@/views/pages/stock'),
+        path: 'twstock',
+        name: 'twstock',
+        component: () => import('@/views/pages/twstock'),
+      },
+      {
+        path: 'usstock',
+        name: 'usstock',
+        component: () => import('@/views/pages/usstock'),
       },
       {
         path: 'currency',

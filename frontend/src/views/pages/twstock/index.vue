@@ -1,15 +1,15 @@
 <template lang="pug">
-.stock
+.twstock
   .search(:class="{ 'isActive' : isActive }")
-    .search-icon(@click="handleClick")
+    .search-icon(@click="handleClick()")
       awesome-icon(:icon="['fas', 'search']")
     transition(name="input")
       input.input(
         ref="inputElement"
         v-show="isActive"
-        v-model="stockId"
-        @keyup.enter="getStockInfo"
-        @blur="handleBlur"
+        v-model="stockNo"
+        @keyup.enter="getTwstockInfo()"
+        @blur="handleBlur()"
       )
 
   .index-list
@@ -18,19 +18,26 @@
 
 <script>
 import { ref, nextTick } from 'vue'
-import { getTwstockInfoService } from '@/api/twstock'
+import { getTwstockInfoService, getTwstockHotService } from '@/api/twstock'
 
 export default {
-  name: 'stock',
+  name: 'twstock',
 
   setup () {
-    const stockId = ref('')
+    // hot stock
+    const hotStockList = ref([])
+    const getHotTwstock = async () => {
+      const result = await getTwstockHotService()
+      console.log(result)
+    }
+    getHotTwstock()
 
-    // getStock
+    // search stock info
+    const stockNo = ref('')
     let stockInfo = {}
-    const getStockInfo = async () => {
-      if (stockId.value === '') return
-      const result = await getTwstockInfoService({ stockId: stockId.value })
+    const getTwstockInfo = async () => {
+      if (stockNo.value === '') return
+      const result = await getTwstockInfoService({ stockId: stockNo.value })
       stockInfo = result
     }
 
@@ -43,16 +50,18 @@ export default {
       if (inputElement.value) inputElement.value.focus()
     }
     const handleBlur = () => {
-      if (stockId.value !== '') return
+      if (stockNo.value !== '') return
       isActive.value = false
-      stockId.value = ''
+      stockNo.value = ''
     }
 
     return {
-      stockId,
+      hotStockList,
+      getHotTwstock,
 
+      stockNo,
       stockInfo,
-      getStockInfo,
+      getTwstockInfo,
 
       isActive,
       inputElement,

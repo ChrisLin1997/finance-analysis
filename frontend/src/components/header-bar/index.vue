@@ -23,7 +23,8 @@ export default {
 
   setup () {
     const financeTypes = [
-      { name: 'stock', label: '股票' },
+      { name: 'twstock', label: '臺股' },
+      { name: 'usstock', label: '美股' },
       { name: 'currency', label: '貨幣' },
       // { name: 'virtualCurrency', label: '虛擬貨幣' },
       // { name: 'goods', label: '商品期貨' },
