@@ -17,7 +17,7 @@ export const xhr = (options) => {
 }
 
 export const test = async (formData) => {
-  const url = 'https://cors-anywhere.herokuapp.com/http://mis.twse.com.tw/stock/api/getStockInfo.jsp'
+  const url = 'http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=202011&stockNo=2330'
   const params = {
     ex_ch: formData.stockId,
     time: formData.time,
@@ -27,7 +27,7 @@ export const test = async (formData) => {
     url,
     params,
     headers: {
-      origin: 'http://mis.twse.com.tw',
+      origin: 'http://www.twse.com.tw',
     },
   }
   return await new Promise((resolve, reject) => {
