@@ -24,3 +24,9 @@ def info (request):
     })
 
     return HttpResponse(result)
+
+def hot (request):
+    result = requests.get('https://www.twse.com.tw/exchangeReport/MI_INDEX20')
+
+    return HttpResponse(result)
+
