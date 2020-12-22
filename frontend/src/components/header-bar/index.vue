@@ -26,8 +26,8 @@ export default {
       { name: 'twstock', label: '臺股' },
       { name: 'usstock', label: '美股' },
       { name: 'currency', label: '貨幣' },
-      // { name: 'virtualCurrency', label: '虛擬貨幣' },
-      // { name: 'goods', label: '商品期貨' },
+      { name: 'virtualCurrency', label: '虛擬貨幣' },
+      { name: 'goods', label: '商品' },
     ]
 
     const returnHomePage = () => router.push('/')

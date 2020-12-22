@@ -23,6 +23,16 @@ export const routes = [
         name: 'currency',
         component: () => import('@/views/pages/currency'),
       },
+      {
+        path: 'virtualCurrency',
+        name: 'virtualCurrency',
+        component: () => import('@/views/pages/virtualCurrency'),
+      },
+      {
+        path: 'goods',
+        name: 'goods',
+        component: () => import('@/views/pages/goods'),
+      },
     ],
   },
   // {
