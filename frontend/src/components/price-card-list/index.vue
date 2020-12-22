@@ -7,10 +7,10 @@
       .title
         .name {{ item.name }}
         .id {{ item.id }}
-      .price(:class="item.variation === '+' ? 'up' : 'down'")
+      .price(:class="item.variation ? 'up' : 'down'")
         .close {{ item.close }}
         .variation
-          span {{ `${item.variation} ${item.spread}` }}
+          span {{ convertSign(item.variation) + item.spread }}
 
 </template>
 
@@ -30,6 +30,11 @@ export default {
   },
 
   setup () {
+    const convertSign = (value) => value ? '+' : '-'
+
+    return {
+      convertSign,
+    }
   },
 }
 </script>
@@ -43,20 +48,21 @@ export default {
 section {
   margin-top: 12px;
   width: 100%;
-  min-width: 1256px;
+  min-width: 1300px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .card-item {
   margin: 8px;
   padding: 8px 16px;
-  width: 200px;
+  width: 220px;
   height: 76px;
   display: flex;
   justify-content: space-between;
   background-color: $active-background;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .title {
