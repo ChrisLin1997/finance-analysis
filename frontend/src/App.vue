@@ -1,5 +1,5 @@
 <template lang="pug">
-.layout
+.app
   router-view
 </template>
 
@@ -11,9 +11,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.layout {
+.app {
   width: 100%;
+  min-width: 1024px;
   height: 100vh;
+  color: #fff;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

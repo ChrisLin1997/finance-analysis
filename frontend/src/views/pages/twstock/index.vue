@@ -12,23 +12,41 @@
         @blur="handleBlur()"
       )
 
-  .index-list
+  price-card-list(title="熱門個股" :data="topHotStockList")
 
 </template>
 
 <script>
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, computed } from 'vue'
 import { getTwstockInfoService, getTwstockHotService } from '@/api/twstock'
+import PriceCardList from '@/components/price-card-list'
 
 export default {
   name: 'twstock',
 
+  components: {
+    PriceCardList,
+  },
+
   setup () {
     // hot stock
     const hotStockList = ref([])
+    const topHotStockList = computed(() => hotStockList.value.slice(0, 6))
     const getHotTwstock = async () => {
       const result = await getTwstockHotService()
-      console.log(result)
+      result.forEach(item => {
+        hotStockList.value.push({
+          id: item[1],
+          name: item[2],
+          transaction: item[4],
+          open: item[5],
+          close: item[8],
+          high: item[6],
+          low: item[7],
+          variation: item[9].includes('+') ? '+' : '-',
+          spread: item[10],
+        })
+      })
     }
     getHotTwstock()
 
@@ -56,7 +74,7 @@ export default {
     }
 
     return {
-      hotStockList,
+      topHotStockList,
       getHotTwstock,
 
       stockNo,
@@ -73,9 +91,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.search {
+
+.twstock {
   margin: 12px;
-  padding-right: 12px;
+}
+
+.search {
   width: fit-content;
   display: flex;
   justify-content: center;
@@ -127,5 +148,4 @@ export default {
 .input-leave-from {
   max-width: 140px;
 }
-
 </style>

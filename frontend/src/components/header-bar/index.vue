@@ -96,13 +96,17 @@ export default {
   min-width: 180px;
   height: 64px;
   line-height: 64px;
+  color: #fff;
   background-color: $active-background;
   border-right: 2px solid #666;
   cursor: pointer;
   user-select: none;
+  transition: all .2s;
 }
 
 .active {
+  font-size: 18px;
+  font-weight: bold;
   color: $active;
 }
 
