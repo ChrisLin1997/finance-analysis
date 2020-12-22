@@ -1,9 +1,8 @@
 <template lang="pug">
-.page
-  header-bar
-  aside-menu
-  main
-    router-view
+header-bar
+aside-menu
+main
+  router-view
 </template>
 
 <script>
@@ -27,8 +26,9 @@ export default {
 main {
   padding: 64px 0 0 284px;
   width: 100%;
-  min-width: calc(1024px - 284px);
   height: 100%;
+  min-width: calc(1024px - 284px);
+  height: 100vh;
   overflow: auto;
 }
 </style>

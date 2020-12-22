@@ -14,6 +14,9 @@
 
   price-card-list(title="熱門個股" :data="hotStockList")
 
+  h3 google news
+  h3 Ptt
+
 </template>
 
 <script>
@@ -54,7 +57,7 @@ export default {
     let stockInfo = {}
     const getTwstockInfo = async () => {
       if (stockNo.value === '') return
-      const result = await getTwstockInfoService({ stockId: stockNo.value })
+      const result = await getTwstockInfoService({ stockNo: stockNo.value })
       stockInfo = result
     }
 

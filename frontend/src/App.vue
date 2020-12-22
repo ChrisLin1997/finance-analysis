@@ -1,5 +1,5 @@
 <template lang="pug">
-.app
+.layout
   router-view
 </template>
 
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app {
+.layout {
   width: 100%;
   min-width: 1024px;
   height: 100vh;
