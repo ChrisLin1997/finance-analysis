@@ -19,6 +19,11 @@ export const routes = [
         component: () => import('@/views/pages/usstock'),
       },
       {
+        path: 'stock/:stockNo',
+        name: 'stock',
+        component: () => import('@/views/pages/stock'),
+      },
+      {
         path: 'currency',
         name: 'currency',
         component: () => import('@/views/pages/currency'),
@@ -35,19 +40,4 @@ export const routes = [
       },
     ],
   },
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: () => import('@/views/pages/home'),
-  // },
-  // {
-  //   path: '/stock',
-  //   name: 'stock',
-  //   component: () => import('@/views/pages/stock'),
-  // },
-  // {
-  //   path: '/currency',
-  //   name: 'currency',
-  //   component: () => import('@/views/pages/currency'),
-  // },
 ]

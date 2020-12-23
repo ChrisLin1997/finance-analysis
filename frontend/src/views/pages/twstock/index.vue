@@ -8,7 +8,7 @@
         ref="inputElement"
         v-show="isActive"
         v-model="stockNo"
-        @keyup.enter="getTwstockInfo()"
+        @keyup.enter="getStock"
         @blur="handleBlur()"
       )
 
@@ -21,7 +21,8 @@
 
 <script>
 import { ref, nextTick } from 'vue'
-import { getTwstockInfoService, getTwstockHotService } from '@/api/twstock'
+import router from '@/router'
+import { getTwstockHotService } from '@/api/twstock'
 import PriceCardList from '@/components/price-card-list'
 
 export default {
@@ -52,13 +53,14 @@ export default {
     }
     getHotTwstock()
 
+    // get news
+
+    // get ptt stock
+
     // search stock info
     const stockNo = ref('')
-    let stockInfo = {}
-    const getTwstockInfo = async () => {
-      if (stockNo.value === '') return
-      const result = await getTwstockInfoService({ stockNo: stockNo.value })
-      stockInfo = result
+    const getStock = () => {
+      router.push({ name: 'stock', params: { stockNo: stockNo.value } })
     }
 
     // active
@@ -80,8 +82,7 @@ export default {
       getHotTwstock,
 
       stockNo,
-      stockInfo,
-      getTwstockInfo,
+      getStock,
 
       isActive,
       inputElement,

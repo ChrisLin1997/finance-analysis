@@ -9,7 +9,7 @@
       v-for="type of financeTypes"
       :key="type.name"
       :class="{ 'active' : activeType === type.name }"
-      :to="type.name"
+      :to="{ name: type.name }"
     ) {{ type.label }}
 
 </template>

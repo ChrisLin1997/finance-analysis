@@ -1,16 +1,11 @@
 <template lang="pug">
 .home
-  price-chart
+  h3 home
 </template>
 
 <script>
-import PriceChart from '@/components/price-chart'
 
 export default {
   name: 'home',
-
-  components: {
-    PriceChart,
-  },
 }
 </script>

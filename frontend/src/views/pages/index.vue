@@ -33,6 +33,6 @@ main {
 }
 
 .view {
-  padding: 12px;
+  padding: 12px 36px;
 }
 </style>

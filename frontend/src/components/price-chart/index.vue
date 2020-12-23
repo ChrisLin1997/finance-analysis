@@ -5,45 +5,49 @@
 
 <script>
 import Chart from 'chart.js'
-import { ref, onMounted } from 'vue'
+import { ref, computed, onUpdated } from 'vue'
 
 export default {
   name: 'price-chart',
 
   props: {
-    data: {
-      type: Object,
+    dateList: {
+      type: Array,
+      required: true,
     },
 
-    options: {
-      type: Object,
-      default: () => {},
+    priceList: {
+      type: Array,
+      required: true,
     },
   },
 
   setup (props) {
+    const dateList = computed(() => props.dateList)
+    const priceList = computed(() => props.priceList)
     const canvasElement = ref(null)
     const chartInstance = ref(null)
-    const chartOptions = {
+    const chartOptions = computed(() => ({
       type: 'line',
       data: {
-        // labels: props.data.date,
-        labels: ['2020/12/01', '2020/12/02', '2020/12/03', '2020/12/04', '2020/12/05', '2020/12/06', '2020/12/07', '2020/12/08', '2020/12/09', '2020/12/10', '2020/12/11', '2020/12/12', '2020/12/13', '2020/12/14', '2020/12/15', '2020/12/01', '2020/12/02', '2020/12/03', '2020/12/04', '2020/12/05', '2020/12/06', '2020/12/07', '2020/12/08', '2020/12/09', '2020/12/10', '2020/12/11', '2020/12/12', '2020/12/13', '2020/12/14', '2020/12/15'],
+        labels: dateList.value,
         datasets: [
           {
-            pointRadius: 0,
             label: '股價',
-            // data: props.data.price,
-            data: [100, 103, 110, 121, 143, 157, 180, 171, 152, 140, 127, 164, 192, 217, 200, 213, 207, 215, 240, 250, 243, 255, 269, 253, 256, 254, 267, 251, 270, 287],
+            data: priceList.value,
             borderColor: '#3ca9c0',
             borderWidth: 2,
+            pointRadius: 0,
             lineTension: 0,
           },
         ],
       },
       options: {
         layout: {
-          padding: 24,
+          padding: {
+            top: 16,
+            bottom: 8,
+          },
         },
 
         legend: {
@@ -52,13 +56,19 @@ export default {
 
         scales: {
           xAxes: [{
+            gridLines: {
+              display: false,
+            },
             ticks: {
               display: false,
             },
           }],
           yAxes: [{
+            position: 'right',
+            gridLines: {
+              display: false,
+            },
             ticks: {
-              position: 'right',
               padding: 8,
               fontColor: 'white',
             },
@@ -74,17 +84,19 @@ export default {
           caretSize: 0,
           custom: (element) => {
             // const center = canvasElement.value.getBoundingClientRect().width / 2
-            element.x = 70
-            element.y = 4
+            element.x = 0
+            element.y = 0
             // if (element.caretX > center) element.x = 70
             // else element.x = canvasElement.value.getBoundingClientRect().width - 100
           },
         },
       },
-    }
+    }))
 
-    onMounted(() => {
-      chartInstance.value = new Chart(canvasElement.value, chartOptions)
+    onUpdated(() => {
+      if (canvasElement.value && dateList.value.length && priceList.value.length) {
+        chartInstance.value = new Chart(canvasElement.value, chartOptions.value)
+      }
     })
 
     return {

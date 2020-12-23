@@ -15,26 +15,21 @@ export const getTwstockHotService = async () => {
   })
 }
 
-export const getTwstockInfoService = async (formData) => {
+export const getTwstockHistoryService = async (formData) => {
   const params = {
-    stockId: formData.stockId,
+    stockNo: formData.stockNo,
   }
   return new Promise((resolve, reject) => {
     return xhr({
       method: 'get',
-      url: 'twstock/info',
+      url: 'twstock/history',
       params,
     })
       .then(res => resolve(res))
       .catch(() => {
         const err = {
           date: [],
-          transAmount: [],
-          transactions: [],
-          open: [],
-          close: [],
-          high: [],
-          low: [],
+          price: [],
         }
         reject(err)
       })
