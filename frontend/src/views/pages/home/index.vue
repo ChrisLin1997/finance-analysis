@@ -1,6 +1,6 @@
 <template lang="pug">
 .home
-  price-chart(:data="[1,2,3,3,4,5]")
+  price-chart
 </template>
 
 <script>
