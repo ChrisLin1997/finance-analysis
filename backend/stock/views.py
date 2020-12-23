@@ -4,38 +4,37 @@ import requests
 import json
 import twstock
 
-cors = 'https://cors-anywhere.herokuapp.com/'
+CORS = 'https://cors-anywhere.herokuapp.com/'
 
-def info (request):
-    params = {
-        'stockNo': request.GET('stockNo')
-    }
-    result = requests.get('https://www.twse.com.tw/exchangeReport/STOCK_DAY', params = params)
+
+def history (request):
+    stockInfo = twstock.Stock(request.GET['stockNo'])
+    dateList = [ datetime.strftime(date, '%Y/%m/%d') for date in stockInfo.date ]
+
+    result = json.dumps({
+        'status': 200,
+        'data': {
+            'date': dateList,
+            'price': stockInfo.price,
+            # 'transAmount': stockInfo.turnover,
+            # 'transactions': stockInfo.transaction,
+            # 'open': stockInfo.close,
+            # 'high': stockInfo.high,
+            # 'low': stockInfo.low,
+        }
+    })
 
     return HttpResponse(result)
+# def info (request):
+#     stockNo = request.GET['stockNo']
+#     payload = {
+#         'stockNo': stockNo
+#     }
+#     result = requests.get('https://www.twse.com.tw/exchangeReport/STOCK_DAY', params = payload)
+
+#     return HttpResponse(result)
 
 def hot (request):
     result = requests.get('https://www.twse.com.tw/exchangeReport/MI_INDEX20')
 
     return HttpResponse(result)
-
-# def realtime (request):
-#     stockInfo = twstock.Stock(request.GET['stockId'])
-#     dateList = [ datetime.strftime(date, '%Y/%m/%d') for date in stockInfo.date ]
-
-#     result = json.dumps({
-#         'status': 200,
-#         'data': {
-#             'date': dateList,
-#             'transAmount': stockInfo.turnover,
-#             'transactions': stockInfo.transaction,
-#             'open': stockInfo.close,
-#             'close': stockInfo.price,
-#             'high': stockInfo.high,
-#             'low': stockInfo.low,
-#         }
-#     })
-
-#     return HttpResponse(result)
-
-

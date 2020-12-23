@@ -7,6 +7,6 @@ import stock.views as twstock
 urlpatterns = [
     path('', index),
     path('admin/', admin.site.urls),
-    path('twstock/info', twstock.info),
+    path('twstock/history', twstock.history),
     path('twstock/hot', twstock.hot),
 ]
