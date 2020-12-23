@@ -94,10 +94,6 @@ export default {
 
 <style lang="scss" scoped>
 
-.twstock {
-  margin: 12px;
-}
-
 .search {
   width: fit-content;
   display: flex;

@@ -2,7 +2,7 @@
 header-bar
 aside-menu
 main
-  router-view
+  router-view.view
 </template>
 
 <script>
@@ -30,5 +30,9 @@ main {
   min-width: calc(1024px - 284px);
   height: 100vh;
   overflow: auto;
+}
+
+.view {
+  padding: 12px;
 }
 </style>
