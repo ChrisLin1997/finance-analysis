@@ -82,12 +82,11 @@ export default {
           displayColors: false,
           cornerRadius: 0,
           caretSize: 0,
+          xPadding: 16,
+          yPadding: 8,
           custom: (element) => {
-            // const center = canvasElement.value.getBoundingClientRect().width / 2
             element.x = 0
             element.y = 0
-            // if (element.caretX > center) element.x = 70
-            // else element.x = canvasElement.value.getBoundingClientRect().width - 100
           },
         },
       },
