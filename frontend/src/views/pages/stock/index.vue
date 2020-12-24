@@ -3,10 +3,11 @@
   //- .title {{ stockTitle }}
   header
     .title
-      span 台積電
-      span 130.96
+      span {{ stockInfo.name }}
+      span 509.00
+      //- span {{ stockInfo.price }}
     .subtitle
-      span 2330 上市
+      span {{ stockInfo.id + stockInfo.type }}
       span -0.92 (-0.70%)
 
   body
@@ -20,8 +21,12 @@
 <script>
 import { ref } from 'vue'
 import router from '@/router'
-import { getTwstockHistoryService, getTwstockInfoService } from '@/api/twstock'
 import PriceChart from '@/components/price-chart'
+import {
+  getTwstockHistoryService,
+  getTwstockInfoService,
+  getTwstockMerchantService,
+} from '@/api/twstock'
 
 export default {
   name: 'stock',
@@ -45,9 +50,14 @@ export default {
     const getTwstockInfo = async () => {
       if (stockNo.value === '') return
 
-      const historyPrice = await getTwstockHistoryService({ stockNo: stockNo.value })
-      const info = await getTwstockInfoService({ stockNo: stockNo.value })
-      stockInfo.value = { ...info, ...historyPrice }
+      const submitData = {
+        stockNo: stockNo.value,
+      }
+
+      const historyPrice = await getTwstockHistoryService(submitData)
+      const info = await getTwstockInfoService(submitData)
+      const merchant = await getTwstockMerchantService(submitData)
+      stockInfo.value = { ...info, ...historyPrice, ...merchant }
     }
     getTwstockInfo()
 

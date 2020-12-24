@@ -11,8 +11,8 @@
         @keyup.enter="getStock"
         @blur="handleBlur()"
       )
-
-  price-card-list(title="熱門個股" :data="hotStockList")
+  template(v-if="hotStockList.data.length > 0")
+  price-card-list(title="熱門個股" :data="hotStockList.data")
 
   h3 google news
   h3 Ptt
@@ -34,22 +34,12 @@ export default {
 
   setup () {
     // hot stock
-    const hotStockList = ref([])
+    const hotStockList = ref({
+      data: [],
+      date: '',
+    })
     const getHotTwstock = async () => {
-      const result = await getTwstockHotService()
-      result.slice(0, 6).forEach(item => {
-        hotStockList.value.push({
-          id: item[1],
-          name: item[2],
-          transaction: item[4],
-          open: item[5],
-          close: item[8],
-          high: item[6],
-          low: item[7],
-          variation: item[9].includes('+'),
-          spread: item[10],
-        })
-      })
+      hotStockList.value = await getTwstockHotService()
     }
     getHotTwstock()
 

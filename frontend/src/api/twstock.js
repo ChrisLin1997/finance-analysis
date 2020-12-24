@@ -47,3 +47,26 @@ export const getTwstockHistoryService = async (formData) => {
       })
   })
 }
+
+export const getTwstockMerchantService = async (formData) => {
+  const time = new Date()
+  const params = {
+    stockNo: formData.stockNo,
+    time: time.getTime(),
+  }
+  return new Promise((resolve, reject) => {
+    return xhr({
+      method: 'get',
+      url: 'twstock/merchant',
+      params,
+    })
+      .then(res => resolve(res))
+      .catch(() => {
+        const err = {
+          buy: [],
+          sell: [],
+        }
+        reject(err)
+      })
+  })
+}
