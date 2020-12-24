@@ -1,5 +1,6 @@
 <template lang="pug">
-.chart
+.canvas
+  span 股價圖表
   canvas(ref="canvasElement")
 </template>
 
@@ -66,7 +67,7 @@ export default {
           yAxes: [{
             position: 'right',
             gridLines: {
-              display: false,
+              color: '#44475a',
             },
             ticks: {
               padding: 8,
@@ -85,8 +86,8 @@ export default {
           xPadding: 16,
           yPadding: 8,
           custom: (element) => {
-            element.x = 0
-            element.y = 0
+            element.x = 8
+            element.y = 8
           },
         },
       },
@@ -106,8 +107,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chart {
+.canvas {
   width: 100%;
-  background-color: $active-background;
+  text-align: left;
 }
 </style>

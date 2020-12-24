@@ -1,13 +1,26 @@
 <template lang="pug">
 .stock
-  price-chart(:dateList="stockHistory.date" :priceList="stockHistory.price")
+  //- .title {{ stockTitle }}
+  header
+    .title
+      span 台積電
+      span 130.96
+    .subtitle
+      span 2330 上市
+      span -0.92 (-0.70%)
+
+  body
+    .chart
+      price-chart(:dateList="stockInfo.date" :priceList="stockInfo.price")
+    .merchant
+  footer
 
 </template>
 
 <script>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import router from '@/router'
-import { getTwstockHistoryService } from '@/api/twstock'
+import { getTwstockHistoryService, getTwstockInfoService } from '@/api/twstock'
 import PriceChart from '@/components/price-chart'
 
 export default {
@@ -19,25 +32,57 @@ export default {
 
   setup () {
     const stockNo = ref(router.currentRoute.value.params.stockNo)
-    const stockHistory = reactive({
-      date: [],
+    const stockInfo = ref({
+      id: '',
+      name: '',
+      type: '',
+      industy: '',
+      ipoTime: '',
       price: [],
+      date: [],
     })
-    const getTwstockHistory = async () => {
+
+    const getTwstockInfo = async () => {
       if (stockNo.value === '') return
-      const result = await getTwstockHistoryService({ stockNo: stockNo.value })
-      stockHistory.date = result.date
-      stockHistory.price = result.price
+
+      const historyPrice = await getTwstockHistoryService({ stockNo: stockNo.value })
+      const info = await getTwstockInfoService({ stockNo: stockNo.value })
+      stockInfo.value = { ...info, ...historyPrice }
     }
-    getTwstockHistory()
+    getTwstockInfo()
 
     return {
-      stockHistory,
+      stockInfo,
     }
   },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+header {
+  width: 220px;
+  text-align: left;
+}
 
+.title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28px;
+}
+
+.subtitle {
+  display: flex;
+  justify-content: space-between;
+}
+
+body {
+  margin-top: 24px;
+  display: flex;
+  .chart {
+    width: 60%;
+  }
+  .merchant {
+    width: 40%;
+  }
+}
 </style>

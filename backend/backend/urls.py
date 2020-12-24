@@ -5,8 +5,12 @@ import stock.views as twstock
 
 
 urlpatterns = [
+    # main
     path('', index),
     path('admin/', admin.site.urls),
-    path('twstock/history', twstock.history),
+
+    # twstock
     path('twstock/hot', twstock.hot),
+    path('twstock/info', twstock.info),
+    path('twstock/history', twstock.history),
 ]

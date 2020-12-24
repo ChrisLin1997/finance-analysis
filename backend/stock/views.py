@@ -6,6 +6,26 @@ import twstock
 
 CORS = 'https://cors-anywhere.herokuapp.com/'
 
+def hot (request):
+    result = requests.get('https://www.twse.com.tw/exchangeReport/MI_INDEX20')
+
+    return HttpResponse(result)
+
+def info (request):
+    stockNo = request.GET['stockNo']
+    stockInfo = twstock.codes[stockNo]
+    result = json.dumps({
+        'status': 200,
+        'data': {
+            'id': stockInfo[1],
+            'name': stockInfo[2],
+            'type': stockInfo[5],
+            'ipoTime': stockInfo[4],
+            'industry': stockInfo[6],
+        }
+    })
+
+    return HttpResponse(result)
 
 def history (request):
     stockInfo = twstock.Stock(request.GET['stockNo'])
@@ -23,18 +43,5 @@ def history (request):
             # 'low': stockInfo.low,
         }
     })
-
-    return HttpResponse(result)
-# def info (request):
-#     stockNo = request.GET['stockNo']
-#     payload = {
-#         'stockNo': stockNo
-#     }
-#     result = requests.get('https://www.twse.com.tw/exchangeReport/STOCK_DAY', params = payload)
-
-#     return HttpResponse(result)
-
-def hot (request):
-    result = requests.get('https://www.twse.com.tw/exchangeReport/MI_INDEX20')
 
     return HttpResponse(result)
