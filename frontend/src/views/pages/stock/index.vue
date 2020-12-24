@@ -14,6 +14,9 @@
     .chart
       price-chart(:dateList="stockInfo.date" :priceList="stockInfo.price")
     .merchant
+      .buy
+
+      .sell
   footer
 
 </template>
@@ -88,11 +91,17 @@ header {
 body {
   margin-top: 24px;
   display: flex;
-  .chart {
-    width: 60%;
-  }
-  .merchant {
-    width: 40%;
+}
+
+.chart {
+  width: 60%;
+}
+
+.merchant {
+  width: 40%;
+  display: flex;
+  & > * {
+    width: 50%;
   }
 }
 </style>

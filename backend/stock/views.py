@@ -74,7 +74,7 @@ def merchant (request):
     buyList = []
     sellList = []
 
-    for i in range(4):
+    for i in range(5):
         buyList.append({
             'price': data['b'].split('_')[i],
             'amount': data['g'].split('_')[i],
