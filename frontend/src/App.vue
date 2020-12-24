@@ -13,7 +13,6 @@ export default {
 <style lang="scss" scoped>
 .layout {
   width: 100%;
-  min-width: 1024px;
   height: 100vh;
   color: #fff;
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -21,6 +20,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background-color: $background;
+  overflow: hidden;
 }
 
 </style>

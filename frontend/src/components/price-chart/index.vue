@@ -1,6 +1,6 @@
 <template lang="pug">
 .canvas
-  span 股價圖表
+  h3 股價圖表
   canvas(ref="canvasElement")
 </template>
 

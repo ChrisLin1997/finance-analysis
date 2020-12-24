@@ -2,7 +2,7 @@
 header-bar
 aside-menu
 main
-  router-view.view
+  router-view
 </template>
 
 <script>
@@ -24,15 +24,11 @@ export default {
 
 <style lang="scss" scoped>
 main {
-  padding: 64px 0 0 284px;
-  width: 100%;
+  margin-top: 64px;
+  margin-left: 284px;
+  padding: 16px 56px 16px 16px;
+  width: calc(100vw -284px);
   height: 100%;
-  min-width: calc(1024px - 284px);
-  height: 100vh;
   overflow: auto;
-}
-
-.view {
-  padding: 16px 36px;
 }
 </style>

@@ -32,7 +32,6 @@ export default {
 
 <style lang="scss" scoped>
 .aside-menu {
-  padding-top: 64px;
   position: fixed;
   left: 0;
   width: 284px;

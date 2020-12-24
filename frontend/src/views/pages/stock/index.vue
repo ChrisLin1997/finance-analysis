@@ -1,26 +1,28 @@
 <template lang="pug">
-.stock
-  header
-    //- .title
-      span {{ stockInfo.name }}
-      span 509.00
-      //- span {{ stockInfo.price }}
-    //- .subtitle
-      span {{ stockInfo.id + stockInfo.type }}
-      span -0.92 (-0.70%)
+header
+  .title
+    span {{ stockInfo.name }}
+    span 509.00
+    //- span {{ stockInfo.price }}
+  .subtitle
+    span {{ stockInfo.id + stockInfo.type }}
+    span -0.92 (-0.70%)
 
-  body
-    .chart
-      //- price-chart(:dateList="stockInfo.date" :priceList="stockInfo.price")
-    .merchant
-      h3 交易資訊
-      .type
-        div(v-for="type of merchantList" :key="type.code")
-          h3(:class="type.code") {{ type.label }}
+.line
+
+body
+  .chart(v-if="true")
+    price-chart(:dateList="stockInfo.date" :priceList="stockInfo.price")
+  .merchant
+    h3 交易資訊
+    .merchant-type
+      div(v-for="type of merchantList" :key="type.code")
+        h3(:class="type.code") {{ type.label }}
+        .merchant-list
           .merchant-item(v-for="(item, index) of stockInfo[type.code]" :key="index" :class="type.code")
             .price {{ convertPrice(item.price) }}
             .amount {{ item.amount }}
-  footer
+footer
 
 </template>
 
@@ -60,16 +62,13 @@ export default {
 
     const getTwstockInfo = async () => {
       if (stockNo.value === '') return
-
       const submitData = {
         stockNo: stockNo.value,
       }
-
       const historyPrice = await getTwstockHistoryService(submitData)
       const info = await getTwstockInfoService(submitData)
       const merchant = await getTwstockMerchantService(submitData)
       stockInfo.value = { ...info, ...historyPrice, ...merchant }
-      stockInfo.value = { ...merchant }
     }
     getTwstockInfo()
 
@@ -80,7 +79,6 @@ export default {
     return {
       merchantList,
       stockInfo,
-
       convertPrice,
     }
   },
@@ -89,19 +87,26 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  width: 220px;
+  padding-bottom: 12px;
+  width: 270px;
   text-align: left;
+}
+
+.line {
+  width: 500px;
+  border-bottom: 2px solid $active;
 }
 
 .title {
   display: flex;
   justify-content: space-between;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .subtitle {
   display: flex;
   justify-content: space-between;
+  font-size: 14px;
 }
 
 body {
@@ -110,18 +115,34 @@ body {
 }
 
 .chart {
-  width: 60%;
+  display: inline-block;
+  width: 55%;
+  min-width: 860px;
 }
 
 .merchant {
+  margin-left: 56px;
+  display: inline-block;
+  padding: 0 36px 12px 36px;
   width: 40%;
+  min-width: 630px;
+  h3 {
+    margin-bottom: 24px;
+  }
 }
 
-.type {
+.merchant-type {
   display: flex;
+  justify-content: space-between;
   & > * {
-    width: 50%;
+    width: 40%;
   }
+}
+.merchant-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 332px;
 }
 
 .merchant-item {
