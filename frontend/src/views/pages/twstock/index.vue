@@ -115,9 +115,10 @@ export default {
 }
 
 .input {
-  margin-left: 4px;
+  margin-left: 12px;
   width: 140px;
   height: 36px;
+  color: #fff;
   background-color: transparent;
   border: none;
   outline: none;

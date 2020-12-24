@@ -59,7 +59,7 @@ def history (request):
 
     return HttpResponse(result)
 
-# 即時交易,最佳五黨資訊
+# 即時交易,最佳五檔資訊
 def merchant (request):
     stockNo = 'tse_' + request.GET['stockNo'] + '.tw'
     time = request.GET['time']
