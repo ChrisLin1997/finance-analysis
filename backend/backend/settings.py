@@ -53,7 +53,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://0.0.0.0:80',
+    'http://localhost:8080',
 ]
 
 ROOT_URLCONF = 'backend.urls'
