@@ -14,12 +14,11 @@
     .merchant
       h3 交易資訊
       .merchant-type
-        div(v-for="type of merchantList" :key="type.code")
+        .merchant-list(v-for="type of merchantList" :key="type.code")
           h3(:class="type.code") {{ type.label }}
-          .merchant-list
-            .merchant-item(v-for="(item, index) of stockInfo[activeMerchant][type.code]" :key="index" :class="type.code")
-              .price {{ convertPrice(item.price) }}
-              .amount {{ item.amount }}
+          .merchant-item(v-for="(item, index) of stockInfo[activeMerchant][type.code]" :key="index" :class="type.code")
+            .price {{ convertPrice(item.price) }}
+            .amount {{ item.amount }}
   footer
 
 </template>
@@ -152,32 +151,35 @@ header {
 }
 
 .merchant {
-  padding: 0 36px 12px 36px;
+  padding: 12px 24px;
   width: 35%;
   height: 360px;
   background-color: #292d31;
-  h3 {
-    margin-bottom: 24px;
-  }
 }
 
 .merchant-type {
   display: flex;
   justify-content: space-between;
+  height: 310px;
   & > * {
-    width: 40%;
+    width: 45%;
   }
 }
 .merchant-list {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 100%;
 }
 
 .merchant-item {
   display: flex;
   justify-content: space-between;
+  text-align: right;
+  border-bottom: 1px solid $active-background;
+  * {
+    width: 30%;
+  }
 }
 
 .buy {

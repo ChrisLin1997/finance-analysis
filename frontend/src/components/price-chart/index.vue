@@ -109,7 +109,7 @@ export default {
 
 <style lang="scss" scoped>
 .price-chart {
-  padding: 64px 24px 0;
+  padding: 48px 24px 0;
   width: 100%;
   height: 360px;
   text-align: left;
