@@ -27,27 +27,6 @@ export const getTwstockInfoService = async (formData) => {
   })
 }
 
-export const getTwstockHistoryService = async (formData) => {
-  const params = {
-    stockNo: formData.stockNo,
-  }
-  return new Promise((resolve, reject) => {
-    return xhr({
-      method: 'get',
-      url: 'twstock/history',
-      params,
-    })
-      .then(res => resolve(res))
-      .catch(() => {
-        const err = {
-          date: [],
-          price: [],
-        }
-        reject(err)
-      })
-  })
-}
-
 export const getTwstockMerchantService = async (formData) => {
   const time = new Date()
   const params = {

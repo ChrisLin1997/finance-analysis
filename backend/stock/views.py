@@ -30,26 +30,20 @@ def hot (request):
 
     return HttpResponse(result)
 
+# 股票資訊
 def info (request):
     stockNo = request.GET['stockNo']
     stockInfo = twstock.codes[stockNo]
+    stockPrice = twstock.Stock(stockNo)
+    dateList = [ datetime.strftime(date, '%Y/%m/%d') for date in stockPrice.date ]
     result = json.dumps({
         'id': stockInfo[1],
         'name': stockInfo[2],
         'type': stockInfo[5],
         'ipoTime': stockInfo[4],
         'industry': stockInfo[6],
-    })
-
-    return HttpResponse(result)
-
-# 歷史股價
-def history (request):
-    stockInfo = twstock.Stock(request.GET['stockNo'])
-    dateList = [ datetime.strftime(date, '%Y/%m/%d') for date in stockInfo.date ]
-    result = json.dumps({
         'date': dateList,
-        'price': stockInfo.price,
+        'price': stockPrice.price,
         # 'transAmount': stockInfo.turnover,
         # 'transactions': stockInfo.transaction,
         # 'open': stockInfo.close,

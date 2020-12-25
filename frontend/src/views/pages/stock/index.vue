@@ -2,8 +2,7 @@
 header
   .title
     span {{ stockInfo.name }}
-    span 509.00
-    //- span {{ stockInfo.price }}
+    span {{ stockPrice }}
   .subtitle
     span {{ stockInfo.id + stockInfo.type }}
     span -0.92 (-0.70%)
@@ -12,7 +11,7 @@ header
 
 body
   .chart(v-if="true")
-    price-chart(:dateList="stockInfo.date" :priceList="stockInfo.price")
+    price-chart(:dateList="stockInfo.date" :priceList="stockInfo.history")
   .merchant
     h3 交易資訊
     .merchant-type
@@ -27,11 +26,10 @@ footer
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import router from '@/router'
 import PriceChart from '@/components/price-chart'
 import {
-  getTwstockHistoryService,
   getTwstockInfoService,
   getTwstockMerchantService,
 } from '@/api/twstock'
@@ -49,6 +47,7 @@ export default {
       { label: '委賣', code: 'sell' },
     ]
 
+    // 取得股票資訊
     const stockNo = ref(router.currentRoute.value.params.stockNo)
     const stockInfo = ref({
       id: '',
@@ -56,22 +55,27 @@ export default {
       type: '',
       industy: '',
       ipoTime: '',
-      price: [],
+      history: [],
       date: [],
     })
+    const stockPrice = computed(() => stockInfo.value.history[stockInfo.value.history.length - 1])
 
     const getTwstockInfo = async () => {
       if (stockNo.value === '') return
       const submitData = {
         stockNo: stockNo.value,
       }
-      const historyPrice = await getTwstockHistoryService(submitData)
-      const info = await getTwstockInfoService(submitData)
-      const merchant = await getTwstockMerchantService(submitData)
-      stockInfo.value = { ...info, ...historyPrice, ...merchant }
+
+      const result = await Promise.all([
+        getTwstockInfoService(submitData),
+        getTwstockMerchantService(submitData),
+      ])
+      stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr), {})
     }
+
     getTwstockInfo()
 
+    // util
     const convertPrice = (value) => {
       return Number(value).toFixed(2)
     }
@@ -79,6 +83,7 @@ export default {
     return {
       merchantList,
       stockInfo,
+      stockPrice,
       convertPrice,
     }
   },
