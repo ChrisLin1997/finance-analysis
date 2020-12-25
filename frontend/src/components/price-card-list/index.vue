@@ -53,7 +53,7 @@ export default {
 section {
   margin-top: 12px;
   width: 100%;
-  min-width: 1300px;
+  min-width: 1320px;
   display: flex;
   justify-content: space-between;
 }

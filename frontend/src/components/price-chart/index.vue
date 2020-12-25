@@ -1,6 +1,5 @@
 <template lang="pug">
-.canvas
-  h3 股價圖表
+.price-chart
   canvas(ref="canvasElement")
 </template>
 
@@ -50,6 +49,8 @@ export default {
             bottom: 8,
           },
         },
+
+        maintainAspectRatio: false,
 
         legend: {
           display: false,
@@ -107,8 +108,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.canvas {
+.price-chart {
+  padding: 64px 24px 0;
   width: 100%;
+  height: 360px;
   text-align: left;
 }
 </style>

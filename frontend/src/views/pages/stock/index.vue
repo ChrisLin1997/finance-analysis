@@ -1,27 +1,26 @@
 <template lang="pug">
-header
-  .title
-    span {{ stockInfo.name }}
-    span {{ stockPrice }}
-  .subtitle
-    span {{ stockInfo.id + stockInfo.type }}
-    span -0.92 (-0.70%)
+.stock
+  header
+    .info
+      .title
+        span {{ stockInfo.name }}
+        span {{ stockPrice }}
+      .subtitle
+        span {{ stockInfo.id + stockInfo.type }}
+        span -0.92 (-0.70%)
 
-.line
-
-body
-  .chart(v-if="true")
-    price-chart(:dateList="stockInfo.date" :priceList="stockInfo.history")
-  .merchant
-    h3 交易資訊
-    .merchant-type
-      div(v-for="type of merchantList" :key="type.code")
-        h3(:class="type.code") {{ type.label }}
-        .merchant-list
-          .merchant-item(v-for="(item, index) of stockInfo[type.code]" :key="index" :class="type.code")
-            .price {{ convertPrice(item.price) }}
-            .amount {{ item.amount }}
-footer
+    .chart(v-if="true")
+      price-chart(:dateList="stockInfo.date" :priceList="stockInfo.price")
+    .merchant
+      h3 交易資訊
+      .merchant-type
+        div(v-for="type of merchantList" :key="type.code")
+          h3(:class="type.code") {{ type.label }}
+          .merchant-list
+            .merchant-item(v-for="(item, index) of stockInfo[activeMerchant][type.code]" :key="index" :class="type.code")
+              .price {{ convertPrice(item.price) }}
+              .amount {{ item.amount }}
+  footer
 
 </template>
 
@@ -47,6 +46,12 @@ export default {
       { label: '委賣', code: 'sell' },
     ]
 
+    // 顯示交易種類
+    const activeMerchant = ref('stock')
+    const handleMerchant = (type) => {
+      activeMerchant.value = type
+    }
+
     // 取得股票資訊
     const stockNo = ref(router.currentRoute.value.params.stockNo)
     const stockInfo = ref({
@@ -55,10 +60,18 @@ export default {
       type: '',
       industy: '',
       ipoTime: '',
-      history: [],
+      price: [],
       date: [],
+      odd: {
+        buy: [],
+        sell: [],
+      },
+      stock: {
+        buy: [],
+        sell: [],
+      },
     })
-    const stockPrice = computed(() => stockInfo.value.history[stockInfo.value.history.length - 1])
+    const stockPrice = computed(() => stockInfo.value.price[stockInfo.value.price.length - 1])
 
     const getTwstockInfo = async () => {
       if (stockNo.value === '') return
@@ -70,6 +83,7 @@ export default {
         getTwstockInfoService(submitData),
         getTwstockMerchantService(submitData),
       ])
+
       stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr), {})
     }
 
@@ -82,8 +96,13 @@ export default {
 
     return {
       merchantList,
+
+      activeMerchant,
+      handleMerchant,
+
       stockInfo,
       stockPrice,
+
       convertPrice,
     }
   },
@@ -91,15 +110,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header {
-  padding-bottom: 12px;
-  width: 270px;
-  text-align: left;
+.stock {
+  margin: auto;
+  width: 1264px;
 }
 
-.line {
-  width: 500px;
-  border-bottom: 2px solid $active;
+header {
+  display: flex;
+  margin-top: 44px;
+  position: relative;
+  border-radius: 4px;
+  background-color: $active-background;
+}
+
+.info {
+  position: absolute;
+  top: -36px;
+  left: 16px;
+  padding: 8px 16px;
+  width: 220px;
+  text-align: left;
+  font-weight: bold;
+  border-radius: 4px;
+  background-color: $active;
 }
 
 .title {
@@ -114,23 +147,15 @@ header {
   font-size: 14px;
 }
 
-body {
-  margin-top: 24px;
-  display: flex;
-}
-
 .chart {
-  display: inline-block;
-  width: 55%;
-  min-width: 860px;
+  width: 65%;
 }
 
 .merchant {
-  margin-left: 56px;
-  display: inline-block;
   padding: 0 36px 12px 36px;
-  width: 40%;
-  min-width: 630px;
+  width: 35%;
+  height: 360px;
+  background-color: #292d31;
   h3 {
     margin-bottom: 24px;
   }
@@ -147,7 +172,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 332px;
+  height: 100%;
 }
 
 .merchant-item {

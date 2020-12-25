@@ -62,25 +62,44 @@ def merchant (request):
         '_': time,
         'delay': 0,
     }
-    response = requests.get('https://mis.twse.com.tw/stock/api/getStockInfo.jsp', params = payload)
-    data = json.loads(response.content)['msgArray'][0]
+    stockResponse = requests.get('https://mis.twse.com.tw/stock/api/getStockInfo.jsp', params = payload)
+    oddResponse = requests.get('https://mis.twse.com.tw/stock/api/getOddInfo.jsp', params = payload)
+
+    stockData = json.loads(stockResponse.content)['msgArray'][0]
+    oddData = json.loads(oddResponse.content)['msgArray'][0]
 
     buyList = []
     sellList = []
+    oddBuyList = []
+    oddSellList = []
 
     for i in range(5):
         buyList.append({
-            'price': data['b'].split('_')[i],
-            'amount': data['g'].split('_')[i],
+            'price': stockData['b'].split('_')[i],
+            'amount': stockData['g'].split('_')[i],
         })
         sellList.append({
-            'price': data['a'].split('_')[i],
-            'amount': data['f'].split('_')[i],
+            'price': stockData['a'].split('_')[i],
+            'amount': stockData['f'].split('_')[i],
+        })
+        oddBuyList.append({
+            'price': oddData['b'].split('_')[i],
+            'amount': oddData['g'].split('_')[i],
+        })
+        oddSellList.append({
+            'price': oddData['a'].split('_')[i],
+            'amount': oddData['f'].split('_')[i],
         })
     
     result = json.dumps({
-        'buy': buyList,
-        'sell': sellList,
+        'stock': {
+            'buy': buyList,
+            'sell': sellList,
+        },
+        'odd': {
+            'buy': oddBuyList,
+            'sell': oddSellList,
+        }
     })
 
     return HttpResponse(result)
