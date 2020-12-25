@@ -78,7 +78,7 @@ export default {
         stockNo: stockNo.value,
       }
 
-      const result = await Promise.all([
+      const result = await Promise.allSettled([
         getTwstockInfoService(submitData),
         getTwstockMerchantService(submitData),
       ])
@@ -147,12 +147,12 @@ header {
 }
 
 .chart {
-  width: 65%;
+  width: 60%;
 }
 
 .merchant {
   padding: 12px 24px;
-  width: 35%;
+  width: 40%;
   height: 360px;
   background-color: #292d31;
 }
