@@ -25,8 +25,13 @@
           .price {{ convertPrice(node.price) }}
           .amount {{ node.amount }}
 
-  body
-
+  main
+    .income
+      .symbol
+    .eps
+      .symbol
+    .profit
+      .symbol
   footer
 
 </template>
@@ -129,6 +134,7 @@ export default {
   width: 1264px;
 }
 
+// top
 header {
   display: flex;
   margin-top: 44px;
@@ -231,5 +237,46 @@ header {
 
 .sell {
   color: $down;
+}
+
+// center
+main {
+  margin-top: 48px;
+  display: flex;
+  justify-content: space-between;
+
+  & > * {
+    position: relative;
+    width: 32%;
+    height: 260px;
+    background-color: $active-background;
+  }
+
+  .symbol {
+    position: absolute;
+    top: -24px;
+    left: 16px;
+    padding: 8px 16px;
+    width: 120px;
+    height: 60px;
+  }
+}
+
+.income {
+  .symbol {
+    background-color: $green;
+  }
+}
+
+.eps {
+  .symbol {
+    background-color: $yellow;
+  }
+}
+
+.profit {
+  .symbol {
+    background-color: $red;
+  }
 }
 </style>

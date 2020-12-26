@@ -26,7 +26,7 @@ export default {
 main {
   margin-top: 64px;
   margin-left: 244px;
-  padding: 16px 56px 16px 16px;
+  padding: 0px 16px 16px;
   width: calc(100vw -244px);
   height: 100%;
   overflow: auto;
