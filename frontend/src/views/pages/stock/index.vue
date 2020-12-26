@@ -189,9 +189,9 @@ export default {
 
 <style lang="scss" scoped>
 .stock {
-  margin: auto;
+  margin: 0 auto;
   padding: 0 44px;
-  width: 1600px;
+  min-width: 1260px;
 }
 
 // top
@@ -204,41 +204,35 @@ header {
   box-shadow: 0 0 6px 2px #111;
 }
 
-.info {
-  width: 280px;
-  text-align: left;
-  font-weight: bold;
-  border-radius: 4px;
-}
-
-.title {
-  display: flex;
-  justify-content: space-between;
-  font-size: 24px;
-}
-
-.subtitle {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-}
-
 .chart {
   width: 60%;
+}
+
+.info {
+  width: 280px;
+
+  .title,
+  .subtitle {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+
+    &:first-child {
+      font-size: 24px;
+    }
+  }
 }
 
 .merchant {
   padding: 12px 24px;
   width: 40%;
-  height: 100%;
   background-color: #292d31;
 }
 
 .merchant-type {
   margin: 0 auto;
   display: flex;
-  width: 220px;
-  border-radius: 4px;
+  width: 40%;
   background-color: $active-background;
 
   .type-item {
