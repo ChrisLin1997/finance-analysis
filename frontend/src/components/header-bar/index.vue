@@ -48,25 +48,24 @@ export default {
 <style lang="scss" scoped>
 .header-bar {
   display: flex;
-  align-items: center;
   position: fixed;
   top: 0;
   width: 100%;
   min-width: 1024px;
   height: 64px;
   line-height: 64px;
-  background-color: $primary-background;
-  box-shadow: 0 0 8px 0 #333;
   z-index: 2;
 }
 
 .title {
-  width: 284px;
-  height: 100%;
+  width: 244px;
+  height: 64px;
   font-size: 24px;
-  background-color: $background;
+  font-weight: bold;
+  background-color: $primary-background;
   user-select: none;
   cursor: pointer;
+  z-index: 10;
   transition: all .4s;
 
   & > span:first-child {
@@ -86,16 +85,17 @@ export default {
 
 .type {
   display: flex;
-  width: calc(100vw - 284px);
-  height: 100%;
+  width: calc(100% - 244px);
+  height: 44px;
+  background-color: $active-background;
+  box-shadow: 0 0 8px 2px #666;
   overflow-x: scroll;
 }
 
 .type-item {
-  width: 180px;
-  min-width: 180px;
-  height: 64px;
-  line-height: 64px;
+  width: 160px;
+  height: 44px;
+  line-height: 44px;
   color: #fff;
   background-color: $active-background;
   border-right: 2px solid #666;

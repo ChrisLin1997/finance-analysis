@@ -4,12 +4,12 @@
     .info
       .title
         span {{ stockInfo.name }}
-        span {{ stockPrice }}
+        span.currency {{ stockPrice }}
       .subtitle
         span {{ stockInfo.id + stockInfo.type }}
         span -0.92 (-0.70%)
 
-    .chart(v-if="true")
+    .chart
       price-chart(:dateList="stockInfo.date" :priceList="stockInfo.price")
     .merchant
       h3 交易資訊
@@ -70,6 +70,7 @@ export default {
         sell: [],
       },
     })
+
     const stockPrice = computed(() => stockInfo.value.price[stockInfo.value.price.length - 1])
 
     const getTwstockInfo = async () => {
@@ -83,7 +84,7 @@ export default {
         getTwstockMerchantService(submitData),
       ])
 
-      stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr), {})
+      stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr.value), {})
     }
 
     getTwstockInfo()
@@ -120,6 +121,7 @@ header {
   position: relative;
   border-radius: 4px;
   background-color: $active-background;
+  box-shadow: 0 0 6px 2px #111;
 }
 
 .info {
@@ -127,7 +129,7 @@ header {
   top: -36px;
   left: 16px;
   padding: 8px 16px;
-  width: 220px;
+  width: 280px;
   text-align: left;
   font-weight: bold;
   border-radius: 4px;
@@ -179,6 +181,13 @@ header {
   border-bottom: 1px solid $active-background;
   * {
     width: 30%;
+  }
+}
+
+.currency {
+  &:after {
+    content: ' NTD';
+    font-size: 8px;
   }
 }
 

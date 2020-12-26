@@ -25,9 +25,9 @@ export default {
 <style lang="scss" scoped>
 main {
   margin-top: 64px;
-  margin-left: 284px;
+  margin-left: 244px;
   padding: 16px 56px 16px 16px;
-  width: calc(100vw -284px);
+  width: calc(100vw -244px);
   height: 100%;
   overflow: auto;
 }

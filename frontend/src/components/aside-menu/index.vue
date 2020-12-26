@@ -3,9 +3,9 @@
   .name
     h3 Chris Lin
   //- router-link.menu-item(
-  //-   v-for="item of menuList"
-  //-   :key="item.name"
-  //-   :to="item.path"
+    v-for="item of menuList"
+    :key="item.name"
+    :to="item.path"
   //- ) {{ item.name }}
 </template>
 
@@ -32,9 +32,10 @@ export default {
 
 <style lang="scss" scoped>
 .aside-menu {
+  padding-top: 64px;
   position: fixed;
   left: 0;
-  width: 284px;
+  width: 244px;
   height: 100%;
   z-index: 1;
   background-color: $active-background;
@@ -49,9 +50,10 @@ export default {
 
 .menu-item {
   display: flex;
-  justify-content: center;
   align-items: center;
   height: 56px;
+  color: #fff;
+  font-weight: 600;
   border-bottom: 1px solid #666;
 }
 </style>
