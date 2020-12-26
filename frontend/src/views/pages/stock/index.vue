@@ -1,16 +1,14 @@
 <template lang="pug">
-.stock
+.stock(v-if="Object.keys(stockInfo).length !== 0")
   header
-    .info
-      .title
-        span {{ stockInfo.name }}
-        span.currency {{ stockPrice }}
-      .subtitle
-        span {{ stockInfo.id + stockInfo.type }}
-        span -0.92 (-0.70%)
-
-    .chart
-      price-chart(:dateList="stockInfo.date" :priceList="stockInfo.price")
+    fa-chart.chart(:options="priceChart" color="blue")
+      .info
+        .title
+          span {{ stockInfo.name }}
+          span.currency {{ stockPrice }}
+        .subtitle
+          span {{ stockInfo.id + stockInfo.type }}
+          span -0.92 (-0.70%)
     .merchant
       .merchant-type
         .type-item(
@@ -26,20 +24,22 @@
           .amount {{ node.amount }}
 
   main
-    .income
-      .symbol
-    .eps
-      .symbol
-    .profit
-      .symbol
+    fa-chart.chart-item(
+      v-for="chart of chartList"
+      :key="chart.code"
+      :color="chart.color"
+    )
+      awesome-icon(:icon="chart.icon")
+      span {{ chart.label }}
+
   footer
 
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import router from '@/router'
-import PriceChart from '@/components/price-chart'
+import FaChart from '@/components/fa-chart'
 import {
   getTwstockInfoService,
   getTwstockMerchantService,
@@ -49,7 +49,7 @@ export default {
   name: 'stock',
 
   components: {
-    PriceChart,
+    FaChart,
   },
 
   setup () {
@@ -71,46 +71,102 @@ export default {
 
     // 取得股票資訊
     const stockNo = ref(router.currentRoute.value.params.stockNo)
-    const stockInfo = ref({
-      id: '',
-      name: '',
-      type: '',
-      industy: '',
-      ipoTime: '',
-      price: [],
-      date: [],
-      odd: {
-        buy: [],
-        sell: [],
-      },
-      stock: {
-        buy: [],
-        sell: [],
-      },
-    })
-
+    const stockInfo = ref({})
     const stockPrice = computed(() => stockInfo.value.price[stockInfo.value.price.length - 1])
+    const priceChart = ref(null)
+    watchEffect(()=> {
+      priceChart.value = {
+      type: 'line',
+      data: {
+        labels: stockInfo.value.date,
+        datasets: [
+          {
+            label: '股價',
+            data: stockInfo.value.price,
+            borderColor: '#3ca9c0',
+            borderWidth: 2,
+            pointRadius: 0,
+            lineTension: 0,
+          },
+        ],
+      },
+      options: {
+        layout: {
+          padding: { top: 16, bottom: 8 },
+        },
+        legend: {
+          display: false,
+        },
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [{
+            gridLines: { display: false },
+            ticks: { display: false },
+          }],
+          yAxes: [{
+            position: 'right',
+            gridLines: { color: '#44475a' },
+            ticks: { padding: 8, fontColor: 'white' },
+          }],
+        },
+
+        tooltips: {
+          mode: 'index',
+          enabled: true,
+          intersect: false,
+          displayColors: false,
+          cornerRadius: 0,
+          caretSize: 0,
+          xPadding: 16,
+          yPadding: 8,
+          custom: (element) => {
+            element.x = 8
+            element.y = 8
+          },
+        },
+      },
+    }})
 
     const getTwstockInfo = async () => {
       if (stockNo.value === '') return
       const submitData = {
         stockNo: stockNo.value,
       }
-
       const result = await Promise.allSettled([
         getTwstockInfoService(submitData),
         getTwstockMerchantService(submitData),
       ])
-
       stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr.value), {})
     }
 
-    getTwstockInfo()
+    // chart
+    const chartList = [
+      {
+        code: 'income',
+        label: '營收',
+        icon: ['fas', 'coins'],
+        color: 'green',
+      },
+      {
+        code: 'profit',
+        label: '利潤',
+        icon: ['fas', 'chart-line'],
+        color: 'red',
+      },
+      {
+        code: 'eps',
+        label: 'EPS',
+        icon: ['fas', 'chart-bar'],
+        color: 'yellow',
+      },
+    ]
 
     // util
     const convertPrice = (value) => {
       return Number(value).toFixed(2)
     }
+
+    getTwstockInfo()
 
     return {
       merchantType,
@@ -121,6 +177,9 @@ export default {
 
       stockInfo,
       stockPrice,
+      priceChart,
+
+      chartList,
 
       convertPrice,
     }
@@ -131,7 +190,8 @@ export default {
 <style lang="scss" scoped>
 .stock {
   margin: auto;
-  width: 1264px;
+  padding: 0 44px;
+  width: 1600px;
 }
 
 // top
@@ -145,15 +205,10 @@ header {
 }
 
 .info {
-  position: absolute;
-  top: -36px;
-  left: 16px;
-  padding: 8px 16px;
   width: 280px;
   text-align: left;
   font-weight: bold;
   border-radius: 4px;
-  background-color: $active;
 }
 
 .title {
@@ -175,7 +230,7 @@ header {
 .merchant {
   padding: 12px 24px;
   width: 40%;
-  height: 360px;
+  height: 100%;
   background-color: #292d31;
 }
 
@@ -245,38 +300,8 @@ main {
   display: flex;
   justify-content: space-between;
 
-  & > * {
-    position: relative;
+  .chart-item {
     width: 32%;
-    height: 260px;
-    background-color: $active-background;
-  }
-
-  .symbol {
-    position: absolute;
-    top: -24px;
-    left: 16px;
-    padding: 8px 16px;
-    width: 120px;
-    height: 60px;
-  }
-}
-
-.income {
-  .symbol {
-    background-color: $green;
-  }
-}
-
-.eps {
-  .symbol {
-    background-color: $yellow;
-  }
-}
-
-.profit {
-  .symbol {
-    background-color: $red;
   }
 }
 </style>

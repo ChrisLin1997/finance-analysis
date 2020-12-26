@@ -2,7 +2,7 @@
 .fa-chart
   .symbol(ref="symbolElement")
     slot
-  canvas(ref="canvasElement")
+  canvas.canvas(ref="canvasElement")
 </template>
 
 <script>
@@ -55,9 +55,8 @@ export default {
 
 <style lang="scss" scoped>
 .fa-chart {
+  padding: 48px 24px 12px;
   position: relative;
-  width: 100%;
-  height: 260px;
   background-color: $active-background;
 }
 
