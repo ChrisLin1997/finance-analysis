@@ -74,12 +74,11 @@ export default {
   }
 
   &:hover {
-    background-color: #20202d;
+    font-size: 25px;
   }
 
   &:active {
-    position: relative;
-    top: -1px;
+    transform: translateY(-4px);
   }
 }
 
