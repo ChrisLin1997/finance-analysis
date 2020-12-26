@@ -19,6 +19,9 @@
         "comma-dangle": [
             "error",
             "always-multiline"
+        ],
+        "no-new": [
+            "never"
         ]
     }
 }
