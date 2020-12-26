@@ -49,3 +49,16 @@ export const getTwstockMerchantService = async (formData) => {
       })
   })
 }
+
+export const getTwstockIncomeService = async () => {
+  return new Promise((resolve, reject) => {
+    return xhr({
+      method: 'get',
+      url: 'https://quality.data.gov.tw/dq_download_json.php?nid=18420&md5_url=cfee038a8a9009bf31df7b23328dcc3f',
+    })
+      .then(res => resolve(res))
+      .catch(() => {
+        console.log('error')
+      })
+  })
+}

@@ -12,13 +12,21 @@
     .chart
       price-chart(:dateList="stockInfo.date" :priceList="stockInfo.price")
     .merchant
-      h3 交易資訊
       .merchant-type
-        .merchant-list(v-for="type of merchantList" :key="type.code")
-          h3(:class="type.code") {{ type.label }}
-          .merchant-item(v-for="(item, index) of stockInfo[activeMerchant][type.code]" :key="index" :class="type.code")
-            .price {{ convertPrice(item.price) }}
-            .amount {{ item.amount }}
+        .type-item(
+          v-for="type of merchantType"
+          :key="type.code"
+          :class="{ 'active' : type.code === activeType }"
+          @click="handleType(type.code)"
+        ) {{ type.label }}
+      .merchant-list(v-for="item of merchantList" :key="item.code")
+        h3(:class="item.code") {{ item.label }}
+        .merchant-item(v-for="(node, index) of stockInfo[activeType][item.code]" :key="index" :class="item.code")
+          .price {{ convertPrice(node.price) }}
+          .amount {{ node.amount }}
+
+  body
+
   footer
 
 </template>
@@ -40,15 +48,20 @@ export default {
   },
 
   setup () {
+    const merchantType = [
+      { label: '整股', code: 'stock' },
+      { label: '零股', code: 'odd' },
+    ]
+
     const merchantList = [
       { label: '委買', code: 'buy' },
       { label: '委賣', code: 'sell' },
     ]
 
     // 顯示交易種類
-    const activeMerchant = ref('stock')
-    const handleMerchant = (type) => {
-      activeMerchant.value = type
+    const activeType = ref('stock')
+    const handleType = (type) => {
+      activeType.value = type
     }
 
     // 取得股票資訊
@@ -95,10 +108,11 @@ export default {
     }
 
     return {
+      merchantType,
       merchantList,
 
-      activeMerchant,
-      handleMerchant,
+      activeType,
+      handleType,
 
       stockInfo,
       stockPrice,
@@ -160,18 +174,37 @@ header {
 }
 
 .merchant-type {
+  margin: 0 auto;
   display: flex;
-  justify-content: space-between;
-  height: 310px;
-  & > * {
-    width: 45%;
+  width: 220px;
+  border-radius: 4px;
+  background-color: $active-background;
+
+  .type-item {
+    width: 50%;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 4px;
+    transition: all .2s;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background-color: #666;
+    }
+  }
+
+  .active {
+    background-color: $active;
   }
 }
+
 .merchant-list {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 100%;
+  width: 50%;
+  height: 310px;
 }
 
 .merchant-item {
