@@ -11,7 +11,7 @@ def hot (request):
     response = requests.get('https://www.twse.com.tw/exchangeReport/MI_INDEX20')
     data = json.loads(response.content)
     stockList = []
-    for i in range(6):
+    for i in range(5):
         stockList.append({
             'id': data['data'][i][1],
             'name': data['data'][i][2],
