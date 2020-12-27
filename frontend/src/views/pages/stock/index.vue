@@ -188,12 +188,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.stock {
-  margin: 0 auto;
-  padding: 0 44px;
-  min-width: 1260px;
-}
-
 // top
 header {
   display: flex;

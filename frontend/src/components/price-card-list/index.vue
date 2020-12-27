@@ -46,22 +46,20 @@ export default {
 
 <style lang="scss" scoped>
 .price-card-list {
-  margin: 12px 0;
+  width: 100%;
   text-align: left;
 }
 
 section {
   margin-top: 12px;
-  width: 100%;
-  min-width: 1320px;
   display: flex;
   justify-content: space-between;
 }
 
 .card-item {
-  margin: 8px;
   padding: 8px 16px;
-  width: 220px;
+  width: 15%;
+  min-width: 220px;
   height: 76px;
   display: flex;
   justify-content: space-between;
