@@ -7,8 +7,8 @@
           span {{ stockInfo.name }}
           span.currency {{ stockPrice }}
         .subtitle
-          span {{ stockInfo.id + stockInfo.type }}
-          span -0.92 (-0.70%)
+          span {{ stockInfo.id }}
+          span {{ stockInfo.variation }} ({{ stockInfo.percent }}%)
     .merchant
       .merchant-type
         .type-item(
@@ -70,7 +70,7 @@ export default {
     }
 
     // 取得股票資訊
-    const stockNo = ref(router.currentRoute.value.params.stockNo)
+    const stockNo =router.currentRoute.value.params.stockNo
     const stockInfo = ref({})
     const stockPrice = computed(() => stockInfo.value.price[stockInfo.value.price.length - 1])
     const priceChart = ref(null)
@@ -84,7 +84,7 @@ export default {
             label: '股價',
             data: stockInfo.value.price,
             borderColor: '#3ca9c0',
-            borderWidth: 2,
+            borderWidth: 3,
             pointRadius: 0,
             lineTension: 0,
           },
@@ -105,7 +105,7 @@ export default {
           }],
           yAxes: [{
             position: 'right',
-            gridLines: { color: '#44475a' },
+            gridLines: { color: '#555' },
             ticks: { padding: 8, fontColor: 'white' },
           }],
         },
@@ -128,9 +128,9 @@ export default {
     }})
 
     const getTwstockInfo = async () => {
-      if (stockNo.value === '') return
+      if (stockNo === '') return
       const submitData = {
-        stockNo: stockNo.value,
+        stockNo: stockNo,
       }
       const result = await Promise.allSettled([
         getTwstockInfoService(submitData),

@@ -17,15 +17,10 @@ export const xhr = (options) => {
 }
 
 export const test = async (formData) => {
-  const url = 'http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=202011&stockNo=2330'
-  const params = {
-    ex_ch: formData.stockId,
-    time: formData.time,
-  }
+  const url = 'https://cors-anywhere.herokuapp.com/https://quality.data.gov.tw/dq_download_json.php?nid=18420&md5_url=cfee038a8a9009bf31df7b23328dcc3f'
   const options = {
     methods: 'get',
     url,
-    params,
     headers: {
       origin: 'http://www.twse.com.tw',
     },
@@ -33,7 +28,8 @@ export const test = async (formData) => {
   return await new Promise((resolve, reject) => {
     axios(options)
       .then(res => {
-        resolve(res.data.data)
+        console.log(res)
+        resolve(res)
       })
       .catch(err => {
         console.warn('API錯誤', err)

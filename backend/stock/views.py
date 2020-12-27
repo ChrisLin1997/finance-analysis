@@ -6,6 +6,12 @@ import twstock
 
 CORS = 'https://cors-anywhere.herokuapp.com/'
 
+def convertToFixed (value):
+    if type(value) == list: 
+        return [ '%.2f' % item for item in value]
+    else:
+        return '%.2f' % value
+
 # 熱門個股
 def hot (request):
     response = requests.get('https://www.twse.com.tw/exchangeReport/MI_INDEX20')
@@ -37,13 +43,14 @@ def info (request):
     stockPrice = twstock.Stock(stockNo)
     dateList = [ datetime.strftime(date, '%Y/%m/%d') for date in stockPrice.date ]
     result = json.dumps({
-        'id': stockInfo[1],
+        'id': stockInfo[1] + stockInfo[5],
         'name': stockInfo[2],
-        'type': stockInfo[5],
         'ipoTime': stockInfo[4],
         'industry': stockInfo[6],
         'date': dateList,
-        'price': stockPrice.price,
+        'price': convertToFixed(stockPrice.price),
+        'variation': convertToFixed(stockPrice.price[-2] - stockPrice.price[-1]),
+        'percent': convertToFixed((stockPrice.price[-2] - stockPrice.price[-1]) / stockPrice.price[-2] * 100),
         # 'transAmount': stockInfo.turnover,
         # 'transactions': stockInfo.transaction,
         # 'open': stockInfo.close,
