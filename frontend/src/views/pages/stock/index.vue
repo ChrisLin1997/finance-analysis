@@ -1,38 +1,40 @@
 <template lang="pug">
 .stock(v-if="Object.keys(stockInfo).length !== 0")
-  header
-    fa-chart.chart(:options="priceChart" color="blue")
-      .info
-        .title
-          span {{ stockInfo.name }}
-          span.currency {{ stockPrice }}
-        .subtitle
-          span {{ stockInfo.id }}
-          span {{ stockInfo.variation }} ({{ stockInfo.percent }}%)
-    .merchant
-      .merchant-type
-        .type-item(
-          v-for="type of merchantType"
-          :key="type.code"
-          :class="{ 'active' : type.code === activeType }"
-          @click="handleType(type.code)"
-        ) {{ type.label }}
-      .merchant-list(v-for="item of merchantList" :key="item.code")
-        h3(:class="item.code") {{ item.label }}
-        .merchant-item(v-for="(node, index) of stockInfo[activeType][item.code]" :key="index" :class="item.code")
-          .price {{ convertPrice(node.price) }}
-          .amount {{ node.amount || '-' }}
+  template(v-if="stockInfo.status")
+    header
+      fa-chart.chart(:options="priceChart" color="blue")
+        .info
+          .title
+            span {{ stockInfo.name }}
+            span.currency {{ stockPrice }}
+          .subtitle
+            span {{ stockInfo.id }}
+            span {{ stockInfo.variation }} ({{ stockInfo.percent }}%)
+      .merchant
+        .merchant-type
+          .type-item(
+            v-for="type of merchantType"
+            :key="type.code"
+            :class="{ 'active' : type.code === activeType }"
+            @click="handleType(type.code)"
+          ) {{ type.label }}
+        .merchant-list(v-for="item of merchantList" :key="item.code")
+          h3(:class="item.code") {{ item.label }}
+          .merchant-item(v-for="(node, index) of stockInfo[activeType][item.code]" :key="index" :class="item.code")
+            .price {{ convertPrice(node.price) }}
+            .amount {{ node.amount || '-' }}
 
-  main
-    fa-chart.chart-item(
-      v-for="chart of chartList"
-      :key="chart.code"
-      :color="chart.color"
-    )
-      awesome-icon(:icon="chart.icon")
-      span {{ chart.label }}
+    main
+      fa-chart.chart-item(
+        v-for="chart of chartList"
+        :key="chart.code"
+        :color="chart.color"
+      )
+        awesome-icon(:icon="chart.icon")
+        span {{ chart.label }}
 
-  footer
+  template(v-else)
+    h3 查無資料！  
 
 </template>
 
@@ -203,7 +205,7 @@ header {
 }
 
 .info {
-  width: 280px;
+  width: fit-content;
 
   .title,
   .subtitle {
@@ -267,6 +269,7 @@ header {
 }
 
 .currency {
+  margin-left: 24px;
   &:after {
     content: ' NTD';
     font-size: 8px;

@@ -72,8 +72,13 @@ def merchant (request):
     stockResponse = requests.get('https://mis.twse.com.tw/stock/api/getStockInfo.jsp', params = payload)
     oddResponse = requests.get('https://mis.twse.com.tw/stock/api/getOddInfo.jsp', params = payload)
 
-    stockData = json.loads(stockResponse.content)['msgArray'][0]
-    oddData = json.loads(oddResponse.content)['msgArray'][0]
+    try:
+        stockData = json.loads(stockResponse.content)['msgArray'][0]
+        oddData = json.loads(oddResponse.content)['msgArray'][0]
+    except:
+        result = json.dumps({ 'status': False })
+        return HttpResponse(result)
+
 
     buyList = []
     sellList = []
@@ -124,14 +129,9 @@ def merchant (request):
             oddSellList.append(default)
     
     result = json.dumps({
-        'stock': {
-            'buy': buyList,
-            'sell': sellList,
-        },
-        'odd': {
-            'buy': oddBuyList,
-            'sell': oddSellList,
-        }
+        'status': True,
+        'stock': { 'buy': buyList, 'sell': sellList },
+        'odd': { 'buy': oddBuyList, 'sell': oddSellList },
     })
 
     return HttpResponse(result)
