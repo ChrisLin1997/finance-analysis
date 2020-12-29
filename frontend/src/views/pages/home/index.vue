@@ -1,20 +1,21 @@
 <template lang="pug">
-.home(v-loading="true")
+.home(v-loading="test")
   h3 home
-  loading
+  button(@click="change") change
 </template>
 
 <script>
-import loading from '@/components/loading'
-
+import { ref } from 'vue'
 export default {
   name: 'home',
 
-  components: {
-    loading
-  },
-
   setup () {
+    const test = ref(true)
+    const change = () => test.value = !test.value
+    return {
+      test,
+      change,
+    }
   }
 }
 </script>

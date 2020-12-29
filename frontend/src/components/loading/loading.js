@@ -1,15 +1,18 @@
-import { defineComponent} from 'vue'
-const loadingConstructor = defineComponent(require("./index.vue").default)
+import { ref, createVNode, render } from 'vue'
+import loading from './index.vue'
+
 
 export default {
   mounted (el, binding) {
-    // const app = document.getElementById('app')
-    console.log(loadingConstructor.mount())
-    // app.appendChild()
-    const elementInfo = el.getBoundingClientRect()
-    const x = elementInfo.x
-    const y = elementInfo.y
-    const width = elementInfo.width
-    const height = elementInfo.height
-  }
+    const instance = createVNode(loading)
+
+    render(instance, document.createElement('div'))
+
+    el.instance = instance
+    el.style.position = 'relative'
+    el.appendChild(el.instance.el)
+  },
+ 
+  updated (el, binding) {
+  },
 }
