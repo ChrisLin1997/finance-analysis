@@ -42,10 +42,8 @@
 import { ref, computed, watchEffect } from 'vue'
 import router from '@/router'
 import FaChart from '@/components/fa-chart'
-import {
-  getTwstockInfoService,
-  getTwstockMerchantService,
-} from '@/api/twstock'
+import stock from './stock'
+
 
 export default {
   name: 'stock',
