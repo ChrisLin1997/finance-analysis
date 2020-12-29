@@ -1,5 +1,5 @@
 <template lang="pug">
-.home
+.home(v-loading="true")
   h3 home
   loading
 </template>

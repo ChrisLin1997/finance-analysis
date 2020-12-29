@@ -61,7 +61,7 @@ export default {
 
     // 取得股票資訊
     const { userSearch, handleKeyEnter, stockInfo, getTwstockInfo } = searchStockInfo()
-    getTwstockInfo(userSearch.value)
+    // getTwstockInfo(userSearch.value)
 
     // 價格走勢
     const { priceChart } = stockPriceChart(stockInfo)
