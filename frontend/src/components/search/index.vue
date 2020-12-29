@@ -7,7 +7,6 @@
       ref="inputElement"
       v-show="isActive"
       v-model="stockNo"
-      :="$attrs"
       @blur="handleBlur"
     )
 </template>
@@ -22,11 +21,6 @@ export default {
     modelValue: {
       type: String,
       required: true,
-    },
-
-    handleKeyEnter: {
-      type: Function,
-      default: function () {},
     },
   },
 
