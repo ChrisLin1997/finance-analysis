@@ -19,7 +19,7 @@ export const routes = [
         component: () => import(/* webpackChunkName: "usstock" */ '@/views/pages/usstock'),
       },
       {
-        path: 'stock/:stockNo',
+        path: 'stock',
         name: 'stock',
         component: () => import(/* webpackChunkName: "stock" */ '@/views/pages/stock'),
       },

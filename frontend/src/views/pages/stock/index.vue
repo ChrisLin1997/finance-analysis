@@ -1,6 +1,6 @@
 <template lang="pug">
 .stock
-  Search
+  search(v-model="userSearch" @keyup.enter="handleKeyEnter")
   template(v-if="stockInfo.status")
     header
       fa-chart.chart(:options="priceChart" color="blue")
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import router from '@/router'
 import Search from '@/components/search'
 import FaChart from '@/components/fa-chart'
@@ -57,6 +58,21 @@ export default {
   },
 
   setup () {
+    // 顯示交易類型
+    const { merchantType, merchantList, activeMerchant, handleMerchant } = viewMerchant()
+
+    // 取得股票資訊
+    const { userSearch, handleKeyEnter, stockInfo, getTwstockInfo } = searchStockInfo()
+    getTwstockInfo(userSearch.value)
+
+    // 價格走勢
+    const { priceChart } = stockPriceChart(stockInfo)
+
+    // 工具
+    const convertPrice = (value) => {
+      return value ? Number(value).toFixed(2) : '-'
+    }
+
     // chart
     const chartList = [
       {
@@ -79,24 +95,7 @@ export default {
       },
     ]
 
-    // 顯示交易類型
-    const { merchantType, merchantList, activeMerchant, handleMerchant } = viewMerchant()
-
-    // 取得股票資訊
-    const { stockInfo, getTwstockInfo } = searchStockInfo(router.currentRoute.value.params.stockNo)
-    getTwstockInfo()
-
-    // 價格走勢
-    const { priceChart } = stockPriceChart(stockInfo)
-
-    // 工具
-    const convertPrice = (value) => {
-      return value ? Number(value).toFixed(2) : '-'
-    }
-
     return {
-      chartList,
-
       merchantType,
       merchantList,
       activeMerchant,
@@ -104,6 +103,9 @@ export default {
 
       stockInfo,
       priceChart,
+      userSearch,
+      handleKeyEnter,
+      chartList,
 
       convertPrice,
     }

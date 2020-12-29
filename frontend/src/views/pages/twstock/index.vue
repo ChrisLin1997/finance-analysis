@@ -32,7 +32,7 @@ export default {
 
     // search stock info
     const stockNo = ref('')
-    const getStock = () => router.push({ name: 'stock', params: { stockNo: stockNo.value } })
+    const getStock = () => router.push({ name: 'stock', query: { stockNo: stockNo.value } })
 
     // get news
     // get ptt stock

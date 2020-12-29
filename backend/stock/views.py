@@ -59,8 +59,6 @@ def info (request):
         # 'low': stockInfo.low,
     })
 
-    
-
     return HttpResponse(result)
 
 # 即時交易,最佳五檔資訊
