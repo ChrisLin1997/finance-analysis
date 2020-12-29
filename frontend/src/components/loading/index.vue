@@ -29,6 +29,7 @@ export default {
 <style lang="scss" scoped>
 .loading {
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
