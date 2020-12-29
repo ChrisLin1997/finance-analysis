@@ -18,7 +18,6 @@ export default {
   },
 
   setup (props, context) {
-    console.log(context.expose)
   },
 }
 </script>

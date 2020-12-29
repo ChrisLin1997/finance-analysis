@@ -51,12 +51,15 @@ def info (request):
         'price': convertToFixed(stockPrice.price),
         'variation': convertToFixed(stockPrice.price[-2] - stockPrice.price[-1]),
         'percent': convertToFixed((stockPrice.price[-2] - stockPrice.price[-1]) / stockPrice.price[-2] * 100),
+        'currencyPrice': convertToFixed(stockPrice.price[-1])
         # 'transAmount': stockInfo.turnover,
         # 'transactions': stockInfo.transaction,
         # 'open': stockInfo.close,
         # 'high': stockInfo.high,
         # 'low': stockInfo.low,
     })
+
+    
 
     return HttpResponse(result)
 

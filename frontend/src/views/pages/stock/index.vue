@@ -1,12 +1,13 @@
 <template lang="pug">
-.stock(v-if="Object.keys(stockInfo).length !== 0")
+.stock
+  Search
   template(v-if="stockInfo.status")
     header
       fa-chart.chart(:options="priceChart" color="blue")
         .info
           .title
             span {{ stockInfo.name }}
-            span.currency {{ stockPrice }}
+            span.currency {{ stockInfo.currencyPrice }}
           .subtitle
             span {{ stockInfo.id }}
             span {{ stockInfo.variation }} ({{ stockInfo.percent }}%)
@@ -15,12 +16,12 @@
           .type-item(
             v-for="type of merchantType"
             :key="type.code"
-            :class="{ 'active' : type.code === activeType }"
-            @click="handleType(type.code)"
+            :class="{ 'active' : type.code === activeMerchant }"
+            @click="handleMerchant(type.code)"
           ) {{ type.label }}
         .merchant-list(v-for="item of merchantList" :key="item.code")
           h3(:class="item.code") {{ item.label }}
-          .merchant-item(v-for="(node, index) of stockInfo[activeType][item.code]" :key="index" :class="item.code")
+          .merchant-item(v-for="(node, index) of stockInfo[activeMerchant][item.code]" :key="index" :class="item.code")
             .price {{ convertPrice(node.price) }}
             .amount {{ node.amount || '-' }}
 
@@ -39,106 +40,23 @@
 </template>
 
 <script>
-import { ref, computed, watchEffect } from 'vue'
 import router from '@/router'
+import Search from '@/components/search'
 import FaChart from '@/components/fa-chart'
-import stock from './stock'
+import searchStockInfo from './stock'
+import stockPriceChart from './priceChart'
+import viewMerchant from './merchant'
 
 
 export default {
   name: 'stock',
 
   components: {
+    Search,
     FaChart,
   },
 
   setup () {
-    const merchantType = [
-      { label: '整股', code: 'stock' },
-      { label: '零股', code: 'odd' },
-    ]
-
-    const merchantList = [
-      { label: '委買', code: 'buy' },
-      { label: '委賣', code: 'sell' },
-    ]
-
-    // 顯示交易種類
-    const activeType = ref('stock')
-    const handleType = (type) => {
-      activeType.value = type
-    }
-
-    // 取得股票資訊
-    const stockNo =router.currentRoute.value.params.stockNo
-    const stockInfo = ref({})
-    const stockPrice = computed(() => stockInfo.value.price[stockInfo.value.price.length - 1])
-    const priceChart = ref(null)
-    watchEffect(()=> {
-      priceChart.value = {
-      type: 'line',
-      data: {
-        labels: stockInfo.value.date,
-        datasets: [
-          {
-            label: '股價',
-            data: stockInfo.value.price,
-            borderColor: '#3ca9c0',
-            borderWidth: 3,
-            pointRadius: 0,
-            lineTension: 0,
-          },
-        ],
-      },
-      options: {
-        layout: {
-          padding: { top: 16, bottom: 8 },
-        },
-        legend: {
-          display: false,
-        },
-        maintainAspectRatio: false,
-        scales: {
-          xAxes: [{
-            gridLines: { display: false },
-            ticks: { display: false },
-          }],
-          yAxes: [{
-            position: 'right',
-            gridLines: { color: '#555' },
-            ticks: { padding: 8, fontColor: 'white' },
-          }],
-        },
-
-        tooltips: {
-          mode: 'index',
-          enabled: true,
-          intersect: false,
-          displayColors: false,
-          cornerRadius: 0,
-          caretSize: 0,
-          xPadding: 16,
-          yPadding: 8,
-          custom: (element) => {
-            element.x = 8
-            element.y = 8
-          },
-        },
-      },
-    }})
-
-    const getTwstockInfo = async () => {
-      if (stockNo === '') return
-      const submitData = {
-        stockNo: stockNo,
-      }
-      const result = await Promise.allSettled([
-        getTwstockInfoService(submitData),
-        getTwstockMerchantService(submitData),
-      ])
-      stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr.value), {})
-    }
-
     // chart
     const chartList = [
       {
@@ -161,25 +79,31 @@ export default {
       },
     ]
 
-    // util
+    // 顯示交易類型
+    const { merchantType, merchantList, activeMerchant, handleMerchant } = viewMerchant()
+
+    // 取得股票資訊
+    const { stockInfo, getTwstockInfo } = searchStockInfo(router.currentRoute.value.params.stockNo)
+    getTwstockInfo()
+
+    // 價格走勢
+    const { priceChart } = stockPriceChart(stockInfo)
+
+    // 工具
     const convertPrice = (value) => {
       return value ? Number(value).toFixed(2) : '-'
     }
 
-    getTwstockInfo()
-
     return {
+      chartList,
+
       merchantType,
       merchantList,
-
-      activeType,
-      handleType,
+      activeMerchant,
+      handleMerchant,
 
       stockInfo,
-      stockPrice,
       priceChart,
-
-      chartList,
 
       convertPrice,
     }
