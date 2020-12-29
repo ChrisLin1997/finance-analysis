@@ -21,7 +21,7 @@
         h3(:class="item.code") {{ item.label }}
         .merchant-item(v-for="(node, index) of stockInfo[activeType][item.code]" :key="index" :class="item.code")
           .price {{ convertPrice(node.price) }}
-          .amount {{ node.amount }}
+          .amount {{ node.amount || '-' }}
 
   main
     fa-chart.chart-item(
@@ -163,7 +163,7 @@ export default {
 
     // util
     const convertPrice = (value) => {
-      return Number(value).toFixed(2)
+      return value ? Number(value).toFixed(2) : '-'
     }
 
     getTwstockInfo()

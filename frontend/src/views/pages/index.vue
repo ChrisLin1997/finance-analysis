@@ -17,7 +17,8 @@ export default {
     HeaderBar,
   },
 
-  setup () {
+  setup (props, context) {
+    console.log(context.expose)
   },
 }
 </script>

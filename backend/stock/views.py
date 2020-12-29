@@ -79,24 +79,49 @@ def merchant (request):
     sellList = []
     oddBuyList = []
     oddSellList = []
+    
+    default = {
+        'price': '',
+        'amount': '',
+    }
+
+    rawStockBuyPrice = stockData['b'].split('_')
+    rawStockBuyAmount = stockData['g'].split('_')
+    
+    rawStockSellPrice = stockData['a'].split('_')
+    rawStockSellAmount = stockData['f'].split('_')
+
+    rawOddBuyPrice = oddData['b'].split('_')
+    rawOddBuyAmount = oddData['g'].split('_')
+    
+    rawOddSellPrice = oddData['a'].split('_')
+    rawOddSellAmount = oddData['f'].split('_')
+
 
     for i in range(5):
-        buyList.append({
-            'price': stockData['b'].split('_')[i],
-            'amount': stockData['g'].split('_')[i],
-        })
-        sellList.append({
-            'price': stockData['a'].split('_')[i],
-            'amount': stockData['f'].split('_')[i],
-        })
-        oddBuyList.append({
-            'price': oddData['b'].split('_')[i],
-            'amount': oddData['g'].split('_')[i],
-        })
-        oddSellList.append({
-            'price': oddData['a'].split('_')[i],
-            'amount': oddData['f'].split('_')[i],
-        })
+        # stock buy
+        try:
+            buyList.append({ 'price': rawStockBuyPrice[i], 'amount': rawStockBuyAmount[i] })
+        except:
+            buyList.append(default)
+
+        # stock sell
+        try:
+            sellList.append({ 'price': rawStockSellPrice[i], 'amount': rawStockSellAmount[i] })
+        except:
+            sellList.append(default)
+
+        # odd buy
+        try:
+            oddBuyList.append({ 'price': rawOddBuyPrice[i], 'amount': rawOddBuyAmount[i] })
+        except:
+            oddBuyList.append(default)
+
+        # odd sell
+        try:
+            oddSellList.append({ 'price': rawOddSellPrice[i], 'amount': rawOddSellAmount[i] })
+        except:
+            oddSellList.append(default)
     
     result = json.dumps({
         'stock': {
