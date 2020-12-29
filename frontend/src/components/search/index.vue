@@ -57,7 +57,7 @@ export default {
 <style lang="scss" scoped>
 
 .search {
-  width: fit-content;
+  margin: 12px 0;
   display: flex;
   justify-content: center;
   align-items: center;
