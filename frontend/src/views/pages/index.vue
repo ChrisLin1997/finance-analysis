@@ -33,7 +33,7 @@ main {
 
 .view {
   margin: 0 auto;
-  padding: 0 44px;
+  padding: 12px 44px;
   min-width: 1260px;
 }
 </style>
