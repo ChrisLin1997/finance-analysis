@@ -40,8 +40,6 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import router from '@/router'
 import Search from '@/components/search'
 import FaChart from '@/components/fa-chart'
 import searchStockInfo from './stock'
