@@ -1,19 +1,22 @@
-import { ref, createVNode, render } from 'vue'
+import { createVNode, render } from 'vue'
 import loading from './index.vue'
 
+const instance = createVNode(loading)
 
 export default {
   mounted (el, binding) {
-    const instance = createVNode(loading)
-
     render(instance, document.createElement('div'))
 
-    el.instance = instance
+    setLoadingStyle(instance.el, binding.value)
     el.style.position = 'relative'
-    el.appendChild(el.instance.el)
+    el.appendChild(instance.el)
   },
- 
+
   updated (el, binding) {
-    el.instance.el.style.opacity = binding.value ? '1' : '0'
+    setLoadingStyle(instance.el, binding.value)
   },
+}
+
+function setLoadingStyle (el, value) {
+  el.style.opacity = value ? '1' : '0'
 }
