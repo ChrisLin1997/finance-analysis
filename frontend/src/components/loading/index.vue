@@ -1,5 +1,5 @@
 <template lang="pug">
-.loading
+.loading(ref="loadingElement")
   .line
   .line
   .line
@@ -8,20 +8,26 @@
 </template>
 
 <script>
-import { toRef, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 
 export default {
   name: 'loading',
 
   setup () {
+    const loadingElement = ref(null)
     const setAnimationDelay = () => {
-      const lineList = document.getElementsByClassName('loading')[0].childNodes
+      const lineList = loadingElement.value.childNodes
       const delay = 0.2
       lineList.forEach((element, index) => {
         element.style.animationDelay = delay * index + 's'
       })
     }
+
     onMounted(() => setAnimationDelay())
+
+    return {
+      loadingElement,
+    }
   },
 }
 </script>
@@ -42,9 +48,9 @@ export default {
 
 .line {
   display: inline-block;
-  margin: 1px;
-  width: 4px;
-  height: 16px;
+  margin: 2px;
+  width: 6px;
+  height: 24px;
   background-color: $active-background;
   animation: line 1.2s infinite;
 }
