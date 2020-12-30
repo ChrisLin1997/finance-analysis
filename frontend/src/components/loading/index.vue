@@ -43,7 +43,6 @@ export default {
   justify-content: center;
   align-items: center;
   background-color: #1a1a1a;
-  transition: opacity .4s;
 }
 
 .line {
