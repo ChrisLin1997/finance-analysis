@@ -6,7 +6,7 @@
     input.input(
       ref="inputElement"
       v-show="isActive"
-      v-model="stockNo"
+      v-model="modelValue"
       @blur="handleBlur"
     )
 </template>
@@ -27,7 +27,6 @@ export default {
   emits: ['update:modelValue'],
 
   setup (props, context) {
-    const stockNo = ref('')
     const isActive = ref(false)
     const inputElement = ref(null)
     const handleClick = async () => {
@@ -36,15 +35,12 @@ export default {
       if (inputElement.value) inputElement.value.focus()
     }
 
-    watchEffect(()=> context.emit('update:modelValue', stockNo.value))
+    watchEffect(()=> context.emit('update:modelValue', props.modelValue))
     const handleBlur = () => {
       isActive.value = false
-      stockNo.value = ''
     }
 
     return {
-      stockNo,
-
       isActive,
       inputElement,
       handleClick,

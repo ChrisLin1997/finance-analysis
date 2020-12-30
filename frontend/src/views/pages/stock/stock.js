@@ -32,7 +32,8 @@ export default function searchStockInfo() {
   }
 
   const userSearch = ref('')
-  userSearch.value = router.currentRoute.value.query.stockNo || ''
+  userSearch.value = router.currentRoute.value.query.stockNo
+  
   const handleKeyEnter = () => {
     getTwstockInfo(userSearch.value)
     router.push({ query: { stockNo: userSearch.value } })
