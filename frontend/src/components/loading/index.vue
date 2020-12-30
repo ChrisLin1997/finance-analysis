@@ -17,7 +17,7 @@ export default {
     const loadingElement = ref(null)
     const setAnimationDelay = () => {
       const lineList = loadingElement.value.childNodes
-      const delay = 0.2
+      const delay = 0.1
       lineList.forEach((element, index) => {
         element.style.animationDelay = delay * index + 's'
       })
@@ -42,7 +42,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1a1a1a;
+  background-color: #1a1a1aaa;
 }
 
 .line {
@@ -51,15 +51,15 @@ export default {
   width: 6px;
   height: 28px;
   background-color: $active-background;
-  animation: line 1.2s infinite;
+  animation: line 1s infinite;
 }
 
 @keyframes line {
-  20% {
+  50% {
     transform: scaleY(1.4);
     background-color: $active;
   }
-  100% {
+  80% {
     transform: scaleY(1)
   }
 }

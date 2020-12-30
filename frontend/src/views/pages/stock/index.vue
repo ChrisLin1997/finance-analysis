@@ -40,8 +40,7 @@
 </template>
 
 <script>
-import { ref, onMounted, watchEffect } from 'vue'
-import { sleep } from '@/helper'
+import { ref } from 'vue'
 import Search from '@/components/search'
 import FaChart from '@/components/fa-chart'
 import searchStockInfo from './stock'
@@ -63,14 +62,9 @@ export default {
     const { merchantType, merchantList, activeMerchant, handleMerchant } = viewMerchant()
 
     // 取得股票資訊
-    const { userSearch, handleKeyEnter, stockInfo, getTwstockInfo } = searchStockInfo()
+    const { userSearch, handleKeyEnter, stockInfo, getTwstockInfo } = searchStockInfo({ loadStatus })
 
-    ;(async function () {
-      loadStatus.value++
-      await sleep(1000)
-      await getTwstockInfo(userSearch.value)
-      loadStatus.value--
-    })()
+    getTwstockInfo(userSearch.value)
 
     // 價格走勢
     const { priceChart } = stockPriceChart(stockInfo)

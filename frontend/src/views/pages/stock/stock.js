@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import router from '@/router'
 import { getTwstockInfoService, getTwstockMerchantService } from '@/api/twstock'
 
-export default function searchStockInfo() {
+export default function searchStockInfo(options) {
   const stockInfo = ref({
     id: '',
     name: '',
@@ -20,23 +20,30 @@ export default function searchStockInfo() {
 
   const getTwstockInfo = async (stockNo) => {
     if (stockNo === '') return
-    const submitData = {
-      stockNo: stockNo,
-    }
+
+    options.loadStatus.value++
+
+    const submitData = { stockNo }
     const result = await Promise.allSettled([
       getTwstockInfoService(submitData),
       getTwstockMerchantService(submitData),
     ])
-
     stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr.value), stockInfo.value)
+
+    options.loadStatus.value--
   }
 
+  // get query
   const userSearch = ref('')
   userSearch.value = router.currentRoute.value.query.stockNo
   
-  const handleKeyEnter = () => {
-    getTwstockInfo(userSearch.value)
+  const handleKeyEnter = async () => {
+    options.loadStatus.value++
+
+    await getTwstockInfo(userSearch.value)
     router.push({ query: { stockNo: userSearch.value } })
+
+    options.loadStatus.value--
   }
 
   return {
