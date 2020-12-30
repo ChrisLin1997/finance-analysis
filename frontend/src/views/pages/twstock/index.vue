@@ -1,5 +1,5 @@
 <template lang="pug">
-.twstock
+.twstock(v-loading="loadStatus !== 0")
   search(v-model="stockNo" @keyup.enter="getStock")
   price-card-list(title="熱門個股" :data="hotStockList.data")
 
@@ -24,10 +24,13 @@ export default {
   },
 
   setup () {
+    const loadStatus = ref(0)
     // hot stock
     const hotStockList = ref({ data: [], date: '' })
     const getHotTwstock = async () => {
+      loadStatus.value++
       hotStockList.value = await getTwstockHotService()
+      loadStatus.value--
     }
 
     // search stock info
@@ -40,6 +43,8 @@ export default {
     getHotTwstock()
 
     return {
+      loadStatus,
+
       hotStockList,
       getHotTwstock,
 

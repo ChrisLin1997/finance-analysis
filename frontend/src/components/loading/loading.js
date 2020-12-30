@@ -1,19 +1,19 @@
 import { createVNode, render } from 'vue'
 import loading from './index.vue'
 
-const instance = createVNode(loading)
-
 export default {
   mounted (el, binding) {
+    const instance = createVNode(loading)
     render(instance, document.createElement('div'))
 
-    setLoadingStyle(instance.el, binding.value)
+    el.instance = instance
+    setLoadingStyle(el.instance.el, binding.value)
     el.style.position = 'relative'
-    el.appendChild(instance.el)
+    el.appendChild(el.instance.el)
   },
 
   updated (el, binding) {
-    setLoadingStyle(instance.el, binding.value)
+    setLoadingStyle(el.instance.el, binding.value)
   },
 }
 

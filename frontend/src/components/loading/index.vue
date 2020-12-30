@@ -42,7 +42,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #333333aa;
+  background-color: #1a1a1a;
   transition: opacity .4s;
 }
 
@@ -50,7 +50,7 @@ export default {
   display: inline-block;
   margin: 2px;
   width: 6px;
-  height: 24px;
+  height: 28px;
   background-color: $active-background;
   animation: line 1.2s infinite;
 }
@@ -60,7 +60,7 @@ export default {
     transform: scaleY(1.4);
     background-color: $active;
   }
-  80% {
+  100% {
     transform: scaleY(1)
   }
 }

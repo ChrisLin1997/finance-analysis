@@ -5,3 +5,11 @@ export const getOpenDay = () => {
   const day = time.getDate() < 10 ? '0' + time.getDate() : time.getDate().toString()
   return year + month + day
 }
+
+export const sleep = (ms) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve()
+    }, ms);
+  })
+}

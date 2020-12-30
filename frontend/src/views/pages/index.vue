@@ -24,7 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 main {
-  margin-top: 64px;
+  margin-top: 44px;
   margin-left: 244px;
   width: calc(100vw -244px);
   height: 100%;
@@ -35,5 +35,7 @@ main {
   margin: 0 auto;
   padding: 12px 44px;
   min-width: 1260px;
+  height: fit-content;
+  min-height: 100%;
 }
 </style>

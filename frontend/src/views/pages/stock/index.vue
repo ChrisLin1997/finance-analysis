@@ -1,5 +1,5 @@
 <template lang="pug">
-.stock
+.stock(v-loading="loadStatus !== 0")
   search(v-model="userSearch" @keyup.enter="handleKeyEnter")
   template(v-if="stockInfo.status")
     header
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { ref } from 'vue'
+import { sleep } from '@/helper'
 import Search from '@/components/search'
 import FaChart from '@/components/fa-chart'
 import searchStockInfo from './stock'
@@ -56,6 +58,7 @@ export default {
   },
 
   setup () {
+    const loadStatus = ref(0)
     // 顯示交易類型
     const { merchantType, merchantList, activeMerchant, handleMerchant } = viewMerchant()
 
@@ -94,6 +97,8 @@ export default {
     ]
 
     return {
+      loadStatus,
+
       merchantType,
       merchantList,
       activeMerchant,
