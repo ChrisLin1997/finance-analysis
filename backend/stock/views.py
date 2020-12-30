@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from datetime import datetime
+from bs4 import BeautifulSoup
+import pandas as pd
 import requests
 import json
 import twstock
@@ -110,19 +112,16 @@ def merchant (request):
             buyList.append({ 'price': rawStockBuyPrice[i], 'amount': rawStockBuyAmount[i] })
         except:
             buyList.append(default)
-
         # stock sell
         try:
             sellList.append({ 'price': rawStockSellPrice[i], 'amount': rawStockSellAmount[i] })
         except:
             sellList.append(default)
-
         # odd buy
         try:
             oddBuyList.append({ 'price': rawOddBuyPrice[i], 'amount': rawOddBuyAmount[i] })
         except:
             oddBuyList.append(default)
-
         # odd sell
         try:
             oddSellList.append({ 'price': rawOddSellPrice[i], 'amount': rawOddSellAmount[i] })
@@ -136,3 +135,16 @@ def merchant (request):
     })
 
     return HttpResponse(result)
+
+def income (request):
+    
+    stockNo = request.GET['stockNo']
+    # date = request.GET['date']
+    # url = 'http://mops.twse.com.tw/nas/t21/sii/t21sc03_' + date + '_0.html'
+    # url = 'https://mops.twse.com.tw/nas/t21/sii/t21sc03_109_11_0.html'
+    response = requests.get('https://mops.twse.com.tw/nas/t21/sii/t21sc03_109_11_0.html')
+    soup = BeautifulSoup(response.content, 'html.parser')
+    print(soup.find_all(attrs = { 'align' : 'right' })[1].string)
+    # html = pd.read_html(url)
+    return HttpResponse('res')
+

@@ -13,4 +13,5 @@ urlpatterns = [
     path('twstock/hot', twstock.hot),
     path('twstock/info', twstock.info),
     path('twstock/merchant', twstock.merchant),
+    path('twstock/income', twstock.income),
 ]
