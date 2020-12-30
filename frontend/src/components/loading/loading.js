@@ -14,5 +14,6 @@ export default {
   },
  
   updated (el, binding) {
+    el.instance.el.style.opacity = binding.value ? '1' : '0'
   },
 }

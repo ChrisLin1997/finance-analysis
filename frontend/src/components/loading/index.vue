@@ -1,5 +1,5 @@
 <template lang="pug">
-.loading(v-show="isVisible")
+.loading
   .line
   .line
   .line
@@ -13,29 +13,15 @@ import { toRef, onMounted } from 'vue'
 export default {
   name: 'loading',
 
-  props: {
-    visible: {
-      type: Boolean,
-      required: true,
-    }
-  },
-
-  setup (props) {
-    const isVisible = toRef(props.visible)
+  setup () {
     const setAnimationDelay = () => {
-      if (props.isLoading) {
-        const lineList = document.getElementsByClassName('loading')[0].childNodes
-        const delay = 0.2
-        lineList.forEach((element, index) => {
-          element.style.animationDelay = delay * index + 's'
-        })
-      }
+      const lineList = document.getElementsByClassName('loading')[0].childNodes
+      const delay = 0.2
+      lineList.forEach((element, index) => {
+        element.style.animationDelay = delay * index + 's'
+      })
     }
     onMounted(() => setAnimationDelay())
-
-    return {
-      isVisible,
-    }
   },
 }
 </script>
@@ -43,14 +29,15 @@ export default {
 <style lang="scss" scoped>
 .loading {
   position: absolute;
-  // top: 0;
-  // left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #333333aa;
+  transition: opacity .2s;
 }
 
 .line {
