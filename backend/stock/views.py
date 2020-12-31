@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from datetime import datetime
+from datetime import datetime, date
 from bs4 import BeautifulSoup
 import pandas as pd
 import requests
@@ -137,14 +137,34 @@ def merchant (request):
     return HttpResponse(result)
 
 def income (request):
-    
     stockNo = request.GET['stockNo']
-    # date = request.GET['date']
-    # url = 'http://mops.twse.com.tw/nas/t21/sii/t21sc03_' + date + '_0.html'
-    # url = 'https://mops.twse.com.tw/nas/t21/sii/t21sc03_109_11_0.html'
-    response = requests.get('https://mops.twse.com.tw/nas/t21/sii/t21sc03_109_11_0.html')
-    soup = BeautifulSoup(response.content, 'html.parser')
-    print(soup.find_all(attrs = { 'align' : 'right' })[1].string)
-    # html = pd.read_html(url)
-    return HttpResponse('res')
+    today = date.today()
+    year = int(today.strftime('%Y')) - 1911
+    month = int(today.strftime('%m')) - 1
 
+    url = f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_109_11_0.html'
+    html = pd.read_html(url)
+
+    monthList = []
+    for i in range(12):
+        monthList.append(f'{year}_{month}')
+        month -= 1
+        if (month == 0):
+            year -= 1
+            month = 12
+
+    # 取得各月營收報表
+    incomeList = []
+    for month in monthList:
+        url = f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{month}_0.html'
+        html = pd.read_html(url)
+        htmlFilterList = pd.concat([item for item in html if item.shape[1] <= 11 and item.shape[1] > 5])
+        htmlFilterList = htmlFilterList.set_index(htmlFilterList.columns[0]).T.to_dict('list')
+        # 取得個股營收
+        incomeList.append(htmlFilterList[stockNo][1])
+
+    result = json.dumps({
+        'income' : incomeList,
+    })
+    
+    return HttpResponse(result)
