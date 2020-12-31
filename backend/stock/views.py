@@ -138,13 +138,17 @@ def merchant (request):
 
 def income (request):
     stockNo = request.GET['stockNo']
+
     today = date.today()
     year = int(today.strftime('%Y')) - 1911
     month = int(today.strftime('%m')) - 1
 
     url = f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_109_11_0.html'
     html = pd.read_html(url)
+    
+    htmlFilterList = pd.concat([item for item in html if item.shape[1] <= 11 and item.shape[1] > 5])
 
+    # 取得近一年月份
     monthList = []
     for i in range(12):
         monthList.append(f'{year}_{month}')
@@ -158,10 +162,12 @@ def income (request):
     for month in monthList:
         url = f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{month}_0.html'
         html = pd.read_html(url)
-        htmlFilterList = pd.concat([item for item in html if item.shape[1] <= 11 and item.shape[1] > 5])
-        htmlFilterList = htmlFilterList.set_index(htmlFilterList.columns[0]).T.to_dict('list')
+        htmlFilterList = pd.concat([item for item in html if item.shape[1] <= 11 and item.shape[1] > 5]).values.tolist()
         # 取得個股營收
-        incomeList.append(htmlFilterList[stockNo][1])
+        for item in htmlFilterList:
+            if item[0] == stockNo:
+                incomeList.append(item[2])
+                break
 
     result = json.dumps({
         'income' : incomeList,
