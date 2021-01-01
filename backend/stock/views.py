@@ -145,7 +145,7 @@ def income (request):
 
     # 取得近一年月份
     monthList = []
-    for i in range(20):
+    for _ in range(13):
         if month == 0:
             year -= 1
             month = 12
@@ -153,9 +153,13 @@ def income (request):
         month -= 1
 
     # 取得各月營收報表
-    incomeList = []
+    data = {
+        'month': [],
+        'income': [],
+    }
+    
     for month in monthList:
-        if len(incomeList) == 12:
+        if len(data['income']) == 12:
             break
         try:
             html = pd.read_html(f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{month}_0.html')
@@ -167,11 +171,10 @@ def income (request):
         # 查找個股營收
         for item in htmlFilterList:
             if item[0] == stockNo:
-                incomeList.append(item[2])
+                data['income'].append(item[2])
+                data['month'].append(month)
                 break
 
-    result = json.dumps({
-        'income' : incomeList,
-    })
+    result = json.dumps(data)
     
     return HttpResponse(result)
