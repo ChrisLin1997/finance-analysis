@@ -143,14 +143,9 @@ def income (request):
     year = int(today.strftime('%Y')) - 1911
     month = int(today.strftime('%m')) - 1
 
-    url = f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_109_11_0.html'
-    html = pd.read_html(url)
-    
-    htmlFilterList = pd.concat([item for item in html if item.shape[1] <= 11 and item.shape[1] > 5])
-
     # 取得近一年月份
     monthList = []
-    for i in range(12):
+    for _ in range(12):
         monthList.append(f'{year}_{month}')
         month -= 1
         if (month == 0):
