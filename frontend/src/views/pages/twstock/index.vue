@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { ref, nextTick } from 'vue'
+import { ref } from 'vue'
 import router from '@/router'
 import { getTwstockHotService } from '@/api/twstock'
 import PriceCardList from '@/components/price-card-list'
