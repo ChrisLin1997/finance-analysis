@@ -5,12 +5,15 @@
 </template>
 
 <script>
-import { getTwstockIncomeService } from '@/api/twstock'
 export default {
   name: 'home',
 
+  components: {
+  },
+
   setup () {
-    getTwstockIncomeService({ stockNo: '2330' })
+
+    return 
   }
 }
 </script>

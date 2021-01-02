@@ -1,9 +1,9 @@
 import { ref, watchEffect } from 'vue'
 
-export default function stockPriceChart(stockInfo) {
-  const priceChart = ref(null)
-  watchEffect(()=> {
-    priceChart.value = {
+export default function priceChart(stockInfo) {
+  const priceChartOption = ref({})
+  watchEffect(() => {
+    priceChartOption.value = {
     type: 'line',
     data: {
       labels: stockInfo.value.date,
@@ -34,7 +34,7 @@ export default function stockPriceChart(stockInfo) {
         yAxes: [{
           position: 'right',
           gridLines: { color: '#555' },
-          ticks: { padding: 8, fontColor: 'white' },
+          ticks: { padding: 8, fontColor: '#fff' },
         }],
       },
 
@@ -56,6 +56,6 @@ export default function stockPriceChart(stockInfo) {
   }})
 
   return {
-    priceChart
+    priceChartOption
   }
 }

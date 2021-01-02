@@ -162,7 +162,7 @@ def income (request):
         if len(data['income']) == 12:
             break
         try:
-            html = pd.read_html(f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{month}_0.html')
+            html = pd.read_html(f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{month}.html')
         except: 
             continue
 
@@ -170,9 +170,10 @@ def income (request):
 
         # 查找個股營收
         for item in htmlFilterList:
-            if item[0] == stockNo:
-                data['income'].append(item[2])
-                data['month'].append(month)
+            if str(item[0]) == stockNo:
+                convertMonth = month.split('_')
+                data['income'].append(item[2] * 1000)
+                data['month'].append(f'{int(convertMonth[0]) + 1911}/{convertMonth[1]}')
                 break
 
     result = json.dumps(data)

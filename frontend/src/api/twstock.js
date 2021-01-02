@@ -61,7 +61,11 @@ export const getTwstockIncomeService = async (formData) => {
     })
       .then(res => resolve(res))
       .catch(() => {
-        console.log('error')
+        const err = {
+          month: [],
+          income: [],
+        }
+        reject(err)
       })
   })
 }

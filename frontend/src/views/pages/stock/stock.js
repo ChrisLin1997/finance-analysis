@@ -1,6 +1,11 @@
 import { ref } from 'vue'
 import router from '@/router'
-import { getTwstockInfoService, getTwstockMerchantService } from '@/api/twstock'
+import {
+  getTwstockInfoService,
+  getTwstockMerchantService,
+  getTwstockIncomeService,
+} from '@/api/twstock'
+
 
 export default function searchStockInfo(options) {
   const stockInfo = ref({
@@ -16,6 +21,8 @@ export default function searchStockInfo(options) {
     status: false,
     stock: { buy: [], sell: [] },
     odd: { buy: [], sell: [] },
+    icome: [],
+    month: [],
   })
 
   const getTwstockInfo = async (stockNo) => {
@@ -27,6 +34,7 @@ export default function searchStockInfo(options) {
     const result = await Promise.allSettled([
       getTwstockInfoService(submitData),
       getTwstockMerchantService(submitData),
+      getTwstockIncomeService(submitData)
     ])
     stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr.value), stockInfo.value)
 

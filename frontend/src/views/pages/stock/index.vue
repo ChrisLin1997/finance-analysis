@@ -3,7 +3,7 @@
   search(v-model="userSearch" @keyup.enter="handleKeyEnter")
   template(v-if="stockInfo.status")
     header
-      fa-chart.chart(:options="priceChart" color="blue")
+      fa-chart.chart(:options="priceChartOption" color="blue")
         .info
           .title
             span {{ stockInfo.name }}
@@ -30,9 +30,14 @@
         v-for="chart of chartList"
         :key="chart.code"
         :color="chart.color"
+        :options="chart.option"
       )
         awesome-icon(:icon="chart.icon")
         span {{ chart.label }}
+
+    br
+    br
+    br
 
   template(v-else)
     h3 查無資料！  
@@ -44,8 +49,9 @@ import { ref } from 'vue'
 import Search from '@/components/search'
 import FaChart from '@/components/fa-chart'
 import searchStockInfo from './stock'
-import stockPriceChart from './priceChart'
 import viewMerchant from './merchant'
+import priceChart from './priceChart'
+import incomeChart from './incomeChart'
 
 
 export default {
@@ -66,35 +72,32 @@ export default {
 
     getTwstockInfo(userSearch.value)
 
-    // 價格走勢
-    const { priceChart } = stockPriceChart(stockInfo)
-
-    // 工具
-    const convertPrice = (value) => {
-      return value ? Number(value).toFixed(2) : '-'
-    }
+    // 報表
+    const { priceChartOption } = priceChart(stockInfo)
+    const { incomeChartOption } = incomeChart(stockInfo)
 
     // chart
-    const chartList = [
+    const chartList = ref([
       {
         code: 'income',
         label: '營收',
         icon: ['fas', 'coins'],
         color: 'green',
-      },
-      {
-        code: 'profit',
-        label: '利潤',
-        icon: ['fas', 'chart-line'],
-        color: 'red',
+        option: incomeChartOption,
       },
       {
         code: 'eps',
         label: 'EPS',
         icon: ['fas', 'chart-bar'],
         color: 'yellow',
+        option: {},
       },
-    ]
+    ])
+
+    // 工具
+    const convertPrice = (value) => {
+      return value ? Number(value).toFixed(2) : '-'
+    }
 
     return {
       loadStatus,
@@ -105,7 +108,7 @@ export default {
       handleMerchant,
 
       stockInfo,
-      priceChart,
+      priceChartOption,
       userSearch,
       handleKeyEnter,
       chartList,
@@ -219,7 +222,7 @@ main {
   justify-content: space-between;
 
   .chart-item {
-    width: 32%;
+    width: 48%;
   }
 }
 </style>
