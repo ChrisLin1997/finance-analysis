@@ -5,6 +5,7 @@ import pandas as pd
 import requests
 import json
 import twstock
+import urllib3
 
 CORS = 'https://cors-anywhere.herokuapp.com/'
 
@@ -153,27 +154,21 @@ def income (request):
         month -= 1
 
     # 取得各月營收報表
-    data = {
-        'month': [],
-        'income': [],
-    }
-    
+    data = { 'month': [], 'income': [] }
+    headers = { 'origin': 'https://mops.twse.com.tw/' }
     for month in monthList:
         if len(data['income']) == 12:
             break
-        try:
-            html = pd.read_html(f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{month}.html')
-        except: 
-            continue
-
-        htmlFilterList = pd.concat([item for item in html if item.shape[1] <= 11 and item.shape[1] > 5]).values.tolist()
-
+        # API
+        res = requests.get(f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{month}.html', headers = headers)
+        soup = BeautifulSoup(res.content.decode('utf-8', 'ignore'))
+        allData = soup.findAll('tr', attrs={'align': 'right'})
         # 查找個股營收
-        for item in htmlFilterList:
-            if str(item[0]) == stockNo:
+        for item in allData:
+            if str(item.find('td').text) == stockNo:
                 convertMonth = month.split('_')
-                data['income'].append(item[2] * 1000)
                 data['month'].append(f'{int(convertMonth[0]) + 1911}/{convertMonth[1]}')
+                data['income'].append(int(item.findAll('td')[2].text.replace(',', '')) * 1000)
                 break
 
     result = json.dumps(data)

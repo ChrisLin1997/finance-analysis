@@ -6,8 +6,7 @@ import {
   getTwstockIncomeService,
 } from '@/api/twstock'
 
-
-export default function searchStockInfo(options) {
+export default function searchStockInfo (options) {
   const stockInfo = ref({
     id: '',
     name: '',
@@ -34,7 +33,7 @@ export default function searchStockInfo(options) {
     const result = await Promise.allSettled([
       getTwstockInfoService(submitData),
       getTwstockMerchantService(submitData),
-      getTwstockIncomeService(submitData)
+      getTwstockIncomeService(submitData),
     ])
     stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr.value), stockInfo.value)
 
@@ -44,7 +43,7 @@ export default function searchStockInfo(options) {
   // get query
   const userSearch = ref('')
   userSearch.value = router.currentRoute.value.query.stockNo
-  
+
   const handleKeyEnter = async () => {
     options.loadStatus.value++
 

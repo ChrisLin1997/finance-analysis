@@ -40,7 +40,7 @@
     br
 
   template(v-else)
-    h3 查無資料！  
+    h3 查無資料！
 
 </template>
 
@@ -52,7 +52,6 @@ import searchStockInfo from './stock'
 import viewMerchant from './merchant'
 import priceChart from './priceChart'
 import incomeChart from './incomeChart'
-
 
 export default {
   name: 'stock',
