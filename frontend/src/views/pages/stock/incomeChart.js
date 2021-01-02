@@ -12,7 +12,7 @@ export default function stockIncomeChart (stockInfo) {
             label: '營收',
             data: stockInfo.value.income,
             backgroundColor: '#3d8c40',
-          }
+          },
         ],
       },
 
@@ -35,7 +35,7 @@ export default function stockIncomeChart (stockInfo) {
               maxRotation: 0,
               callback: (value, index) => {
                 return index % 3 === 2 ? value : ''
-              }
+              },
             },
           }],
           yAxes: [{
@@ -49,7 +49,7 @@ export default function stockIncomeChart (stockInfo) {
               callback: value => {
                 if (value === 0) return value
                 else return value / 100000000 >= 1 ? value / 100000000 + '億' : value / 1000000 + '百萬'
-              }
+              },
             },
           }],
         },

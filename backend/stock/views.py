@@ -5,7 +5,6 @@ import pandas as pd
 import requests
 import json
 import twstock
-import urllib3
 
 CORS = 'https://cors-anywhere.herokuapp.com/'
 

@@ -3,4 +3,3 @@ requests
 twstock
 pandas
 html5lib
-urllib3
