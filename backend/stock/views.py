@@ -146,8 +146,9 @@ def income (request):
     # 取得各月營收報表
     data = { 'month': [], 'income': [] }
     headers = { 'origin': 'https://mops.twse.com.tw/' }
-
-    while len(data['income']) < 12:
+    times = 0
+    while len(data['income']) < 12 and times < 15:
+        times += 1
         res = requests.get(f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{year}_{month}.html', headers = headers)
         soup = BeautifulSoup(res.content.decode('utf-8', 'ignore'))
         allData = soup.findAll('tr', attrs={'align': 'right'})

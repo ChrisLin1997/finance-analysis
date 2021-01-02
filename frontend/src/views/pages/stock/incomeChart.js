@@ -20,13 +20,10 @@ export default function stockIncomeChart (stockInfo) {
         layout: {
           padding: { top: 16, bottom: 8 },
         },
-
         legend: {
           display: false,
         },
-
         maintainAspectRatio: false,
-
         scales: {
           xAxes: [{
             gridLines: { display: false },
@@ -45,7 +42,7 @@ export default function stockIncomeChart (stockInfo) {
             ticks: {
               fontColor: '#fff',
               beginAtZero: true,
-              maxTicksLimit: 8,
+              maxTicksLimit: stockInfo.value.income?.length ? 8 : 0,
               callback: value => {
                 if (value === 0) return value
                 else return value / 100000000 >= 1 ? value / 100000000 + '億' : value / 1000000 + '百萬'

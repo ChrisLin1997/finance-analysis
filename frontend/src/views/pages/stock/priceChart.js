@@ -37,7 +37,6 @@ export default function priceChart (stockInfo) {
             ticks: { padding: 8, fontColor: '#fff' },
           }],
         },
-
         tooltips: {
           mode: 'index',
           enabled: true,

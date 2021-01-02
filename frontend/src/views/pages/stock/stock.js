@@ -33,7 +33,7 @@ export default function searchStockInfo (options) {
     const result = await Promise.allSettled([
       getTwstockInfoService(submitData),
       getTwstockMerchantService(submitData),
-      // getTwstockIncomeService(submitData),
+      getTwstockIncomeService(submitData),
     ])
     stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr.value), stockInfo.value)
 

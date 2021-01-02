@@ -25,7 +25,7 @@
             .price {{ convertPrice(node.price) }}
             .amount {{ node.amount || '-' }}
 
-    //- main
+    main
       fa-chart.chart-item(
         v-for="chart of chartList"
         :key="chart.code"
