@@ -35,7 +35,6 @@ def hot (request):
         'data': stockList,
         'date': data['date'],
     })
-
     return HttpResponse(result)
 
 # 股票資訊
@@ -60,7 +59,6 @@ def info (request):
         # 'high': stockInfo.high,
         # 'low': stockInfo.low,
     })
-
     return HttpResponse(result)
 
 # 即時交易,最佳五檔資訊
@@ -133,7 +131,6 @@ def merchant (request):
         'stock': { 'buy': buyList, 'sell': sellList },
         'odd': { 'buy': oddBuyList, 'sell': oddSellList },
     })
-
     return HttpResponse(result)
 
 def income (request):
@@ -159,13 +156,12 @@ def income (request):
             month = 12
         # 查找個股營收
         for item in allData:
-            if str(item.find('td').text) == stockNo:
-                data['month'].append(f'{year + 1911}/{month}')
+            if item.text[:4] == stockNo:
                 data['income'].append(int(item.findAll('td')[2].text.replace(',', '')) * 1000)
+                data['month'].append(f'{year + 1911}/{month}')
                 break
 
     result = json.dumps(data)
-    
     return HttpResponse(result)
 
 def eps (request):
@@ -189,7 +185,7 @@ def eps (request):
         allData = soup.findAll('tr', attrs={'class': 'even'})
 
         for item in allData:
-            if str(item.find('td').text) == stockNo:
+            if item.text[:4] == stockNo:
                 resultData['eps'].append(item.findAll('td')[-1].text)
                 resultData['season'].append(f"{data['year']+1911}/Q{data['season']}")
                 break
