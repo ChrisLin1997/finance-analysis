@@ -64,3 +64,19 @@ export const getTwstockIncomeService = async (formData) => {
       return err
     })
 }
+
+export const getTwstockEpsService = async (formData) => {
+  const params = {
+    stockNo: formData.stockNo,
+  }
+  return await xhr({
+    method: 'get',
+    url: 'twstock/eps',
+    params,
+  })
+    .then(res => res)
+    .catch(() => {
+      const err = { month: [], income: [] }
+      return err
+    })
+}

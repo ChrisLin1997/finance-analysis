@@ -38,6 +38,11 @@ export const routes = [
         name: 'goods',
         component: () => import(/* webpackChunkName: "goods" */ '@/views/pages/goods'),
       },
+      {
+        path: 'test',
+        name: 'test',
+        component: () => import(/* webpackChunkName: "test" */ '@/views/pages/test'),
+      },
     ],
   },
 ]

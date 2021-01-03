@@ -167,3 +167,37 @@ def income (request):
     result = json.dumps(data)
     
     return HttpResponse(result)
+
+def eps (request):
+    stockNo = request.GET['stockNo']
+    data = {
+        'encodeURIComponent': '1',
+        'firstin': '1',
+        'step': '1',
+        'off': '1',
+        'isQuery': 'Y',
+        'TYPEK': 'sii',
+        'year': 109,
+        'season': 3,
+    }
+
+    resultData = { 'eps': [], 'season': [] }
+    times = 0
+    while len(resultData['eps']) < 12 and times < 15:
+        res = requests.post('https://mops.twse.com.tw/mops/web/ajax_t163sb04', data = data)
+        soup = BeautifulSoup(res.content.decode('utf-8', 'ignore'))
+        allData = soup.findAll('tr', attrs={'class': 'even'})
+
+        for item in allData:
+            if str(item.find('td').text) == stockNo:
+                resultData['eps'].append(item.findAll('td')[-1].text)
+                resultData['season'].append(f"{data['year']+1911}/Q{data['season']}")
+                break
+
+        data['season'] -= 1
+        if data['season'] == 0:
+            data['year'] -= 1
+            data['season'] = 4
+
+    result = json.dumps(resultData)
+    return HttpResponse(result)
