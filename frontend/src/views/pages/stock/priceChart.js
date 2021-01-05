@@ -1,6 +1,6 @@
 import { ref, watchEffect } from 'vue'
 
-export default function priceChart (stockInfo) {
+export default function usePriceChart (stockInfo) {
   const priceChartOption = ref({})
   watchEffect(() => {
     priceChartOption.value = {

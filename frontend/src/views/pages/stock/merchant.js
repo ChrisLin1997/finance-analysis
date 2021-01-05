@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-export default function viewMerchant () {
+export default function useMerchant () {
   const merchantType = [
     { label: '整股', code: 'stock' },
     { label: '零股', code: 'odd' },

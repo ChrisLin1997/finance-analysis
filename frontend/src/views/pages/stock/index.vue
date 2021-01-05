@@ -48,10 +48,10 @@
 import { ref } from 'vue'
 import Search from '@/components/search'
 import FaChart from '@/components/fa-chart'
-import searchStockInfo from './stock'
-import viewMerchant from './merchant'
-import priceChart from './priceChart'
-import incomeChart from './incomeChart'
+import useStockInfo from './stock'
+import useMerchant from './merchant'
+import usePriceChart from './priceChart'
+import useIncomeChart from './incomeChart'
 
 export default {
   name: 'stock',
@@ -64,16 +64,15 @@ export default {
   setup () {
     const loadStatus = ref(0)
     // 顯示交易類型
-    const { merchantType, merchantList, activeMerchant, handleMerchant } = viewMerchant()
+    const { merchantType, merchantList, activeMerchant, handleMerchant } = useMerchant()
 
     // 取得股票資訊
-    const { userSearch, handleKeyEnter, stockInfo, getTwstockInfo } = searchStockInfo({ loadStatus })
-
+    const { userSearch, handleKeyEnter, stockInfo, getTwstockInfo } = useStockInfo({ loadStatus })
     getTwstockInfo(userSearch.value)
 
     // 報表
-    const { priceChartOption } = priceChart(stockInfo)
-    const { incomeChartOption } = incomeChart(stockInfo)
+    const { priceChartOption } = usePriceChart(stockInfo)
+    const { incomeChartOption } = useIncomeChart(stockInfo)
 
     // chart
     const chartList = ref([

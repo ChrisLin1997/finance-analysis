@@ -1,6 +1,6 @@
 import { ref, watchEffect } from 'vue'
 
-export default function stockIncomeChart (stockInfo) {
+export default function useIncomeChart (stockInfo) {
   const incomeChartOption = ref({})
   watchEffect(() => {
     incomeChartOption.value = {

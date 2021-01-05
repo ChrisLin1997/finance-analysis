@@ -6,7 +6,7 @@ import {
   getTwstockIncomeService,
 } from '@/api/twstock'
 
-export default function searchStockInfo (options) {
+export default function useStockInfo (options) {
   const stockInfo = ref({
     id: '',
     name: '',
