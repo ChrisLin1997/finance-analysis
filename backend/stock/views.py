@@ -7,6 +7,11 @@ import json
 import twstock
 
 CORS = 'https://cors-anywhere.herokuapp.com/'
+today = date.today()
+year = int(today.strftime('%Y'))
+ROCyear = year - 1911
+month = int(today.strftime('%m'))
+
 
 def convertToFixed (value):
     if type(value) == list: 
@@ -136,9 +141,8 @@ def merchant (request):
 def income (request):
     stockNo = request.GET['stockNo']
 
-    today = date.today()
-    year = int(today.strftime('%Y')) - 1911
-    month = int(today.strftime('%m'))
+    incomeYear = ROCyear
+    incomeMonth = month
 
     # 取得各月營收報表
     data = { 'month': [], 'income': [] }
@@ -146,19 +150,19 @@ def income (request):
     times = 0
     while len(data['income']) < 12 and times < 15:
         times += 1
-        res = requests.get(f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{year}_{month}.html', headers = headers)
+        res = requests.get(f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{incomeYear}_{incomeMonth}.html', headers = headers)
         soup = BeautifulSoup(res.content.decode('utf-8', 'ignore'))
         allData = soup.findAll('tr', attrs={'align': 'right'})
         
-        month -= 1
-        if month == 0:
-            year -= 1
-            month = 12
+        incomeMonth -= 1
+        if incomeMonth == 0:
+            incomeYear -= 1
+            incomeMonth = 12
         # 查找個股營收
         for item in allData:
             if item.text[:4] == stockNo:
                 data['income'].append(int(item.findAll('td')[2].text.replace(',', '')) * 1000)
-                data['month'].append(f'{year + 1911}/{month}')
+                data['month'].append(f'{incomeYear + 1911}/{incomeMonth}')
                 break
 
     result = json.dumps(data)
@@ -173,27 +177,45 @@ def eps (request):
         'off': '1',
         'isQuery': 'Y',
         'TYPEK': 'sii',
-        'year': 109,
-        'season': 3,
+        'isnew': False,
+        'co_id': stockNo,
+        'year': ROCyear,
     }
 
     resultData = { 'eps': [], 'season': [] }
     times = 0
-    while len(resultData['eps']) < 12 and times < 15:
-        res = requests.post('https://mops.twse.com.tw/mops/web/ajax_t163sb04', data = data)
-        soup = BeautifulSoup(res.content.decode('utf-8', 'ignore'))
-        allData = soup.findAll('tr', attrs={'class': 'even'})
 
-        for item in allData:
-            if item.text[:4] == stockNo:
-                resultData['eps'].append(item.findAll('td')[-1].text)
-                resultData['season'].append(f"{data['year']+1911}/Q{data['season']}")
-                break
+    while len(resultData['eps']) < 12  and times < 4:
+        res = requests.post('https://mops.twse.com.tw/mops/web/ajax_t163sb15', data = data)
+        soup = BeautifulSoup(res.content)
 
-        data['season'] -= 1
-        if data['season'] == 0:
+        try:
+            seasonEpsList = [ float(eps.text) for eps in soup.findAll('tr')[-1].findAll('td') if eps.text != '-' ]
+        except:
             data['year'] -= 1
-            data['season'] = 4
+            continue
 
+        rawEpsList = []
+        rawSeasonList = []
+        for index, value in enumerate(seasonEpsList):
+            rawSeasonList.append(f'{data["year"] + 1911} Q{index + 1}')
+
+            if len(rawEpsList) > 0:
+                rawEpsList.append(round(value - seasonEpsList[index - 1], 2))
+            else:
+                rawEpsList.append(value)
+
+        rawSeasonList.reverse()
+        rawEpsList.reverse()
+
+        for index in range(len(rawEpsList)):
+            resultData['season'].append(rawSeasonList[index])
+            resultData['eps'].append(rawEpsList[index])
+
+        data['year'] -= 1
+        times += 1
+
+    resultData['eps'].reverse()
+    resultData['season'].reverse()
     result = json.dumps(resultData)
     return HttpResponse(result)

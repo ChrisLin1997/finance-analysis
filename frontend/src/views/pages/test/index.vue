@@ -11,7 +11,7 @@ export default {
   setup () {
     const getStockEps = async () => {
       const submitData = {
-        stockNo: '1101',
+        stockNo: '2330',
       }
       const res = await getTwstockEpsService(submitData)
       console.log(res)
