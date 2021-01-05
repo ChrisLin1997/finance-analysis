@@ -42,7 +42,6 @@ export default function useEpsChart (stockInfo) {
             ticks: {
               fontColor: '#fff',
               beginAtZero: true,
-              // maxTicksLimit: stockInfo.value.income?.length ? 8 : 0,
             },
           }],
         },

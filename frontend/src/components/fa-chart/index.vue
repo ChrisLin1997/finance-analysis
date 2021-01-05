@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onUpdated } from 'vue'
+import { ref, onMounted, onUpdated, watch, watchEffect } from 'vue'
 import Chart from 'chart.js'
 
 export default {
@@ -38,11 +38,18 @@ export default {
     onMounted(() => { symbolElement.value.style.background = colorMapping[props.color] })
 
     // chart instance
-    const options = ref(props.options)
     const canvasElement = ref(null)
     const chartInstance = ref(null)
-    onMounted(() => { chartInstance.value = new Chart(canvasElement.value, options.value) })
-    onUpdated(() => { if (chartInstance.value !== null) chartInstance.value = new Chart(canvasElement.value, options.value) })
+    onMounted(() => { chartInstance.value = new Chart(canvasElement.value, props.options) })
+    watch(
+      () => props.options,
+      () => {
+        if (chartInstance.value !== null) {
+          chartInstance.value.destroy()
+          chartInstance.value = new Chart(canvasElement.value, props.options)
+        }
+      },
+    )
 
     return {
       symbolElement,
