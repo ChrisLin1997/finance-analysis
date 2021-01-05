@@ -57,6 +57,7 @@ export default {
   padding: 48px 24px 12px;
   position: relative;
   background-color: $active-background;
+  border-radius: 8px;
 }
 
 .symbol {

@@ -52,6 +52,7 @@ import useStockInfo from './stock'
 import useMerchant from './merchant'
 import usePriceChart from './priceChart'
 import useIncomeChart from './incomeChart'
+import useEpsChart from './epsChart'
 
 export default {
   name: 'stock',
@@ -73,6 +74,7 @@ export default {
     // 報表
     const { priceChartOption } = usePriceChart(stockInfo)
     const { incomeChartOption } = useIncomeChart(stockInfo)
+    const { epsChartOption } = useEpsChart(stockInfo)
 
     // chart
     const chartList = ref([
@@ -88,7 +90,7 @@ export default {
         label: 'EPS',
         icon: ['fas', 'chart-bar'],
         color: 'yellow',
-        option: {},
+        option: epsChartOption,
       },
     ])
 
@@ -123,7 +125,6 @@ header {
   display: flex;
   margin-top: 44px;
   position: relative;
-  border-radius: 4px;
   background-color: $active-background;
   box-shadow: 0 0 6px 2px #111;
 }
@@ -218,6 +219,7 @@ main {
   margin-top: 48px;
   display: flex;
   justify-content: space-between;
+  height: 320px;
 
   .chart-item {
     width: 48%;

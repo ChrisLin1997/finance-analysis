@@ -4,6 +4,7 @@ import {
   getTwstockInfoService,
   getTwstockMerchantService,
   getTwstockIncomeService,
+  getTwstockEpsService,
 } from '@/api/twstock'
 
 export default function useStockInfo (options) {
@@ -34,6 +35,7 @@ export default function useStockInfo (options) {
       getTwstockInfoService(submitData),
       getTwstockMerchantService(submitData),
       getTwstockIncomeService(submitData),
+      getTwstockEpsService(submitData),
     ])
     stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr.value), stockInfo.value)
 
