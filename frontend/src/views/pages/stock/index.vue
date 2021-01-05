@@ -50,9 +50,7 @@ import Search from '@/components/search'
 import FaChart from '@/components/fa-chart'
 import useStockInfo from './stock'
 import useMerchant from './merchant'
-import usePriceChart from './priceChart'
-import useIncomeChart from './incomeChart'
-import useEpsChart from './epsChart'
+import useCharts from './chart/index'
 
 export default {
   name: 'stock',
@@ -72,27 +70,7 @@ export default {
     getTwstockInfo(userSearch.value)
 
     // 報表
-    const { priceChartOption } = usePriceChart(stockInfo)
-    const { incomeChartOption } = useIncomeChart(stockInfo)
-    const { epsChartOption } = useEpsChart(stockInfo)
-
-    // chart
-    const chartList = ref([
-      {
-        code: 'income',
-        label: '營收',
-        icon: ['fas', 'coins'],
-        color: 'green',
-        option: incomeChartOption,
-      },
-      {
-        code: 'eps',
-        label: 'EPS',
-        icon: ['fas', 'chart-bar'],
-        color: 'yellow',
-        option: epsChartOption,
-      },
-    ])
+    const { priceChartOption, chartList } = useCharts(stockInfo)
 
     // 工具
     const convertPrice = (value) => {
@@ -108,10 +86,12 @@ export default {
       handleMerchant,
 
       stockInfo,
+
       priceChartOption,
+      chartList,
+
       userSearch,
       handleKeyEnter,
-      chartList,
 
       convertPrice,
     }

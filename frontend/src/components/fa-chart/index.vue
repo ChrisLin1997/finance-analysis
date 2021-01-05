@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onUpdated, watch, watchEffect } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import Chart from 'chart.js'
 
 export default {
