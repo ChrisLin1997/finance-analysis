@@ -29,7 +29,13 @@ export default function usePriceChart (stockInfo) {
         scales: {
           xAxes: [{
             gridLines: { display: false },
-            ticks: { display: false },
+            ticks: {
+              fontColor: '#fff',
+              maxRotation: 0,
+              callback: (value, index) => {
+                return index % 4 === 0 ? value : ''
+              },
+            },
           }],
           yAxes: [{
             position: 'right',
