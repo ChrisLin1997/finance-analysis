@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 from .index import index
+
 import stock.views as twstock
+import info.views as info
 
 
 urlpatterns = [
@@ -15,4 +17,8 @@ urlpatterns = [
     path('twstock/merchant', twstock.merchant),
     path('twstock/income', twstock.income),
     path('twstock/eps', twstock.eps),
+
+    #info
+    path('info/news', twstock.news),
+    path('info/ptt', twstock.ptt),
 ]

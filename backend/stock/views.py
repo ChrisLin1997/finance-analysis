@@ -154,16 +154,20 @@ def income (request):
         soup = BeautifulSoup(res.content.decode('utf-8', 'ignore'))
         allData = soup.findAll('tr', attrs={'align': 'right'})
         
-        incomeMonth -= 1
-        if incomeMonth == 0:
-            incomeYear -= 1
-            incomeMonth = 12
         # 查找個股營收
         for item in allData:
             if item.text[:4] == stockNo:
                 data['income'].append(int(item.findAll('td')[2].text.replace(',', '')) * 1000)
                 data['month'].append(f'{incomeYear + 1911}/{incomeMonth}')
                 break
+
+        incomeMonth -= 1
+        if incomeMonth == 0:
+            incomeYear -= 1
+            incomeMonth = 12
+    
+    data['month'].reverse()
+    data['income'].reverse()
 
     result = json.dumps(data)
     return HttpResponse(result)

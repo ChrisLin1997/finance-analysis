@@ -1,45 +1,45 @@
 <template lang="pug">
 .stock(v-loading="loadStatus !== 0")
   search(v-model="userSearch" @keyup.enter="handleKeyEnter")
-  template(v-if="stockInfo.status")
-    header
-      fa-chart.chart(:options="priceChartOption" color="blue")
-        .info
-          .title
-            span {{ stockInfo.name }}
-            span.currency {{ stockInfo.currencyPrice }}
-          .subtitle
-            span {{ stockInfo.id }}
-            span {{ stockInfo.variation }} ({{ stockInfo.percent }}%)
-      .merchant
-        .merchant-type
-          .type-item(
-            v-for="type of merchantType"
-            :key="type.code"
-            :class="{ 'active' : type.code === activeMerchant }"
-            @click="handleMerchant(type.code)"
-          ) {{ type.label }}
-        .merchant-list(v-for="item of merchantList" :key="item.code")
-          h3(:class="item.code") {{ item.label }}
-          .merchant-item(v-for="(node, index) of stockInfo[activeMerchant][item.code]" :key="index" :class="item.code")
-            .price {{ convertPrice(node.price) }}
-            .amount {{ node.amount || '-' }}
+  //- template(v-if="stockInfo.status")
+  header
+    fa-chart.chart(:options="priceChartOption" color="blue")
+      .info
+        .title
+          span {{ stockInfo.name }}
+          span.currency {{ stockInfo.currencyPrice }}
+        .subtitle
+          span {{ stockInfo.id }}
+          span {{ stockInfo.variation }} ({{ stockInfo.percent }}%)
+    .merchant
+      .merchant-type
+        .type-item(
+          v-for="type of merchantType"
+          :key="type.code"
+          :class="{ 'active' : type.code === activeMerchant }"
+          @click="handleMerchant(type.code)"
+        ) {{ type.label }}
+      .merchant-list(v-for="item of merchantList" :key="item.code")
+        h3(:class="item.code") {{ item.label }}
+        .merchant-item(v-for="(node, index) of stockInfo[activeMerchant][item.code]" :key="index" :class="item.code")
+          .price {{ convertPrice(node.price) }}
+          .amount {{ node.amount || '-' }}
 
-    main
-      fa-chart.chart-item(
-        v-for="chart of chartList"
-        :key="chart.code"
-        :color="chart.color"
-        :options="chart.option"
-      )
-        awesome-icon(:icon="chart.icon")
-        span {{ chart.label }}
+  main
+    fa-chart.chart-item(
+      v-for="chart of chartList"
+      :key="chart.code"
+      :color="chart.color"
+      :options="chart.option"
+    )
+      awesome-icon(:icon="chart.icon")
+      span {{ chart.label }}
 
-    br
-    br
-    br
+  br
+  br
+  br
 
-  template(v-else)
+  //- template(v-else)
     h3 查無資料！
 
 </template>

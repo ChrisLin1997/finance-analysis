@@ -6,7 +6,7 @@ export default function useIncomeChart (stockInfo) {
     incomeChartOption.value = {
       type: 'bar',
       data: {
-        labels: stockInfo.value.month.reverse(),
+        labels: stockInfo.value.month,
         datasets: [
           {
             label: '營收',
