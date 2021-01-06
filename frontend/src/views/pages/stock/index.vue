@@ -1,6 +1,6 @@
 <template lang="pug">
 .stock(v-loading="loadStatus !== 0")
-  search(v-model="userSearch" @keyup.enter="handleKeyEnter")
+  //- search(v-model="userSearch" @keyup.enter="handleKeyEnter")
   //- template(v-if="stockInfo.status")
   header
     fa-chart.chart(:options="priceChartOption" color="blue")
@@ -34,11 +34,6 @@
     )
       awesome-icon(:icon="chart.icon")
       span {{ chart.label }}
-
-  br
-  br
-  br
-
   //- template(v-else)
     h3 查無資料！
 
@@ -100,11 +95,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// top
 header {
-  display: flex;
-  margin-top: 44px;
   position: relative;
+  display: flex;
   background-color: $active-background;
   box-shadow: 0 0 6px 2px #111;
 }

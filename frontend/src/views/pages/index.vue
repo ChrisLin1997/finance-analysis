@@ -32,7 +32,7 @@ main {
 }
 
 .view {
-  margin: 0 auto;
+  margin: 24px auto;
   padding: 12px 44px;
   min-width: 1260px;
   height: fit-content;

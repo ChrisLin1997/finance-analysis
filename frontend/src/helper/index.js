@@ -15,3 +15,7 @@ export const sleep = (ms) => {
 export const deepCopy = (value) => {
   return JSON.parse(JSON.stringify(value))
 }
+
+export const getRandom = (min, max) => {
+  return Math.floor(Math.random() * max) + min
+}

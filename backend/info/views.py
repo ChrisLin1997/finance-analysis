@@ -14,11 +14,14 @@ def googleNews (request):
   soup = BeautifulSoup(res.content, 'lxml').select('article > h3 > a', limit=50)
 
   financeNewsList = []
+  id = 1
   for item in soup:
     financeNewsList.append({
-      'title': item.text.replace('.', 'https://news.google.com', 1),
-      'href': item.get('href'),
+      'id': id,
+      'title': item.text,
+      'href': item.get('href').replace('.', 'https://news.google.com', 1),
     })
+    id += 1
 
   result = json.dumps(financeNewsList)
   return HttpResponse(result)

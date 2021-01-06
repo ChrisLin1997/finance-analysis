@@ -35,7 +35,7 @@ export default {
       if (inputElement.value) inputElement.value.focus()
     }
 
-    watchEffect(()=> context.emit('update:modelValue', props.modelValue))
+    watchEffect(() => context.emit('update:modelValue', props.modelValue))
     const handleBlur = () => {
       isActive.value = false
     }
@@ -46,7 +46,7 @@ export default {
       handleClick,
       handleBlur,
     }
-  }
+  },
 }
 </script>
 
