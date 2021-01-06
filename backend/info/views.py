@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import requests
 import json
 
+newsLength = 50
+
 def googleNews (request):
   newsType = request.GET['type']
 
@@ -11,23 +13,43 @@ def googleNews (request):
     'finance': 'CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx6TVdZU0JYcG9MVlJYR2dKVVZ5Z0FQAQ',
   }
   res = requests.get(f'https://news.google.com/topics/{typeMapping[newsType]}?hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant')
-  soup = BeautifulSoup(res.content, 'lxml').select('article > h3 > a', limit=50)
+  data = BeautifulSoup(res.content, 'lxml').select('article > h3 > a', limit = newsLength)
 
   financeNewsList = []
-  id = 1
-  for item in soup:
+  for index, item in enumerate(data):
     financeNewsList.append({
-      'id': id,
+      'id': index,
       'title': item.text,
       'href': item.get('href').replace('.', 'https://news.google.com', 1),
     })
-    id += 1
 
   result = json.dumps(financeNewsList)
   return HttpResponse(result)
 
 def ptt (request):
-  res = requests.get('https://www.ptt.cc/bbs/Stock/index.html')
-  soup = BeautifulSoup(res.content)
-  print(soup)
-  return HttpResponse('ptt')
+  domain = 'https://www.ptt.cc'
+  path = '/bbs/Stock/index.html'
+
+  pttNewsList = []
+  id = 0
+  while len(pttNewsList) < newsLength:
+    res = requests.get(domain + path)
+    soup = BeautifulSoup(res.content, 'lxml')
+    path = soup.select('.btn-group-paging > .btn')[1].get('href')
+    data = soup.select('.title > a')
+    amount = soup.select('.nrec')
+
+    for index, item in enumerate(data):
+      if len(pttNewsList) >= newsLength:
+        break
+
+      id += 1
+      pttNewsList.append({
+        'id': id,
+        'title': item.text,
+        'href': domain + item.get('href'),
+        'amount': amount[index].text
+      })
+  
+  result = json.dumps(pttNewsList[0:newsLength])
+  return HttpResponse(result)

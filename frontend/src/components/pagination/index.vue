@@ -1,6 +1,10 @@
 <template lang="pug">
 .pagination
-  span(v-for="num of pageSize" @click="handlePage(num)" :class="{ 'active' : modelValue === num }") {{ num }}
+  span(
+    v-for="num of pageSize"
+    :class="{ 'active' : modelValue === num}"
+    @click="handlePage(num)"
+  ) {{ num }}
 </template>
 
 <script>

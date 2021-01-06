@@ -6,7 +6,7 @@
       .news-item(v-for="item of type.list" :key="item.id")
         .title {{ item.title }}
         a.href(:href="item.href" target="_blank")
-      pagination(v-if="type.list.length" v-model="type.page" :page-size="5" :interval="getRandom(3000, 4000)" auto)
+      pagination(v-if="type.list.length" v-model="type.page" :page-size="5" :interval="getRandom(1000, 1000)" auto)
 
 </template>
 
