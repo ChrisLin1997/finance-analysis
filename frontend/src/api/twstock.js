@@ -6,13 +6,7 @@ export const getTwstockHotService = async () => {
     url: 'twstock/hot',
   })
     .then(res => res)
-    .catch(() => {
-      const err = {
-        data: [],
-        date: '',
-      }
-      return err
-    })
+    .catch(() => ({ data: [], date: '' }))
 }
 
 export const getTwstockInfoService = async (formData) => {
@@ -25,10 +19,7 @@ export const getTwstockInfoService = async (formData) => {
     params,
   })
     .then(res => res)
-    .catch(() => {
-      const err = {}
-      return err
-    })
+    .catch(() => ({}))
 }
 
 export const getTwstockMerchantService = async (formData) => {
@@ -43,10 +34,7 @@ export const getTwstockMerchantService = async (formData) => {
     params,
   })
     .then(res => res)
-    .catch(() => {
-      const err = { buy: [], sell: [] }
-      return err
-    })
+    .catch(() => ({ buy: [], sell: [] }))
 }
 
 export const getTwstockIncomeService = async (formData) => {
@@ -59,10 +47,7 @@ export const getTwstockIncomeService = async (formData) => {
     params,
   })
     .then(res => res)
-    .catch(() => {
-      const err = { month: [], income: [] }
-      return err
-    })
+    .catch(() => ({ month: [], income: [] }))
 }
 
 export const getTwstockEpsService = async (formData) => {
@@ -75,8 +60,5 @@ export const getTwstockEpsService = async (formData) => {
     params,
   })
     .then(res => res)
-    .catch(() => {
-      const err = { month: [], income: [] }
-      return err
-    })
+    .catch(() => ({ month: [], income: [] }))
 }

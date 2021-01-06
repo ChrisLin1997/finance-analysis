@@ -10,11 +10,14 @@ export const getGoogleNewsService = async (formData) => {
     params,
   })
     .then(res => res)
-    .catch(() => {
-      return []
-    })
+    .catch(() => [])
 }
 
 export const getPttService = async () => {
-
+  return await xhr({
+    method: 'get',
+    url: 'info/ptt',
+  })
+    .then(res => res)
+    .catch(() => [])
 }

@@ -27,4 +27,7 @@ def googleNews (request):
   return HttpResponse(result)
 
 def ptt (request):
+  res = requests.get('https://www.ptt.cc/bbs/Stock/index.html')
+  soup = BeautifulSoup(res.content)
+  print(soup)
   return HttpResponse('ptt')
