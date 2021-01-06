@@ -151,7 +151,7 @@ def income (request):
     while len(data['income']) < 12 and times < 15:
         times += 1
         res = requests.get(f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{incomeYear}_{incomeMonth}.html', headers = headers)
-        soup = BeautifulSoup(res.content.decode('utf-8', 'ignore'))
+        soup = BeautifulSoup(res.content.decode('utf-8', 'ignore'), 'lxml')
         allData = soup.findAll('tr', attrs={'align': 'right'})
         
         # 查找個股營收
@@ -191,7 +191,7 @@ def eps (request):
 
     while len(resultData['eps']) < 12  and times < 4:
         res = requests.post('https://mops.twse.com.tw/mops/web/ajax_t163sb15', data = data)
-        soup = BeautifulSoup(res.content)
+        soup = BeautifulSoup(res.content, 'lxml')
 
         try:
             seasonEpsList = [ float(eps.text) for eps in soup.findAll('tr')[-1].findAll('td') if eps.text != '-' ]
