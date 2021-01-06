@@ -19,6 +19,6 @@ urlpatterns = [
     path('twstock/eps', twstock.eps),
 
     #info
-    path('info/news', twstock.news),
-    path('info/ptt', twstock.ptt),
+    path('info/googleNews', info.googleNews),
+    path('info/ptt', info.ptt),
 ]

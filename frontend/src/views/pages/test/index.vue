@@ -3,20 +3,21 @@
 </template>
 
 <script>
-import { getTwstockEpsService } from '@/api/twstock'
+import { getGoogleNewsService } from '@/api/info'
 
 export default {
   name: 'test',
 
   setup () {
-    const getStockEps = async () => {
+    const getTestApi = async () => {
       const submitData = {
-        stockNo: '2330',
+        type: 'global',
       }
-      const res = await getTwstockEpsService(submitData)
+      const res = await getGoogleNewsService(submitData)
       console.log(res)
     }
-    getStockEps()
+
+    getTestApi()
   },
 }
 </script>

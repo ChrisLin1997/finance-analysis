@@ -3,13 +3,25 @@ from bs4 import BeautifulSoup
 import requests
 import json
 
+def googleNews (request):
+  newsType = request.GET['type']
 
-def news (request):
-  res = requests.get('https://news.google.com/topics/CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx6TVdZU0JYcG9MVlJYR2dKVVZ5Z0FQAQ?hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant')
-  soup = BeautifulSoup(res.content).findAll('article')
-  print(soup)
+  typeMapping = {
+    'global': 'CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx1YlY4U0JYcG9MVlJYR2dKVVZ5Z0FQAQ',
+    'finance': 'CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx6TVdZU0JYcG9MVlJYR2dKVVZ5Z0FQAQ',
+  }
+  res = requests.get(f'https://news.google.com/topics/{typeMapping[newsType]}?hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant')
+  soup = BeautifulSoup(res.content, 'lxml').select('article > h3 > a', limit=50)
 
-  return HttpResponse('news')
+  financeNewsList = []
+  for item in soup:
+    financeNewsList.append({
+      'title': item.text.replace('.', 'https://news.google.com', 1),
+      'href': item.get('href'),
+    })
+
+  result = json.dumps(financeNewsList)
+  return HttpResponse(result)
 
 def ptt (request):
   return HttpResponse('ptt')
