@@ -3,10 +3,14 @@
   .news
     .news-type(v-for="type of newsTypeList" :key="type.code")
       h3 {{ type.name }}
-      .news-item(v-for="item of type.list" :key="item.id")
-        .title {{ item.title }}
-        a.href(:href="item.href" target="_blank")
-      pagination(v-if="type.list.length" v-model="type.page" :page-size="5" :interval="getRandom(1000, 1000)" auto)
+      .center
+        template(v-for="num of 5")
+          transition(name="news" mode="out-in")
+            .news-list(v-if="type.page === num")
+              .news-item(v-for="item of type.list.slice((num - 1) * 10, num * 10)" :key="item.id")
+                a.title(:href="item.href" target="_blank") {{ item.title }}
+                span {{ item.amount }}
+      pagination(v-if="type.list.length" v-model="type.page" :page-size="5" :interval="getRandom(8000, 10000)" auto)
 
 </template>
 
@@ -50,28 +54,68 @@ export default {
   background-color: $active-background;
 }
 
-.news-item {
+.center {
   position: relative;
-  color: #d5d5d5;
+  display: flex;
+  margin: 8px 0;
+  width: 100%;
+  height: 330px;
+  overflow: hidden;
+}
+
+.news-list {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 330px;
+}
+
+.news-item {
+  display: flex;
+  justify-content: space-between;
 
   .title {
+    color: #d5d5d5;
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: left;
     font-size: 14px;
-  }
-
-  .href {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 
     &:hover {
-      border-bottom: .5px solid #d5d5d5;
+      color: $active;
     }
   }
+
+  span {
+    width: 24px;
+  }
+}
+
+.news-enter-from {
+  transform: translateX(100%)
+}
+
+.news-enter-to {
+  transform: translateX(0)
+}
+
+.news-leave-from {
+  position: absolute;
+  transform: translateX(0)
+}
+
+.news-leave-to {
+  position: absolute;
+  transform: translateX(-100%)
+}
+
+.news-enter-active {
+  transition: transform .4s;
+}
+.news-leave-active {
+  transition: transform .4s;
 }
 </style>

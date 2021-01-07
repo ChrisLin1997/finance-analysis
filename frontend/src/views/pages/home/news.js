@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import {
   getGoogleNewsService,
   getPttService,
@@ -8,7 +8,7 @@ export default function useNews () {
   // global
   const allGlobalNews = ref([])
   const globalPage = ref(1)
-  const globalNews = computed(() => allGlobalNews.value.slice((globalPage.value - 1) * 10, globalPage.value * 10))
+  const preGlobalPage = ref(0)
   const getGlobalNews = async () => {
     const submitData = { type: 'global' }
     allGlobalNews.value = await getGoogleNewsService(submitData)
@@ -17,7 +17,7 @@ export default function useNews () {
   // finance
   const allFinanceNews = ref([])
   const financePage = ref(1)
-  const financeNews = computed(() => allFinanceNews.value.slice((financePage.value - 1) * 10, financePage.value * 10))
+  const prevFinancePage = ref(0)
   const getFinanceNews = async () => {
     const submitData = { type: 'finance' }
     allFinanceNews.value = await getGoogleNewsService(submitData)
@@ -26,7 +26,7 @@ export default function useNews () {
   // ptt
   const allPttNews = ref([])
   const pttPage = ref(1)
-  const pttNews = computed(() => allPttNews.value.slice((pttPage.value - 1) * 10, pttPage.value * 10))
+  const prevPttPage = ref(0)
   const getPttNews = async () => {
     allPttNews.value = await getPttService()
   }
@@ -35,20 +35,23 @@ export default function useNews () {
     {
       code: 'global',
       name: '國際',
-      list: globalNews,
+      list: allGlobalNews,
       page: globalPage,
+      prePage: preGlobalPage,
     },
     {
       code: 'finance',
       name: '商業',
-      list: financeNews,
+      list: allFinanceNews,
       page: financePage,
+      prePage: prevFinancePage,
     },
     {
       code: 'ptt',
       name: 'PTT',
-      list: pttNews,
+      list: allPttNews,
       page: pttPage,
+      prePage: prevPttPage,
     },
   ])
 
