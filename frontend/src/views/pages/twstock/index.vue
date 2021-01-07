@@ -3,9 +3,6 @@
   search(v-model="stockNo" @keyup.enter="getStock")
   price-card-list(title="熱門個股" :data="hotStockList.data")
 
-  h3 google news
-  h3 Ptt
-
 </template>
 
 <script>
@@ -36,9 +33,6 @@ export default {
     // search stock info
     const stockNo = ref('')
     const getStock = () => router.push({ name: 'stock', query: { stockNo: stockNo.value } })
-
-    // get news
-    // get ptt stock
 
     getHotTwstock()
 
