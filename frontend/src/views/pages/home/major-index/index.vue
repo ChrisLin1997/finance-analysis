@@ -1,22 +1,24 @@
 <template lang="pug">
 .major-index
-  .index-list
-    .index-item
-      div 指數
-      div 股價
-      div 漲跌幅
-      div 漲跌幅百分比
-      div 最低價
-      div 最高價
-    .index-item(v-for="item of majorIndexList" :key="item.id")
-      div
-        span {{ item.name }}
-        span {{ item.id }}
-      div(:class="getClass(item.isUp)") {{ item.price }}
-      div(:class="getClass(item.isUp)") {{ item.change }}
-      div(:class="getClass(item.isUp)") {{ item.changePercent }}
-      div.down {{ item.low }}
-      div.up {{ item.high }}
+  h3 主要指數
+  .index-layout
+    .index-list
+      .index-item
+        div 指數
+        div 股價
+        div 漲跌幅
+        div 漲跌幅百分比
+        div 最低價
+        div 最高價
+      .index-item(v-for="item of majorIndexList" :key="item.id")
+        div
+          span {{ item.name }}
+          span {{ item.id }}
+        div(:class="getClass(item.isUp)") {{ item.price }}
+        div(:class="getClass(item.isUp)") {{ item.change }}
+        div(:class="getClass(item.isUp)") {{ item.changePercent }}
+        div.down {{ item.low }}
+        div.up {{ item.high }}
 </template>
 
 <script>
@@ -47,8 +49,13 @@ export default {
 
 <style lang="scss" scoped>
 .major-index {
-  margin: 44px 0;
-  background-color: $active-background;
+  margin: 24px 0;
+  text-align: left;
+}
+
+.index-layout {
+  margin-top: 12px;
+  // background-color: $active-background;
 }
 
 .index-list {
@@ -57,6 +64,7 @@ export default {
   & > .index-item:first-child {
     height: 44px;
     color: $dark-font;
+    font-size: 14px;
     font-weight: normal;
   }
 }
@@ -64,7 +72,7 @@ export default {
 .index-item {
   display: flex;
   justify-content: space-between;
-  height: 52px;
+  height: 56px;
   font-weight: bold;
   border-bottom: 1px solid #555;
 
@@ -92,6 +100,11 @@ export default {
     align-items: center;
     width: 20%;
     text-align: right;
+  }
+
+  &:hover {
+    transition: all .4s;
+    background-color: $active-background;
   }
 }
 

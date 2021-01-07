@@ -1,17 +1,19 @@
 <template lang="pug">
 .news
-  .news-type(v-for="type of newsTypeList" :key="type.code")
-    .title
-      awesome-icon.icon(:icon="type.icon")
-      span {{ type.name }}
-    .center
-      template(v-for="num of 5")
-        transition(name="news" mode="out-in")
-          .news-list(v-if="type.page === num")
-            .news-item(v-for="item of type.list.slice((num - 1) * 10, num * 10)" :key="item.id")
-              a.title(:href="item.href" target="_blank") {{ item.title }}
-              span(v-if="item.amount !== undefined") {{ item.amount || 0 }}
-    pagination(v-if="type.list.length" v-model="type.page" :page-size="5" :interval="getRandom(8000, 10000)" auto)
+  h3 即時新聞
+  .news-layout
+    .news-type(v-for="type of newsTypeList" :key="type.code")
+      .title
+        awesome-icon.icon(:icon="type.icon")
+        span {{ type.name }}
+      .center
+        template(v-for="num of 5")
+          transition(name="news" mode="out-in")
+            .news-list(v-if="type.page === num")
+              .news-item(v-for="item of type.list.slice((num - 1) * 10, num * 10)" :key="item.id")
+                a.title(:href="item.href" target="_blank") {{ item.title }}
+                span(v-if="item.amount !== undefined") {{ item.amount || 0 }}
+      pagination(v-if="type.list.length" v-model="type.page" :page-size="5" :interval="getRandom(8000, 10000)" auto)
 </template>
 
 <script>
@@ -40,6 +42,10 @@ export default {
 
 <style lang="scss" scoped>
 .news {
+  text-align: left;
+}
+
+.news-layout {
   margin-top: 12px;
   display: flex;
   justify-content: space-between;
