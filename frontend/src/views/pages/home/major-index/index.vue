@@ -2,7 +2,8 @@
 .major-index
   h3 主要指數
   .index-layout
-    .index-list
+    .index-list(v-loading="majorIndexList.length === 0")
+      //- thead
       .index-item
         div 指數
         div 股價
@@ -10,13 +11,18 @@
         div 漲跌幅百分比
         div 最低價
         div 最高價
+      //- tbody
       .index-item(v-for="item of majorIndexList" :key="item.id")
         div
           span {{ item.name }}
           span {{ item.id }}
         div(:class="getClass(item.isUp)") {{ item.price }}
-        div(:class="getClass(item.isUp)") {{ item.change }}
-        div(:class="getClass(item.isUp)") {{ item.changePercent }}
+        div(:class="getClass(item.isUp)")
+          awesome-icon.icon(:icon="getIcon(item.isUp)")
+          span {{ item.change }}
+        div(:class="getClass(item.isUp)")
+          awesome-icon.icon(:icon="getIcon(item.isUp)")
+          span {{ item.changePercent }}
         div.down {{ item.low }}
         div.up {{ item.high }}
 </template>
@@ -29,9 +35,8 @@ export default {
   name: 'major-index',
 
   setup () {
-    const getClass = (value) => {
-      return value ? 'up' : 'down'
-    }
+    const getClass = (value) => value ? 'up' : 'down'
+    const getIcon = (value) => value ? ['fas', 'caret-up'] : ['fas', 'caret-down']
 
     const majorIndexList = ref([])
     const getMajorIndex = async () => {
@@ -41,6 +46,8 @@ export default {
 
     return {
       getClass,
+      getIcon,
+
       majorIndexList,
     }
   },
@@ -55,17 +62,21 @@ export default {
 
 .index-layout {
   margin-top: 12px;
-  // background-color: $active-background;
 }
 
 .index-list {
   padding: 0 12px;
+  height: 720px;
 
   & > .index-item:first-child {
     height: 44px;
     color: $dark-font;
     font-size: 14px;
     font-weight: normal;
+
+    &:hover {
+      background-color: none;
+    }
   }
 }
 

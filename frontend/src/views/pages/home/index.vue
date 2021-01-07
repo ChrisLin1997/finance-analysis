@@ -3,6 +3,10 @@
   news
   major-index
 
+  br
+  br
+  br
+
 </template>
 
 <script>

@@ -2,7 +2,11 @@
 .news
   h3 即時新聞
   .news-layout
-    .news-type(v-for="type of newsTypeList" :key="type.code")
+    .news-type(
+      v-for="type of newsTypeList"
+      :key="type.code"
+      v-loading="type.list.length === 0"
+    )
       .title
         awesome-icon.icon(:icon="type.icon")
         span {{ type.name }}
@@ -63,9 +67,6 @@ export default {
 
 .title {
   font-size: 20px;
-  .icon {
-    margin-right: 8px;
-  }
 }
 
 .center {

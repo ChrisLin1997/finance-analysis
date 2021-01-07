@@ -42,7 +42,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1a1a1aaa;
+  background-color: $active-background;
 }
 
 .line {
