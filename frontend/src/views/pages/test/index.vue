@@ -3,17 +3,14 @@
 </template>
 
 <script>
-import { getGoogleNewsService } from '@/api/info'
+import { test } from '@/api/xhr'
 
 export default {
   name: 'test',
 
   setup () {
     const getTestApi = async () => {
-      const submitData = {
-        type: 'global',
-      }
-      const res = await getGoogleNewsService(submitData)
+      const res = await test()
       console.log(res)
     }
 

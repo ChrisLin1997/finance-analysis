@@ -21,8 +21,8 @@ def convertToFixed (value):
 
 # 熱門個股
 def hot (request):
-    response = requests.get('https://www.twse.com.tw/exchangeReport/MI_INDEX20')
-    data = json.loads(response.content)
+    res = requests.get('https://www.twse.com.tw/exchangeReport/MI_INDEX20')
+    data = json.loads(res.content)
     stockList = []
     for i in range(5):
         stockList.append({

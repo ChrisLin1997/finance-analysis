@@ -21,3 +21,12 @@ export const getPttService = async () => {
     .then(res => res)
     .catch(() => [])
 }
+
+export const getMajorIndexService = async () => {
+  return await xhr({
+    method: 'get',
+    url: 'info/majorIndex',
+  })
+    .then(res => res)
+    .catch(() => [])
+}

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { apiUrl } from '../config'
+import { apiUrl, CORS } from '../config'
 
 export const xhr = (options) => {
   options.url = apiUrl + options.url
@@ -11,19 +11,28 @@ export const xhr = (options) => {
   })
 }
 
-export const test = async (formData) => {
-  const url = 'https://cors-anywhere.herokuapp.com/https://quality.data.gov.tw/dq_download_json.php?nid=18420&md5_url=cfee038a8a9009bf31df7b23328dcc3f'
+export const test = async () => {
+  const indexList = [
+    '^GSPC', // S&P 500
+    '^DJI', // 道瓊
+    '^IXIC', // 納斯達克
+    '^SOX', // 費城半導體
+    '^VIX', // 恐懼
+    '^TWII', // 台指加權
+    '^N225', // 日經指數
+    '^HSI', // 香港恆生
+    '^KS11', // 韓國綜合
+    '^FTSE', // 英國綜合
+  ]
+  const url = CORS + 'https://tw.stock.yahoo.com/_td/api/resource/FinancePartnerService.quote;isFormatted=true;symbols=' + indexList.join(',')
   const options = {
     methods: 'get',
     url,
-    headers: {
-      origin: 'http://www.twse.com.tw',
-    },
   }
   return await new Promise((resolve, reject) => {
     axios(options)
       .then(res => {
-        console.log(res)
+        console.log(res.data.quoteResponse.result)
         resolve(res)
       })
       .catch(err => {

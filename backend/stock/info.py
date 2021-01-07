@@ -5,6 +5,34 @@ import json
 
 newsLength = 50
 
+CORS = 'https://cors-anywhere.herokuapp.com/'
+
+def majorIndex (request):
+    indexMapping = {
+      ''
+    }
+    headers = { 'origin': 'https://tw.stock.yahoo.com/' }
+    url = 'https://tw.stock.yahoo.com/_td/api/resource/FinancePartnerService.quote;isFormatted=true;symbols='
+    indexStr = ','.join([ '^GSPC', '^DJI', '^IXIC', '^SOX', '^VIX', '^TWII', '^N225', '^HSI', '^KS11', '^FTSE' ])
+    res = requests.get(CORS + url + indexStr, headers = headers)
+    rawData = res.content.decode("UTF-8")
+    data = json.loads(rawData)['quoteResponse']['result']
+
+    indexList = []
+    for item in data:
+      print(item)
+      indexList.append({
+        'id': item['shortName'],
+        'price': item['regularMarketPrice']['fmt'],
+        'change': item['regularMarketChange']['fmt'],
+        'changePrice': item['regularMarketChangePercent']['fmt'],
+        'high': item['regularMarketDayHigh']['fmt'],
+        'low': item['regularMarketDayLow']['fmt'],
+      })
+    result = json.dumps(indexList)
+
+    return HttpResponse(result)
+
 def googleNews (request):
   newsType = request.GET['type']
 
