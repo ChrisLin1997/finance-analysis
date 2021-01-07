@@ -1,5 +1,6 @@
 <template lang="pug">
 .home
+  h2 即時新聞
   news
   major-index
 
@@ -25,5 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.home {
+  text-align: left;
+}
 </style>

@@ -35,6 +35,7 @@ export default function useNews () {
     {
       code: 'global',
       name: '國際',
+      icon: ['fas', 'globe'],
       list: allGlobalNews,
       page: globalPage,
       prePage: preGlobalPage,
@@ -42,6 +43,7 @@ export default function useNews () {
     {
       code: 'finance',
       name: '商業',
+      icon: ['fas', 'coins'],
       list: allFinanceNews,
       page: financePage,
       prePage: prevFinancePage,
@@ -49,6 +51,7 @@ export default function useNews () {
     {
       code: 'ptt',
       name: 'PTT',
+      icon: ['fas', 'newspaper'],
       list: allPttNews,
       page: pttPage,
       prePage: prevPttPage,

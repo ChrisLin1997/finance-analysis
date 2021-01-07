@@ -1,7 +1,9 @@
 <template lang="pug">
 .news
   .news-type(v-for="type of newsTypeList" :key="type.code")
-    h3 {{ type.name }}
+    .title
+      awesome-icon.icon(:icon="type.icon")
+      span {{ type.name }}
     .center
       template(v-for="num of 5")
         transition(name="news" mode="out-in")
@@ -38,6 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .news {
+  margin-top: 12px;
   display: flex;
   justify-content: space-between;
 }
@@ -50,6 +53,13 @@ export default {
   width: 31%;
   height: 420px;
   background-color: $active-background;
+}
+
+.title {
+  font-size: 20px;
+  .icon {
+    margin-right: 8px;
+  }
 }
 
 .center {
@@ -74,7 +84,7 @@ export default {
   justify-content: space-between;
 
   .title {
-    color: #d5d5d5;
+    color: $dark-font;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -84,6 +94,8 @@ export default {
 
     &:hover {
       color: $active;
+      font-weight: bold;
+      transition: all .2s;
     }
   }
 

@@ -9,26 +9,42 @@ CORS = 'https://cors-anywhere.herokuapp.com/'
 
 def majorIndex (request):
     indexMapping = {
-      ''
+      '^GSPC': 'S&P 500指數',
+      '^DJI': '道瓊工業指數',
+      '^IXIC': 'NASDAQ指數',
+      '^SOX': '費城半導體指數',
+      '^VIX': 'VIX恐懼指數',
+      '^TWII': '臺灣加權指數',
+      '^N225': '日經指數',
+      '^HSI': '香港恆生指數',
+      '^KS11': '韓國綜合指數',
+      '^FTSE': '英國股市',
+      '^GDAXI': '德國股市',
+      '^FCHI': '法國股市',
     }
     headers = { 'origin': 'https://tw.stock.yahoo.com/' }
     url = 'https://tw.stock.yahoo.com/_td/api/resource/FinancePartnerService.quote;isFormatted=true;symbols='
-    indexStr = ','.join([ '^GSPC', '^DJI', '^IXIC', '^SOX', '^VIX', '^TWII', '^N225', '^HSI', '^KS11', '^FTSE' ])
+    indexStr = ','.join(dict.keys(indexMapping))
     res = requests.get(CORS + url + indexStr, headers = headers)
     rawData = res.content.decode("UTF-8")
     data = json.loads(rawData)['quoteResponse']['result']
 
     indexList = []
     for item in data:
-      print(item)
       indexList.append({
         'id': item['shortName'],
+        'name': indexMapping[item['symbol']],
         'price': item['regularMarketPrice']['fmt'],
         'change': item['regularMarketChange']['fmt'],
-        'changePrice': item['regularMarketChangePercent']['fmt'],
+        'changePercent': item['regularMarketChangePercent']['fmt'],
         'high': item['regularMarketDayHigh']['fmt'],
         'low': item['regularMarketDayLow']['fmt'],
       })
+      if item['regularMarketChange']['fmt'].find('-') == -1:
+        indexList[-1]['isUp'] = True
+      else:
+        indexList[-1]['isUp'] =  False
+
     result = json.dumps(indexList)
 
     return HttpResponse(result)
