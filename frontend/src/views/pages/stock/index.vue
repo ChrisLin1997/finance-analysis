@@ -1,6 +1,5 @@
 <template lang="pug">
 .stock(v-loading="loadStatus !== 0")
-  //- search(v-model="userSearch" @keyup.enter="handleKeyEnter")
   //- template(v-if="stockInfo.status")
   header
     fa-chart.chart(:options="priceChartOption" color="blue")
@@ -41,7 +40,6 @@
 
 <script>
 import { ref } from 'vue'
-import Search from '@/components/search'
 import FaChart from '@/components/fa-chart'
 import useStockInfo from './stock'
 import useMerchant from './merchant'
@@ -51,7 +49,6 @@ export default {
   name: 'stock',
 
   components: {
-    Search,
     FaChart,
   },
 
@@ -61,8 +58,7 @@ export default {
     const { merchantType, merchantList, activeMerchant, handleMerchant } = useMerchant()
 
     // 取得股票資訊
-    const { userSearch, handleKeyEnter, stockInfo, getTwstockInfo } = useStockInfo({ loadStatus })
-    getTwstockInfo(userSearch.value)
+    const { stockInfo } = useStockInfo({ loadStatus })
 
     // 報表
     const { priceChartOption, chartList } = useCharts(stockInfo)
@@ -84,9 +80,6 @@ export default {
 
       priceChartOption,
       chartList,
-
-      userSearch,
-      handleKeyEnter,
 
       convertPrice,
     }

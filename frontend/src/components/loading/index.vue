@@ -42,7 +42,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $active-background;
 }
 
 .line {
@@ -50,7 +49,7 @@ export default {
   margin: 2px;
   width: 6px;
   height: 28px;
-  background-color: $active-background;
+  background-color: #333;
   animation: line 1s infinite;
 }
 

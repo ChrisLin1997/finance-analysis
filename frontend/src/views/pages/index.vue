@@ -24,7 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 main {
-  margin-top: 44px;
+  margin-top: 52px;
   margin-left: 244px;
   width: calc(100vw -244px);
   height: 100%;
@@ -32,8 +32,8 @@ main {
 }
 
 .view {
-  margin: 24px auto;
-  padding: 12px 44px;
+  margin: 0px auto;
+  padding: 44px;
   min-width: 1260px;
   height: fit-content;
   min-height: 100%;

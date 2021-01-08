@@ -3,43 +3,27 @@
   .title(@click="returnHomePage")
     span Finance
     span Analysis
-
-  .type
-    router-link.type-item(
-      v-for="type of financeTypes"
-      :key="type.name"
-      :class="{ 'active' : activeType === type.name }"
-      :to="{ name: type.name }"
-    ) {{ type.label }}
+  .content
+    search
 
 </template>
 
 <script>
-import { computed } from 'vue'
 import router from '@/router'
+import Search from '@/components/search'
 
 export default {
   name: 'header-bar',
 
-  setup () {
-    const financeTypes = [
-      { name: 'twstock', label: '臺股' },
-      { name: 'usstock', label: '美股' },
-      { name: 'currency', label: '貨幣' },
-      { name: 'virtualCurrency', label: '虛擬貨幣' },
-      { name: 'goods', label: '商品' },
-    ]
+  components: {
+    Search,
+  },
 
+  setup () {
     const returnHomePage = () => router.push('/')
 
-    // active
-    const activeType = computed(() => router.currentRoute.value.name)
-
     return {
-      financeTypes,
       returnHomePage,
-
-      activeType,
     }
   },
 }
@@ -82,31 +66,13 @@ export default {
   }
 }
 
-.type {
+.content {
+  padding: 0 16px;
   display: flex;
+  align-items: center;
   width: calc(100% - 244px);
-  height: 44px;
-  background-color: $active-background;
+  height: 52px;
+  background-color: $background;
   box-shadow: 0 0 8px 2px #666;
-  overflow-x: scroll;
 }
-
-.type-item {
-  width: 160px;
-  height: 44px;
-  line-height: 44px;
-  color: #fff;
-  background-color: $active-background;
-  border-right: 2px solid #666;
-  cursor: pointer;
-  user-select: none;
-  transition: all .2s;
-}
-
-.active {
-  font-size: 18px;
-  font-weight: bold;
-  color: $active;
-}
-
 </style>

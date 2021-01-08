@@ -1,6 +1,7 @@
 <template lang="pug">
 .major-index
-  h3 主要指數
+  awesome-icon.icon(:icon="['fas', 'chart-line']")
+  h3.title 主要指數
   .index-layout
     .index-list(v-loading="majorIndexList.length === 0")
       //- thead
@@ -65,7 +66,6 @@ export default {
 }
 
 .index-list {
-  padding: 0 12px;
   height: 720px;
 
   & > .index-item:first-child {

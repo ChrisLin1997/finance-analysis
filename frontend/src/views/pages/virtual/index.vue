@@ -1,10 +1,10 @@
 <template lang="pug">
-.virtualCurrency
+.virtual
 </template>
 
 <script>
 export default {
-  name: 'virtualCurrency',
+  name: 'virtual',
 }
 </script>
 

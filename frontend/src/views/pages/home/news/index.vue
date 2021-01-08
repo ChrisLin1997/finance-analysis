@@ -1,13 +1,14 @@
 <template lang="pug">
 .news
-  h3 即時新聞
+  awesome-icon.icon(:icon="['fas', 'paper-plane']")
+  h3.title 即時新聞
   .news-layout
     .news-type(
       v-for="type of newsTypeList"
       :key="type.code"
       v-loading="type.list.length === 0"
     )
-      .title
+      .type-title
         awesome-icon.icon(:icon="type.icon")
         span {{ type.name }}
       .center
@@ -65,7 +66,7 @@ export default {
   background-color: $active-background;
 }
 
-.title {
+.type-title {
   font-size: 20px;
 }
 

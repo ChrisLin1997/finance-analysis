@@ -29,9 +29,9 @@ export const routes = [
         component: () => import(/* webpackChunkName: "currency" */ '@/views/pages/currency'),
       },
       {
-        path: 'virtualCurrency',
-        name: 'virtualCurrency',
-        component: () => import(/* webpackChunkName: "virtualCurrency" */ '@/views/pages/virtualCurrency'),
+        path: 'virtual',
+        name: 'virtual',
+        component: () => import(/* webpackChunkName: "virtual" */ '@/views/pages/virtual'),
       },
       {
         path: 'goods',
