@@ -44,12 +44,11 @@ export default function useIncomeChart (search) {
             textAlign: 'right',
             gridLines: { color: '#555' },
             ticks: {
-              display: incomeInfo.income?.length !== 0,
               fontColor: '#fff',
               beginAtZero: true,
-              maxTicksLimit: incomeInfo.income?.length ? 8 : 0,
+              maxTicksLimit: incomeInfo.income.length ? 8 : 0,
               callback: value => {
-                if (value === 0) return value
+                if (value === 0 || incomeInfo.income.length === 0) return value
                 else return value / 100000000 >= 1 ? value / 100000000 + '億' : value / 1000000 + '百萬'
               },
             },
