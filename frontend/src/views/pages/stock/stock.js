@@ -1,11 +1,4 @@
-import { ref, watchEffect } from 'vue'
-import router from '@/router'
-import {
-  getTwstockInfoService,
-  getTwstockMerchantService,
-  getTwstockIncomeService,
-  getTwstockEpsService,
-} from '@/api/twstock'
+import { ref } from 'vue'
 
 export default function useStockInfo () {
   // info
@@ -24,28 +17,6 @@ export default function useStockInfo () {
     odd: { buy: [], sell: [] },
     icome: [],
     month: [],
-  })
-
-  // api
-  const getTwstockInfo = async () => {
-    if (!userSearch.value) return
-
-    const submitData = { stockNo: userSearch.value }
-    const result = await Promise.allSettled([
-      getTwstockInfoService(submitData),
-      getTwstockMerchantService(submitData),
-      getTwstockIncomeService(submitData),
-      getTwstockEpsService(submitData),
-    ])
-    stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr.value), stockInfo.value)
-  }
-
-  // get query
-  const userSearch = ref('')
-
-  watchEffect(() => {
-    userSearch.value = router.currentRoute.value.query.stockNo
-    getTwstockInfo()
   })
 
   return {

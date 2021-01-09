@@ -9,19 +9,7 @@
         .subtitle
           span {{ stockInfo.id }}
           span {{ stockInfo.variation }} ({{ stockInfo.percent }}%)
-    .merchant
-      .merchant-type
-        .type-item(
-          v-for="type of merchantType"
-          :key="type.code"
-          :class="{ 'active' : type.code === activeMerchant }"
-          @click="handleMerchant(type.code)"
-        ) {{ type.label }}
-      .merchant-list(v-for="item of merchantList" :key="item.code")
-        h3(:class="item.code") {{ item.label }}
-        .merchant-item(v-for="(node, index) of stockInfo[activeMerchant][item.code]" :key="index" :class="item.code")
-          .price {{ convertPrice(node.price) }}
-          .amount {{ node.amount || '-' }}
+    merchant(:stockNo="userSearch")
 
   main
     fa-chart.chart-item(
@@ -36,21 +24,23 @@
 </template>
 
 <script>
+import { ref, watchEffect } from 'vue'
+import router from '@/router'
 import FaChart from '@/components/fa-chart'
 import useStockInfo from './stock'
-import useMerchant from './merchant'
 import useCharts from './chart/index'
+import Merchant from './merchant/index'
 
 export default {
   name: 'stock',
 
   components: {
     FaChart,
+    Merchant,
   },
 
   setup () {
     // 顯示交易類型
-    const { merchantType, merchantList, activeMerchant, handleMerchant } = useMerchant()
 
     // 取得股票資訊
     const { stockInfo } = useStockInfo()
@@ -58,23 +48,21 @@ export default {
     // 報表
     const { priceChartOption, chartList } = useCharts(stockInfo)
 
-    // 工具
-    const convertPrice = (value) => {
-      return value ? Number(value).toFixed(2) : '-'
-    }
+    // search
+    const userSearch = ref('')
+    watchEffect(() => {
+      userSearch.value = router.currentRoute.value.query.stockNo
+      // getMerchatInfo(userSearch.value)
+      // update api
+    })
 
     return {
-      merchantType,
-      merchantList,
-      activeMerchant,
-      handleMerchant,
+      userSearch,
 
       stockInfo,
 
       priceChartOption,
       chartList,
-
-      convertPrice,
     }
   },
 }
@@ -107,70 +95,12 @@ header {
   }
 }
 
-.merchant {
-  padding: 12px 24px;
-  width: 40%;
-  background-color: #292d31;
-}
-
-.merchant-type {
-  margin: 0 auto;
-  display: flex;
-  width: 40%;
-  background-color: $active-background;
-
-  .type-item {
-    width: 50%;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 4px;
-    transition: all .2s;
-    cursor: pointer;
-    user-select: none;
-
-    &:hover {
-      background-color: #666;
-    }
-  }
-
-  .active {
-    background-color: $active;
-  }
-}
-
-.merchant-list {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 50%;
-  height: 310px;
-}
-
-.merchant-item {
-  display: flex;
-  justify-content: space-between;
-  text-align: right;
-  border-bottom: 1px solid $active-background;
-  * {
-    width: 30%;
-  }
-}
-
 .currency {
   margin-left: 24px;
   &:after {
     content: ' NTD';
     font-size: 8px;
   }
-}
-
-.buy {
-  flex-direction: row-reverse;
-  color: $up;
-}
-
-.sell {
-  color: $down;
 }
 
 // center

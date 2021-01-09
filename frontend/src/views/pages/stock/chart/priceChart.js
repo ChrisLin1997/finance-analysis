@@ -1,4 +1,5 @@
 import { ref, watchEffect } from 'vue'
+import { getTwstockInfoService } from '@/api/twstock'
 
 export default function usePriceChart (stockInfo) {
   const priceChartOption = ref({})
@@ -6,11 +7,11 @@ export default function usePriceChart (stockInfo) {
     priceChartOption.value = {
       type: 'line',
       data: {
-        labels: stockInfo.value.date,
+        labels: [],
         datasets: [
           {
             label: '股價',
-            data: stockInfo.value.price,
+            data: [],
             borderColor: '#3ca9c0',
             borderWidth: 3,
             pointRadius: 0,
@@ -60,6 +61,16 @@ export default function usePriceChart (stockInfo) {
       },
     }
   })
+  const getStockPrice = async () => {
+    const submitData = {
+      stockNo: '2330',
+    }
+    const result = await getTwstockInfoService(submitData)
+    priceChartOption.value.data.labels = result.date
+    priceChartOption.value.data.datasets.data = result.price
+  }
+
+  // getStockPrice()
 
   return {
     priceChartOption,
