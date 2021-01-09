@@ -1,16 +1,20 @@
-import { ref, watchEffect } from 'vue'
+import { reactive, computed } from 'vue'
+import { getTwstockEpsService } from '@/api/twstock'
 
-export default function useEpsChart (stockInfo) {
-  const epsChartOption = ref({})
-  watchEffect(() => {
-    epsChartOption.value = {
+export default function useEpsChart (search) {
+  const epsInfo = reactive({
+    season: [],
+    eps: [],
+  })
+  const epsChartOption = computed(() => {
+    return {
       type: 'bar',
       data: {
-        labels: stockInfo.value.season,
+        labels: epsInfo.season,
         datasets: [
           {
-            label: '營收',
-            data: stockInfo.value.eps,
+            label: 'EPS',
+            data: epsInfo.eps,
             backgroundColor: '#df9931',
           },
         ],
@@ -58,7 +62,18 @@ export default function useEpsChart (stockInfo) {
     }
   })
 
+  const getStockEps = async () => {
+    const submitData = {
+      stockNo: search.value,
+    }
+    const result = await getTwstockEpsService(submitData)
+
+    epsInfo.season = result.season
+    epsInfo.eps = result.eps
+  }
+
   return {
     epsChartOption,
+    getStockEps,
   }
 }

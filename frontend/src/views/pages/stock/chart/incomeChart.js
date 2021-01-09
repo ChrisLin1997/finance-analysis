@@ -1,16 +1,20 @@
-import { ref, watchEffect } from 'vue'
+import { reactive, computed } from 'vue'
+import { getTwstockIncomeService } from '@/api/twstock'
 
-export default function useIncomeChart (stockInfo) {
-  const incomeChartOption = ref({})
-  watchEffect(() => {
-    incomeChartOption.value = {
+export default function useIncomeChart (search) {
+  const incomeInfo = reactive({
+    month: [],
+    income: [],
+  })
+  const incomeChartOption = computed(() => {
+    return {
       type: 'bar',
       data: {
-        labels: stockInfo.value.month,
+        labels: incomeInfo.month,
         datasets: [
           {
             label: '營收',
-            data: stockInfo.value.income,
+            data: incomeInfo.income,
             backgroundColor: '#3d8c40',
           },
         ],
@@ -40,9 +44,10 @@ export default function useIncomeChart (stockInfo) {
             textAlign: 'right',
             gridLines: { color: '#555' },
             ticks: {
+              display: incomeInfo.income?.length !== 0,
               fontColor: '#fff',
               beginAtZero: true,
-              maxTicksLimit: stockInfo.value.income?.length ? 8 : 0,
+              maxTicksLimit: incomeInfo.income?.length ? 8 : 0,
               callback: value => {
                 if (value === 0) return value
                 else return value / 100000000 >= 1 ? value / 100000000 + '億' : value / 1000000 + '百萬'
@@ -63,7 +68,16 @@ export default function useIncomeChart (stockInfo) {
     }
   })
 
+  const getStockIncome = async () => {
+    const submitData = { stockNo: search.value }
+    const result = await getTwstockIncomeService(submitData)
+
+    incomeInfo.month = result.month
+    incomeInfo.income = result.income
+  }
+
   return {
     incomeChartOption,
+    getStockIncome,
   }
 }

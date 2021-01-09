@@ -9,6 +9,7 @@
         .subtitle
           span {{ stockInfo.id }}
           span {{ stockInfo.variation }} ({{ stockInfo.percent }}%)
+
     merchant(:stockNo="userSearch")
 
   main
@@ -40,20 +41,16 @@ export default {
   },
 
   setup () {
-    // 顯示交易類型
-
+    // search
+    const userSearch = ref('')
+    // 報表
+    const { priceChartOption, chartList, getAllInfo } = useCharts(userSearch)
     // 取得股票資訊
     const { stockInfo } = useStockInfo()
 
-    // 報表
-    const { priceChartOption, chartList } = useCharts(stockInfo)
-
-    // search
-    const userSearch = ref('')
     watchEffect(() => {
       userSearch.value = router.currentRoute.value.query.stockNo
-      // getMerchatInfo(userSearch.value)
-      // update api
+      if (userSearch.value) getAllInfo()
     })
 
     return {

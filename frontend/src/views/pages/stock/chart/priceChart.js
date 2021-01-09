@@ -1,17 +1,21 @@
-import { ref, watchEffect } from 'vue'
+import { reactive, computed } from 'vue'
 import { getTwstockInfoService } from '@/api/twstock'
 
-export default function usePriceChart (stockInfo) {
-  const priceChartOption = ref({})
-  watchEffect(() => {
-    priceChartOption.value = {
+export default function usePriceChart (search) {
+  const priceInfo = reactive({
+    date: [],
+    price: [],
+  })
+
+  const priceChartOption = computed(() => {
+    return {
       type: 'line',
       data: {
-        labels: [],
+        labels: priceInfo.date,
         datasets: [
           {
             label: '股價',
-            data: [],
+            data: priceInfo.price,
             borderColor: '#3ca9c0',
             borderWidth: 3,
             pointRadius: 0,
@@ -61,18 +65,19 @@ export default function usePriceChart (stockInfo) {
       },
     }
   })
+
   const getStockPrice = async () => {
     const submitData = {
-      stockNo: '2330',
+      stockNo: search.value,
     }
     const result = await getTwstockInfoService(submitData)
-    priceChartOption.value.data.labels = result.date
-    priceChartOption.value.data.datasets.data = result.price
-  }
 
-  // getStockPrice()
+    priceInfo.date = result.date
+    priceInfo.price = result.price
+  }
 
   return {
     priceChartOption,
+    getStockPrice,
   }
 }

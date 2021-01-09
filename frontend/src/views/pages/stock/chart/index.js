@@ -3,10 +3,10 @@ import usePriceChart from './priceChart'
 import useIncomeChart from './incomeChart'
 import useEpsChart from './epsChart'
 
-export default function useCharts (stockInfo) {
-  const { priceChartOption } = usePriceChart(stockInfo)
-  const { incomeChartOption } = useIncomeChart(stockInfo)
-  const { epsChartOption } = useEpsChart(stockInfo)
+export default function useCharts (stockNo) {
+  const { priceChartOption, getStockPrice } = usePriceChart(stockNo)
+  const { incomeChartOption, getStockIncome } = useIncomeChart(stockNo)
+  const { epsChartOption, getStockEps } = useEpsChart(stockNo)
   const chartList = ref([
     {
       code: 'income',
@@ -24,11 +24,19 @@ export default function useCharts (stockInfo) {
     },
   ])
 
+  const getAllInfo = () => {
+    // getStockPrice()
+    getStockIncome()
+    getStockEps()
+  }
+
   return {
+    chartList,
+
     priceChartOption,
     incomeChartOption,
     epsChartOption,
 
-    chartList,
+    getAllInfo,
   }
 }
