@@ -44,25 +44,40 @@ def hot (request):
 
 # 股票資訊
 def info (request):
+    stockNo = request.GET['stockNo'] + '.TW'
+    headers = { 'origin': 'https://tw.stock.yahoo.com/' }
+    url = 'https://tw.stock.yahoo.com/_td/api/resource/FinancePartnerService.quote;isFormatted=true;symbols=' + stockNo
+    res = requests.get(url, headers = headers)
+    rawData = res.content.decode("UTF-8")
+    item = json.loads(rawData)['quoteResponse']['result'][0]
+
+
+    if item['regularMarketChange']['fmt'].find('-') == -1:
+        isUp = True
+    else:
+        isUp = False
+
+    result = json.dumps({
+        'id': item['symbol'],
+        'name': item['longName'],
+        'price': item['regularMarketPrice']['fmt'],
+        'change': item['regularMarketChange']['fmt'],
+        'changePercent': item['regularMarketChangePercent']['fmt'],
+        'high': item['regularMarketDayHigh']['fmt'],
+        'low': item['regularMarketDayLow']['fmt'],
+        'currency': item['currency'],
+        'isUp': isUp,
+    })
+    return HttpResponse(result)
+
+# 價格走勢
+def price (request):
     stockNo = request.GET['stockNo']
-    stockInfo = twstock.codes[stockNo]
     stockPrice = twstock.Stock(stockNo)
     dateList = [ datetime.strftime(date, '%Y/%m/%d') for date in stockPrice.date ]
     result = json.dumps({
-        'id': stockInfo[1] + stockInfo[5],
-        'name': stockInfo[2],
-        'ipoTime': stockInfo[4],
-        'industry': stockInfo[6],
         'date': dateList,
         'price': convertToFixed(stockPrice.price),
-        'variation': convertToFixed(stockPrice.price[-1] - stockPrice.price[-2]),
-        'percent': convertToFixed((stockPrice.price[-1] - stockPrice.price[-2]) / stockPrice.price[-2] * 100),
-        'currencyPrice': convertToFixed(stockPrice.price[-1])
-        # 'transAmount': stockInfo.turnover,
-        # 'transactions': stockInfo.transaction,
-        # 'open': stockInfo.close,
-        # 'high': stockInfo.high,
-        # 'low': stockInfo.low,
     })
     return HttpResponse(result)
 
@@ -138,6 +153,7 @@ def merchant (request):
     })
     return HttpResponse(result)
 
+# 營收
 def income (request):
     stockNo = request.GET['stockNo']
 
@@ -172,6 +188,7 @@ def income (request):
     result = json.dumps(data)
     return HttpResponse(result)
 
+# EPS
 def eps (request):
     stockNo = request.GET['stockNo']
     data = {

@@ -1,28 +1,25 @@
 import { reactive, computed } from 'vue'
-import { getTwstockInfoService } from '@/api/twstock'
+import { getTwstockEpsService } from '@/api/twstock'
 
-export default function usePriceChart (search) {
-  const priceInfo = reactive({
-    date: [],
-    price: [],
+export default function useEpsChart (search) {
+  const epsInfo = reactive({
+    season: [],
+    eps: [],
   })
-
-  const priceChartOption = computed(() => {
+  const epsChartOption = computed(() => {
     return {
-      type: 'line',
+      type: 'bar',
       data: {
-        labels: priceInfo.date,
+        labels: epsInfo.season,
         datasets: [
           {
-            label: '股價',
-            data: priceInfo.price,
-            borderColor: '#3ca9c0',
-            borderWidth: 3,
-            pointRadius: 0,
-            lineTension: 0,
+            label: '每股盈餘',
+            data: epsInfo.eps,
+            backgroundColor: '#df9931',
           },
         ],
       },
+
       options: {
         layout: {
           padding: { top: 16, bottom: 8 },
@@ -38,46 +35,45 @@ export default function usePriceChart (search) {
               fontColor: '#fff',
               maxRotation: 0,
               callback: (value, index) => {
-                return index % 4 === 0 ? value : ''
+                return index % 3 === 2 ? value : ''
               },
             },
           }],
           yAxes: [{
             position: 'right',
+            textAlign: 'right',
             gridLines: { color: '#555' },
-            ticks: { padding: 8, fontColor: '#fff' },
+            ticks: {
+              fontColor: '#fff',
+              beginAtZero: true,
+            },
           }],
         },
+
         tooltips: {
           mode: 'index',
           enabled: true,
           intersect: false,
-          displayColors: false,
+          displayColors: true,
           cornerRadius: 0,
           caretSize: 0,
-          xPadding: 16,
-          yPadding: 8,
-          custom: (element) => {
-            element.x = 8
-            element.y = 8
-          },
         },
       },
     }
   })
 
-  const getStockPrice = async () => {
+  const getStockEps = async () => {
     const submitData = {
       stockNo: search.value,
     }
-    const result = await getTwstockInfoService(submitData)
+    const result = await getTwstockEpsService(submitData)
 
-    priceInfo.date = result.date
-    priceInfo.price = result.price
+    epsInfo.season = result.season
+    epsInfo.eps = result.eps
   }
 
   return {
-    priceChartOption,
-    getStockPrice,
+    epsChartOption,
+    getStockEps,
   }
 }

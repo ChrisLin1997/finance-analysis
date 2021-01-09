@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import useMerchant from './merchant'
+import useMerchant from '../stock-info/merchant'
 import { watchEffect } from 'vue'
 
 const merchantType = [
@@ -65,7 +65,6 @@ export default {
 <style lang="scss" scoped>
 .merchant {
   padding: 12px 24px;
-  width: 40%;
   background-color: #292d31;
 }
 

@@ -23,9 +23,9 @@ def majorIndex (request):
       '^FCHI': '法國股市',
     }
     headers = { 'origin': 'https://tw.stock.yahoo.com/' }
-    url = 'https://tw.stock.yahoo.com/_td/api/resource/FinancePartnerService.quote;isFormatted=true;symbols='
     indexStr = ','.join(dict.keys(indexMapping))
-    res = requests.get(CORS + url + indexStr, headers = headers)
+    url = 'https://tw.stock.yahoo.com/_td/api/resource/FinancePartnerService.quote;isFormatted=true;symbols=' + indexStr
+    res = requests.get(url, headers = headers)
     rawData = res.content.decode("UTF-8")
     data = json.loads(rawData)['quoteResponse']['result']
 

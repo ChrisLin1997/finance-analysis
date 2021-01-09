@@ -22,6 +22,19 @@ export const getTwstockInfoService = async (formData) => {
     .catch(() => ({}))
 }
 
+export const getTwstockPriceService = async (formData) => {
+  const params = {
+    stockNo: formData.stockNo,
+  }
+  return await xhr({
+    method: 'get',
+    url: 'twstock/price',
+    params,
+  })
+    .then(res => res)
+    .catch(() => ({ date: [], price: [] }))
+}
+
 export const getTwstockMerchantService = async (formData) => {
   const time = new Date()
   const params = {
@@ -34,7 +47,7 @@ export const getTwstockMerchantService = async (formData) => {
     params,
   })
     .then(res => res)
-    .catch(() => ({ buy: [], sell: [] }))
+    .catch(() => ({ stock: { buy: [], sell: [] }, odd: { buy: [], sell: [] } }))
 }
 
 export const getTwstockIncomeService = async (formData) => {
@@ -60,5 +73,5 @@ export const getTwstockEpsService = async (formData) => {
     params,
   })
     .then(res => res)
-    .catch(() => ({ month: [], income: [] }))
+    .catch(() => ({ season: [], eps: [] }))
 }

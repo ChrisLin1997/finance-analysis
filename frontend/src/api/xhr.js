@@ -12,15 +12,18 @@ export const xhr = (options) => {
 }
 
 export const test = async () => {
-  const url = CORS + 'https://www.wantgoo.com/stock/2330/financial-statements/monthly-revenue'
+  const params = {
+    stockNo: '2330.TW',
+  }
+  const url = apiUrl + 'usstock/info'
   const options = {
     methods: 'get',
     url,
+    params,
   }
   return await new Promise((resolve, reject) => {
     axios(options)
       .then(res => {
-        console.log(res.data)
         resolve(res)
       })
       .catch(err => {

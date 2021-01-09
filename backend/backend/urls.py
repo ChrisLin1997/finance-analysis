@@ -20,6 +20,7 @@ urlpatterns = [
     # twstock
     path('twstock/hot', twstock.hot),
     path('twstock/info', twstock.info),
+    path('twstock/price', twstock.price),
     path('twstock/merchant', twstock.merchant),
     path('twstock/eps', twstock.eps),
     path('twstock/income', twstock.income),

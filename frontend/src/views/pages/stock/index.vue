@@ -5,12 +5,13 @@
       .info
         .title
           span {{ stockInfo.name }}
-          span.currency {{ stockInfo.currencyPrice }}
+          span.price {{ stockInfo.price }}
+          span.currency {{ stockInfo.currency }}
         .subtitle
           span {{ stockInfo.id }}
-          span {{ stockInfo.variation }} ({{ stockInfo.percent }}%)
+          span {{ stockInfo.change }} ({{ stockInfo.changePercent }})
 
-    merchant(:stockNo="userSearch")
+    merchant.merchant(:stockNo="userSearch")
 
   main
     fa-chart.chart-item(
@@ -28,8 +29,7 @@
 import { ref, watchEffect } from 'vue'
 import router from '@/router'
 import FaChart from '@/components/fa-chart'
-import useStockInfo from './stock'
-import useCharts from './chart/index'
+import useStock from './index'
 import Merchant from './merchant/index'
 
 export default {
@@ -44,9 +44,7 @@ export default {
     // search
     const userSearch = ref('')
     // 報表
-    const { priceChartOption, chartList, getAllInfo } = useCharts(userSearch)
-    // 取得股票資訊
-    const { stockInfo } = useStockInfo()
+    const { priceChartOption, chartList, getAllInfo, stockInfo } = useStock(userSearch)
 
     watchEffect(() => {
       userSearch.value = router.currentRoute.value.query.stockNo
@@ -77,6 +75,10 @@ header {
   width: 60%;
 }
 
+.merchant {
+  width: 40%;
+}
+
 .info {
   width: fit-content;
 
@@ -90,13 +92,14 @@ header {
       font-size: 24px;
     }
   }
-}
 
-.currency {
-  margin-left: 24px;
-  &:after {
-    content: ' NTD';
-    font-size: 8px;
+  .price {
+    margin-left: 48px;
+  }
+
+  .currency {
+    margin: 12px 0 0 4px;
+    font-size: 12px;
   }
 }
 
