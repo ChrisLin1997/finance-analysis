@@ -13,9 +13,10 @@ export default {
 
   setup () {
     const search = ref('')
+    search.value = router.currentRoute.value.query.stockNo
+
     const handleEnter = () => {
       router.push({ name: 'stock', query: { stockNo: search.value } })
-      search.value = ''
     }
 
     return {

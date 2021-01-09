@@ -1,6 +1,5 @@
 <template lang="pug">
-.stock(v-loading="loadStatus !== 0")
-  //- template(v-if="stockInfo.status")
+.stock
   header
     fa-chart.chart(:options="priceChartOption" color="blue")
       .info
@@ -33,13 +32,10 @@
     )
       awesome-icon(:icon="chart.icon")
       span {{ chart.label }}
-  //- template(v-else)
-    h3 查無資料！
 
 </template>
 
 <script>
-import { ref } from 'vue'
 import FaChart from '@/components/fa-chart'
 import useStockInfo from './stock'
 import useMerchant from './merchant'
@@ -53,12 +49,11 @@ export default {
   },
 
   setup () {
-    const loadStatus = ref(0)
     // 顯示交易類型
     const { merchantType, merchantList, activeMerchant, handleMerchant } = useMerchant()
 
     // 取得股票資訊
-    const { stockInfo } = useStockInfo({ loadStatus })
+    const { stockInfo } = useStockInfo()
 
     // 報表
     const { priceChartOption, chartList } = useCharts(stockInfo)
@@ -69,8 +64,6 @@ export default {
     }
 
     return {
-      loadStatus,
-
       merchantType,
       merchantList,
       activeMerchant,

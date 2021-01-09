@@ -1,10 +1,10 @@
 from django.http import HttpResponse
 from datetime import datetime, date
 from bs4 import BeautifulSoup
-import pandas as pd
 import requests
 import json
 import twstock
+import time
 
 CORS = 'https://cors-anywhere.herokuapp.com/'
 today = date.today()
@@ -152,7 +152,7 @@ def income (request):
         times += 1
         res = requests.get(f'https://mops.twse.com.tw/nas/t21/sii/t21sc03_{incomeYear}_{incomeMonth}.html', headers = headers)
         soup = BeautifulSoup(res.content.decode('utf-8', 'ignore'), 'lxml')
-        allData = soup.findAll('tr', attrs={'align': 'right'})
+        allData = soup.findAll('tr', attrs = { 'align' : 'right' })
         
         # 查找個股營收
         for item in allData:

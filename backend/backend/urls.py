@@ -3,6 +3,7 @@ from django.urls import path
 from .index import index
 
 import stock.twstock as twstock
+import stock.usstock as usstock
 import stock.info as info
 
 
@@ -20,6 +21,9 @@ urlpatterns = [
     path('twstock/hot', twstock.hot),
     path('twstock/info', twstock.info),
     path('twstock/merchant', twstock.merchant),
-    path('twstock/income', twstock.income),
     path('twstock/eps', twstock.eps),
+    path('twstock/income', twstock.income),
+
+    # usstock
+    path('usstock/info', usstock.info),
 ]

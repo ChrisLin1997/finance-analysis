@@ -12,19 +12,7 @@ export const xhr = (options) => {
 }
 
 export const test = async () => {
-  const indexList = [
-    '^GSPC', // S&P 500
-    '^DJI', // 道瓊
-    '^IXIC', // 納斯達克
-    '^SOX', // 費城半導體
-    '^VIX', // 恐懼
-    '^TWII', // 台指加權
-    '^N225', // 日經指數
-    '^HSI', // 香港恆生
-    '^KS11', // 韓國綜合
-    '^FTSE', // 英國綜合
-  ]
-  const url = CORS + 'https://tw.stock.yahoo.com/_td/api/resource/FinancePartnerService.quote;isFormatted=true;symbols=' + indexList.join(',')
+  const url = CORS + 'https://www.wantgoo.com/stock/2330/financial-statements/monthly-revenue'
   const options = {
     methods: 'get',
     url,
@@ -32,7 +20,7 @@ export const test = async () => {
   return await new Promise((resolve, reject) => {
     axios(options)
       .then(res => {
-        console.log(res.data.quoteResponse.result)
+        console.log(res.data)
         resolve(res)
       })
       .catch(err => {

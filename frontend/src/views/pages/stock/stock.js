@@ -7,7 +7,7 @@ import {
   getTwstockEpsService,
 } from '@/api/twstock'
 
-export default function useStockInfo (options) {
+export default function useStockInfo () {
   // info
   const stockInfo = ref({
     id: '',
@@ -26,14 +26,9 @@ export default function useStockInfo (options) {
     month: [],
   })
 
-  // get query
-  const userSearch = ref('')
-
   // api
   const getTwstockInfo = async () => {
-    if (userSearch.value === '') return
-
-    options.loadStatus.value++
+    if (!userSearch.value) return
 
     const submitData = { stockNo: userSearch.value }
     const result = await Promise.allSettled([
@@ -43,9 +38,10 @@ export default function useStockInfo (options) {
       getTwstockEpsService(submitData),
     ])
     stockInfo.value = result.reduce((acc, curr) => Object.assign(acc, curr.value), stockInfo.value)
-
-    options.loadStatus.value--
   }
+
+  // get query
+  const userSearch = ref('')
 
   watchEffect(() => {
     userSearch.value = router.currentRoute.value.query.stockNo
