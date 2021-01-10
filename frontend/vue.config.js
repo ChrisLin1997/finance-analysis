@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: '/finance-analysis/',
+  // publicPath: '/finance-analysis/',
   css: {
     loaderOptions: {
       scss: {
@@ -9,6 +9,6 @@ module.exports = {
   },
 
   devServer: {
-    https: true,
+    // https: true,
   },
 }
