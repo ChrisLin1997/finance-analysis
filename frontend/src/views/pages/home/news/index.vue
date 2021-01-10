@@ -1,7 +1,5 @@
 <template lang="pug">
 .news
-  awesome-icon.icon(:icon="['fas', 'paper-plane']")
-  h3.title 即時新聞
   .news-layout
     .news-type(
       v-for="type of newsTypeList"

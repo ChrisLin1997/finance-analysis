@@ -1,8 +1,8 @@
 import { ref } from 'vue'
-import usePriceChart from './stock-info/priceChart'
-import useIncomeChart from './stock-info/incomeChart'
-import useEpsChart from './stock-info/epsChart'
-import useInfo from './stock-info/info'
+import usePriceChart from './priceChart'
+import useIncomeChart from './incomeChart'
+import useEpsChart from './epsChart'
+import useInfo from './info'
 
 export default function useStock (search) {
   const { priceChartOption, getStockPrice } = usePriceChart(search)

@@ -9,19 +9,9 @@ export const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/pages/home'),
       },
       {
-        path: 'twstock',
-        name: 'twstock',
-        component: () => import(/* webpackChunkName: "twstock" */ '@/views/pages/twstock'),
-      },
-      {
-        path: 'usstock',
-        name: 'usstock',
-        component: () => import(/* webpackChunkName: "usstock" */ '@/views/pages/usstock'),
-      },
-      {
-        path: 'stock',
-        name: 'stock',
-        component: () => import(/* webpackChunkName: "stock" */ '@/views/pages/stock'),
+        path: 'stock-market',
+        name: 'stock-market',
+        component: () => import(/* webpackChunkName: "stock-market" */ '@/views/pages/stock-market'),
       },
       {
         path: 'currency',
@@ -37,6 +27,11 @@ export const routes = [
         path: 'goods',
         name: 'goods',
         component: () => import(/* webpackChunkName: "goods" */ '@/views/pages/goods'),
+      },
+      {
+        path: 'stock',
+        name: 'stock',
+        component: () => import(/* webpackChunkName: "stock" */ '@/views/pages/stock'),
       },
       {
         path: 'test',

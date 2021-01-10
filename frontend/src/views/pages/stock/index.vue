@@ -29,7 +29,7 @@
 import { ref, watchEffect } from 'vue'
 import router from '@/router'
 import FaChart from '@/components/fa-chart'
-import useStock from './index'
+import useStock from './stock-info'
 import Merchant from './merchant/index'
 
 export default {
@@ -64,6 +64,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.stock {
+  margin-top: 44px;
+}
+
 header {
   position: relative;
   display: flex;

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { apiUrl, CORS } from '../config'
+import { apiUrl } from '../config'
 
 export const xhr = (options) => {
   options.url = apiUrl + options.url

@@ -9,8 +9,13 @@ html {
   background-color: $background;
 }
 
-h3.title {
-  display: inline-block;
+.headline {
+  padding-top: 24px;
+  text-align: left;
+
+  h3 {
+    display: inline-block;
+  }
 }
 
 .icon {

@@ -1,6 +1,9 @@
 <template lang="pug">
-.twstock(v-loading="loadStatus !== 0")
-  price-card-list(title="熱門個股" :data="hotStockList.data")
+.stock-market(v-loading="loadStatus !== 0")
+  .headline
+    awesome-icon.icon(:icon="['fas', 'fire-alt']")
+    h3 熱門個股
+  //- price-card-list(:data="hotStockList.data")
 
 </template>
 
@@ -10,7 +13,7 @@ import { getTwstockHotService } from '@/api/twstock'
 import PriceCardList from '@/components/price-card-list'
 
 export default {
-  name: 'twstock',
+  name: 'stock-market',
 
   components: {
     PriceCardList,

@@ -1,7 +1,5 @@
 <template lang="pug">
 .price-card-list
-  h3(v-if="title") {{ title }}
-
   section(v-if="data.length")
     .card-item(v-for="item of data" :key="item.id")
       .title
@@ -19,10 +17,6 @@ export default {
   name: 'price-card-list',
 
   props: {
-    title: {
-      type: String,
-    },
-
     data: {
       type: Array,
       required: true,
@@ -84,7 +78,7 @@ section {
 
 .close,
 .name {
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .id,
