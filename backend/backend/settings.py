@@ -25,8 +25,11 @@ SECRET_KEY = '2*!0-_0#&++l$_4v4pc9120j=$e3z0o0wc3ljp7(^rc^7mg%#q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+# SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_HTTPONLY = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
 # Application definition
 
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'stock',
+    'sslserver',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +57,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
+    'https://localhost:8080',
 ]
 
 ROOT_URLCONF = 'backend.urls'
