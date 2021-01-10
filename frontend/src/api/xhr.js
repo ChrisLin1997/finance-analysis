@@ -2,7 +2,7 @@ import axios from 'axios'
 import { apiUrl, CORS } from '../config'
 
 export const xhr = (options) => {
-  options.url = CORS + apiUrl + options.url
+  options.url = apiUrl + options.url
 
   return new Promise((resolve, reject) => {
     axios(options)
