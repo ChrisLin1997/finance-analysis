@@ -25,7 +25,7 @@ SECRET_KEY = '2*!0-_0#&++l$_4v4pc9120j=$e3z0o0wc3ljp7(^rc^7mg%#q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 # SESSION_COOKIE_SECURE = True
 # SESSION_COOKIE_HTTPONLY = True
@@ -56,12 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
-    'https://localhost:8080',
-    'http://chrislin1997.github.io',
-    'https://chrislin1997.github.io',
-]
+CORS_ALLOWED_ORIGINS = []
 
 ROOT_URLCONF = 'backend.urls'
 
