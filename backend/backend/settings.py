@@ -58,6 +58,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'https://localhost:8080',
+    'https://chrislin1997.github.io',
 ]
 
 ROOT_URLCONF = 'backend.urls'

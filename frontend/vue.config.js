@@ -1,5 +1,5 @@
 module.exports = {
-  // publicPath: '/finance-analysis/',
+  publicPath: '/finance-analysis/',
   css: {
     loaderOptions: {
       scss: {
