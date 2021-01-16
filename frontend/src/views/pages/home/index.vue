@@ -1,14 +1,18 @@
 <template lang="pug">
 .home
-  .headline
-    awesome-icon.icon(:icon="['fas', 'paper-plane']")
-    h3.title 即時新聞
-  news
+  .area
+    .headline
+      awesome-icon.icon(:icon="['fas', 'paper-plane']")
+      h3.title 即時新聞
+    .content
+      news
 
-  .headline
-    awesome-icon.icon(:icon="['fas', 'chart-line']")
-    h3.title 主要指數
-  price-table(:data="majorIndexList")
+  .area
+    .headline
+      awesome-icon.icon(:icon="['fas', 'chart-line']")
+      h3.title 主要指數
+    .content
+      price-table(:data="majorIndexList")
 
   br
   br
@@ -39,6 +43,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

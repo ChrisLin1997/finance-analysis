@@ -9,15 +9,23 @@ html {
   background-color: $background;
 }
 
-.headline {
-  padding-top: 24px;
-  text-align: left;
-
-  h3 {
-    display: inline-block;
-  }
-}
-
 .icon {
   margin-right: 8px;
+}
+
+.area {
+  margin-top: 24px;
+
+  .headline {
+    text-align: left;
+  }
+  
+  h3.title {
+    display: inline-block;
+    font-size: 20px;
+  }
+
+  .content {
+    margin-top: 8px;
+  }
 }
