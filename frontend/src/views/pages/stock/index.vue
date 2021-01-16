@@ -1,27 +1,31 @@
 <template lang="pug">
 .stock
-  header
-    fa-chart.chart(:options="priceChartOption" color="blue")
-      .info
-        .title
-          span {{ stockInfo.name }}
-          span.price {{ stockInfo.price }}
-          span.currency {{ stockInfo.currency }}
-        .subtitle
-          span {{ stockInfo.id }}
-          span {{ stockInfo.change }} ({{ stockInfo.changePercent }})
+  .area
+    .content
+      main
+        fa-chart.chart(:options="priceChartOption" color="blue")
+          .info
+            .title
+              span {{ stockInfo.name }}
+              span.price {{ stockInfo.price }}
+              span.currency {{ stockInfo.currency }}
+            .subtitle
+              span {{ stockInfo.id }}
+              span {{ stockInfo.change }} ({{ stockInfo.changePercent }})
 
-    merchant.merchant(:stockNo="userSearch")
+        merchant.merchant(:stockNo="userSearch")
 
-  main
-    fa-chart.chart-item(
-      v-for="chart of chartList"
-      :key="chart.code"
-      :color="chart.color"
-      :options="chart.option"
-    )
-      awesome-icon(:icon="chart.icon")
-      span {{ chart.label }}
+  .area
+    .content
+      main
+        fa-chart.chart-item(
+          v-for="chart of chartList"
+          :key="chart.code"
+          :color="chart.color"
+          :options="chart.option"
+        )
+          awesome-icon(:icon="chart.icon")
+          span {{ chart.label }}
 
 </template>
 
@@ -64,23 +68,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.stock {
-  margin-top: 44px;
+.content {
+  padding-top: 32px;
 }
 
-header {
-  position: relative;
+main {
   display: flex;
-  background-color: $active-background;
-  box-shadow: 0 0 6px 2px #111;
+  justify-content: space-between;
+  height: 360px;
 }
 
 .chart {
-  width: 60%;
+  width: 55%;
 }
 
 .merchant {
-  width: 40%;
+  width: 45%;
 }
 
 .info {
@@ -107,15 +110,7 @@ header {
   }
 }
 
-// center
-main {
-  margin-top: 48px;
-  display: flex;
-  justify-content: space-between;
-  height: 320px;
-
-  .chart-item {
-    width: 48%;
-  }
+.chart-item {
+  width: 48%;
 }
 </style>

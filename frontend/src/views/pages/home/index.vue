@@ -14,8 +14,6 @@
     .content
       price-table(:data="majorIndexList")
 
-  br
-
 </template>
 
 <script>
