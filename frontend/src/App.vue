@@ -22,9 +22,4 @@ export default {
   background-color: $background;
   overflow: hidden;
 }
-
-</style>
-
-<style lang="scss">
-@import '@/assets/index.scss';
 </style>

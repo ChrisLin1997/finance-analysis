@@ -3,6 +3,9 @@ import { apiUrl } from '../config'
 
 export const xhr = (options) => {
   options.url = apiUrl + options.url
+  if (process.env.NODE_ENV === 'devement') {
+    options.headers['Access-Control-Allow-Origin'] = '*'
+  }
 
   return new Promise((resolve, reject) => {
     axios(options)
