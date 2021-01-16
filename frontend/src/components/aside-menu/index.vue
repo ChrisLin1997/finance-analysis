@@ -1,15 +1,20 @@
 <template lang="pug">
 .aside-menu
+  .title(@click="returnHomePage")
+    span Finance
+    span Analysis
   .name
     h3 Chris Lin
-  router-link.menu-item(
-    v-for="item of menuList"
-    :key="item.name"
-    :to="item.path"
-    :class="{ 'active' : activePage === item.path }"
-  )
-    awesome-icon.icon(:icon="item.icon")
-    span {{ item.name }}
+
+  .menu
+    router-link.menu-item(
+      v-for="item of menuList"
+      :key="item.name"
+      :to="item.path"
+      :class="{ 'active' : activePage === item.path }"
+    )
+      awesome-icon.icon(:icon="item.icon")
+      span {{ item.name }}
 
   .links
     a.link-item(v-for="link of linkList" :key="link.code" :href="link.href" target="_blank")
@@ -35,10 +40,10 @@ export default {
     watchEffect(() => { activePage.value = router.currentRoute.value.name })
 
     const linkList = [
-      { code: 'facebook', icon: ['fab', 'facebook'], href: 'www.google.com' },
-      { code: 'linkedin', icon: ['fab', 'linkedin'], href: 'https://www.linkedin.com/in/chris-lin-10413a1a4' },
-      { code: 'instagram', icon: ['fab', 'instagram'], href: 'www.google.com' },
+      { code: 'google', icon: ['fab', 'google'], href: 'https://www.google.com' },
       { code: 'github', icon: ['fab', 'github'], href: 'https://github.com/ChrisLin1997' },
+      { code: 'linkedin', icon: ['fab', 'linkedin'], href: 'https://www.linkedin.com/in/chris-lin-10413a1a4' },
+      { code: 'mail', icon: ['fas', 'envelope'], href: 'mailto:i100308326@gmail.com' },
     ]
 
     return {
@@ -53,20 +58,49 @@ export default {
 
 <style lang="scss" scoped>
 .aside-menu {
-  padding-top: 64px;
-  position: fixed;
-  left: 0;
+  display: flex;
+  flex-direction: column;
   width: 244px;
-  height: 100%;
-  z-index: 1;
+  height: 100vh;
+  z-index: 2;
   background-color: $active-background;
   box-shadow: 0 0 8px 0 #333;
+}
+
+.title {
+  width: 244px;
+  line-height: 64px;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: $primary-background;
+  user-select: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: all .4s;
+
+  & > span:first-child {
+    display: inline;
+    color: $active;
+  }
+
+  &:hover {
+    font-size: 25px;
+  }
+
+  &:active {
+    transform: translateY(-4px);
+  }
 }
 
 .name {
   height: 50px;
   line-height: 50px;
   background-color: $active;
+}
+
+.menu {
+  height: 100%;
+  overflow: auto;
 }
 
 .menu-item {
@@ -94,14 +128,11 @@ export default {
 }
 
 .links {
-  padding: 24px;
-  position: absolute;
-  bottom: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  height: 48px;
+  height: 56px;
   border-top: 1px solid #666;
 }
 

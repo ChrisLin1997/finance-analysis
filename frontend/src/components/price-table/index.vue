@@ -1,26 +1,25 @@
 <template lang="pug">
-.index-layout
-  .index-list(v-loading="data.length === 0")
-    .index-item
-      div 名稱
-      div 價格
-      div 漲跌幅
-      div 漲跌幅百分比
-      div 當日最低價
-      div 當日最高價
-    .index-item(v-for="item of data" :key="item.id")
-      div
-        span {{ item.name }}
-        span {{ item.id }}
-      div(:class="getClass(item.isUp)") {{ item.price }}
-      div(:class="getClass(item.isUp)")
-        awesome-icon.icon(:icon="getIcon(item.isUp)")
-        span {{ item.change }}
-      div(:class="getClass(item.isUp)")
-        awesome-icon.icon(:icon="getIcon(item.isUp)")
-        span {{ item.changePercent }}
-      div.down {{ item.low }}
-      div.up {{ item.high }}
+.index-list(v-loading="data.length === 0")
+  .index-item
+    div 名稱
+    div 價格
+    div 漲跌幅
+    div 漲跌幅百分比
+    div 當日最低價
+    div 當日最高價
+  .index-item(v-for="item of data" :key="item.id")
+    div
+      span {{ item.name }}
+      span {{ item.id }}
+    div(:class="getClass(item.isUp)") {{ item.price }}
+    div(:class="getClass(item.isUp)")
+      awesome-icon.icon(:icon="getIcon(item.isUp)")
+      span {{ item.change }}
+    div(:class="getClass(item.isUp)")
+      awesome-icon.icon(:icon="getIcon(item.isUp)")
+      span {{ item.changePercent }}
+    div.down {{ item.low }}
+    div.up {{ item.high }}
 </template>
 
 <script>

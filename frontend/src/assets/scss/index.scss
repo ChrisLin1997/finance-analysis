@@ -3,10 +3,18 @@
   padding: 0;
   text-decoration: none;
   box-sizing: border-box;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 html {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #fff;
   background-color: $background;
+  overflow: hidden;
 }
 
 .icon {
@@ -14,7 +22,7 @@ html {
 }
 
 .area {
-  margin-top: 24px;
+  margin: 16px 0;
 
   .headline {
     text-align: left;

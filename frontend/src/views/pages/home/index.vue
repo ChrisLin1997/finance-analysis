@@ -15,9 +15,6 @@
       price-table(:data="majorIndexList")
 
   br
-  br
-  br
-  br
 
 </template>
 

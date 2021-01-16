@@ -1,8 +1,11 @@
 <template lang="pug">
-header-bar
-aside-menu
-main
-  router-view.view
+.layout
+  aside-menu
+  main
+    header-bar
+    article
+      router-view.view
+      footer Copyright © Chris Lin 1.0.0
 </template>
 
 <script>
@@ -23,19 +26,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.layout {
+  display: flex;
+}
+
 main {
-  margin-top: 52px;
-  margin-left: 244px;
-  width: calc(100vw -244px);
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw - 244px);
+  height: 100vh;
+}
+
+article {
+  width: calc(100vw - 244px);
   overflow: auto;
 }
 
+footer {
+  padding: 8px 24px;
+  font-size: 12px;
+  text-align: left;
+  color: #777;
+}
+
 .view {
-  margin: 0px auto;
-  padding: 0px 44px;
-  min-width: 1260px;
-  height: fit-content;
-  min-height: 100%;
+  padding: 0px 24px;
+  min-width: 1444px;
+  min-height: calc(100vh - 68px);
+  overflow: auto;
 }
 </style>
