@@ -2,9 +2,10 @@ from django.contrib import admin
 from django.urls import path
 from .index import index
 
-import stock.twstock as twstock
-import stock.usstock as usstock
-import stock.info as info
+import stock.api.info as info
+import stock.api.twstock as twstock
+import stock.api.usstock as usstock
+import stock.api.currency as currency
 
 
 urlpatterns = [
@@ -27,4 +28,7 @@ urlpatterns = [
 
     # usstock
     path('usstock/info', usstock.info),
+
+    #currency
+    path('currency/exchange', currency.currency)
 ]

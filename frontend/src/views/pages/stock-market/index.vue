@@ -1,9 +1,17 @@
 <template lang="pug">
 .stock-market(v-loading="loadStatus !== 0")
-  .headline
-    awesome-icon.icon(:icon="['fas', 'fire-alt']")
-    h3 熱門個股
-  //- price-card-list(:data="hotStockList.data")
+  .area
+    .headline
+      awesome-icon.icon(:icon="['fas', 'fire-alt']")
+      h3.title 臺股熱門
+    .content
+      PriceCardList(:data="hotStockList.data")
+
+  .area
+    .headline
+      awesome-icon.icon(:icon="['fas', 'fire-alt']")
+      h3.title 美股熱門
+    .content
 
 </template>
 

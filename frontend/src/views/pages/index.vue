@@ -53,7 +53,7 @@ footer {
 .view {
   padding: 0px 24px;
   min-width: 1444px;
-  min-height: calc(100vh - 68px);
+  min-height: calc(100vh - 120px);
   overflow: auto;
 }
 </style>

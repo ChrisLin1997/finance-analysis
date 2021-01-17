@@ -8,7 +8,7 @@ newsLength = 50
 CORS = 'https://cors-anywhere.herokuapp.com/'
 
 def majorIndex (request):
-    indexMapping = {
+    mapping = {
       '^GSPC': 'S&P 500指數',
       '^DJI': '道瓊工業指數',
       '^IXIC': 'NASDAQ指數',
@@ -23,7 +23,7 @@ def majorIndex (request):
       '^FCHI': '法國股市',
     }
     headers = { 'origin': 'https://tw.stock.yahoo.com/' }
-    indexStr = ','.join(dict.keys(indexMapping))
+    indexStr = ','.join(dict.keys(mapping))
     url = 'https://tw.stock.yahoo.com/_td/api/resource/FinancePartnerService.quote;isFormatted=true;symbols=' + indexStr
     res = requests.get(url, headers = headers)
     rawData = res.content.decode("UTF-8")
@@ -33,7 +33,7 @@ def majorIndex (request):
     for item in data:
       indexList.append({
         'id': item['shortName'],
-        'name': indexMapping[item['symbol']],
+        'name': mapping[item['symbol']],
         'price': item['regularMarketPrice']['fmt'],
         'change': item['regularMarketChange']['fmt'],
         'changePercent': item['regularMarketChangePercent']['fmt'],

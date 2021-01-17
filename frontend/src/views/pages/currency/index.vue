@@ -1,6 +1,10 @@
 <template lang="pug">
 .currency
-  h1 currency
+  .area
+    .headline
+      awesome-icon.icon(:icon="['fas', 'dollar-sign']")
+      h3.title 外幣匯率
+    .content
 </template>
 
 <script>
