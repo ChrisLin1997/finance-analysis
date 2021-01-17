@@ -3,6 +3,7 @@
   .title(@click="returnHomePage")
     span Finance
     span Analysis
+
   .name
     h3 Chris Lin
 
@@ -29,6 +30,8 @@ export default {
   name: 'aside-menu',
 
   setup () {
+    const returnHomePage = () => router.push('/')
+
     const menuList = [
       { name: '股市', path: 'stock-market', icon: ['fas', 'landmark'] },
       { name: '外匯', path: 'currency', icon: ['fas', 'coins'] },
@@ -47,6 +50,8 @@ export default {
     ]
 
     return {
+      returnHomePage,
+
       menuList,
       activePage,
 

@@ -12,7 +12,6 @@
             .subtitle
               span {{ stockInfo.id }}
               span {{ stockInfo.change }} ({{ stockInfo.changePercent }})
-
         merchant.merchant(:stockNo="userSearch")
 
   .area

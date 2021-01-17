@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import router from '@/router'
 import Search from '@/components/search'
 
 export default {
@@ -13,14 +12,6 @@ export default {
 
   components: {
     Search,
-  },
-
-  setup () {
-    const returnHomePage = () => router.push('/')
-
-    return {
-      returnHomePage,
-    }
   },
 }
 </script>
