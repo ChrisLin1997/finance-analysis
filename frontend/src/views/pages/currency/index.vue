@@ -8,7 +8,17 @@
 </template>
 
 <script>
+import { getCurrencyExchange } from '@/api/currency'
+
 export default {
   name: 'currency',
+
+  setup () {
+    const getExchangeList = async () => {
+      const result = await getCurrencyExchange()
+      console.log(result)
+    }
+    getExchangeList()
+  },
 }
 </script>

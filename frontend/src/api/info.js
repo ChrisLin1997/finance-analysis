@@ -1,10 +1,10 @@
 import { xhr } from './xhr'
 
-export const getGoogleNewsService = async (formData) => {
+export const getGoogleNewsService = (formData) => {
   const params = {
     type: formData.type,
   }
-  return await xhr({
+  return xhr({
     method: 'get',
     url: 'info/googleNews',
     params,
@@ -13,8 +13,8 @@ export const getGoogleNewsService = async (formData) => {
     .catch(() => [])
 }
 
-export const getPttService = async () => {
-  return await xhr({
+export const getPttService = () => {
+  return xhr({
     method: 'get',
     url: 'info/ptt',
   })
@@ -22,8 +22,8 @@ export const getPttService = async () => {
     .catch(() => [])
 }
 
-export const getMajorIndexService = async () => {
-  return await xhr({
+export const getMajorIndexService = () => {
+  return xhr({
     method: 'get',
     url: 'info/majorIndex',
   })

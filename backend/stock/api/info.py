@@ -31,7 +31,7 @@ def majorIndex (request):
 
     indexList = []
     for item in data:
-      indexList.append({
+      indexItem = {
         'id': item['shortName'],
         'name': mapping[item['symbol']],
         'price': item['regularMarketPrice']['fmt'],
@@ -39,14 +39,16 @@ def majorIndex (request):
         'changePercent': item['regularMarketChangePercent']['fmt'],
         'high': item['regularMarketDayHigh']['fmt'],
         'low': item['regularMarketDayLow']['fmt'],
-      })
-      if item['regularMarketChange']['fmt'].find('-') == -1:
-        indexList[-1]['isUp'] = True
+      }
+
+      if indexItem['change'].find('-') == -1:
+        indexItem['isUp'] = True
       else:
-        indexList[-1]['isUp'] =  False
+        indexItem['isUp'] =  False
+      
+      indexList.append(indexItem)
 
     result = json.dumps(indexList)
-
     return HttpResponse(result)
 
 def googleNews (request):

@@ -1,7 +1,7 @@
 import { xhr } from './xhr'
 
-export const getTwstockHotService = async () => {
-  return await xhr({
+export const getTwstockHotService = () => {
+  return xhr({
     method: 'get',
     url: 'twstock/hot',
   })
@@ -9,11 +9,11 @@ export const getTwstockHotService = async () => {
     .catch(() => ({ data: [], date: '' }))
 }
 
-export const getTwstockInfoService = async (formData) => {
+export const getTwstockInfoService = (formData) => {
   const params = {
     stockNo: formData.stockNo,
   }
-  return await xhr({
+  return xhr({
     method: 'get',
     url: 'twstock/info',
     params,
@@ -22,11 +22,11 @@ export const getTwstockInfoService = async (formData) => {
     .catch(() => ({}))
 }
 
-export const getTwstockPriceService = async (formData) => {
+export const getTwstockPriceService = (formData) => {
   const params = {
     stockNo: formData.stockNo,
   }
-  return await xhr({
+  return xhr({
     method: 'get',
     url: 'twstock/price',
     params,
@@ -35,13 +35,13 @@ export const getTwstockPriceService = async (formData) => {
     .catch(() => ({ date: [], price: [] }))
 }
 
-export const getTwstockMerchantService = async (formData) => {
+export const getTwstockMerchantService = (formData) => {
   const time = new Date()
   const params = {
     stockNo: formData.stockNo,
     time: time.getTime(),
   }
-  return await xhr({
+  return xhr({
     method: 'get',
     url: 'twstock/merchant',
     params,
@@ -50,11 +50,11 @@ export const getTwstockMerchantService = async (formData) => {
     .catch(() => ({ stock: { buy: [], sell: [] }, odd: { buy: [], sell: [] } }))
 }
 
-export const getTwstockIncomeService = async (formData) => {
+export const getTwstockIncomeService = (formData) => {
   const params = {
     stockNo: formData.stockNo,
   }
-  return await xhr({
+  return xhr({
     method: 'get',
     url: 'twstock/income',
     params,
@@ -63,11 +63,11 @@ export const getTwstockIncomeService = async (formData) => {
     .catch(() => ({ month: [], income: [] }))
 }
 
-export const getTwstockEpsService = async (formData) => {
+export const getTwstockEpsService = (formData) => {
   const params = {
     stockNo: formData.stockNo,
   }
-  return await xhr({
+  return xhr({
     method: 'get',
     url: 'twstock/eps',
     params,
