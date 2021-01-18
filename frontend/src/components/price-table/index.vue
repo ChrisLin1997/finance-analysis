@@ -41,11 +41,9 @@ export default {
 <style lang="scss" scoped>
 .thead-item {
   display: flex;
-  height: 44px;
   color: $dark-font;
   font-size: 14px;
-  font-weight: normal;
-  line-height: 43px;
+  line-height: 28px;
   border-bottom: 1px solid #555;
 
   div:first-child {
