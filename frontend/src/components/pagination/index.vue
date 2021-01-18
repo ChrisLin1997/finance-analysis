@@ -70,15 +70,12 @@ export default {
     padding: 2px 4px 0;
     cursor: pointer;
     transition: all .2s;
-    &:hover {
-      opacity: .6;
-      border-bottom: 1px solid $active;
-    }
   }
 }
 
 .active {
   color: $active;
   font-weight: bold;
+  transform: scale(1.2);
 }
 </style>
