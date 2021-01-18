@@ -1,6 +1,6 @@
 <template lang="pug">
 .home
-  .area
+  //- .area
     .headline
       awesome-icon.icon(:icon="['fas', 'paper-plane']")
       h3.title 即時新聞
@@ -12,7 +12,7 @@
       awesome-icon.icon(:icon="['fas', 'chart-line']")
       h3.title 主要指數
     .content
-      price-table(:data="majorIndexList")
+      price-table(:data="majorIndexList" :columns="indexColumns")
 
 </template>
 
@@ -30,10 +30,11 @@ export default {
   },
 
   setup () {
-    const { majorIndexList } = useIndex()
+    const { majorIndexList, indexColumns } = useIndex()
 
     return {
       majorIndexList,
+      indexColumns,
     }
   },
 }

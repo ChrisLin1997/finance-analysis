@@ -1,25 +1,12 @@
 <template lang="pug">
 .index-list(v-loading="data.length === 0")
-  .index-item
-    div 名稱
-    div 價格
-    div 漲跌幅
-    div 漲跌幅百分比
-    div 當日最低價
-    div 當日最高價
-  .index-item(v-for="item of data" :key="item.id")
-    div
-      span {{ item.name }}
-      span {{ item.id }}
-    div(:class="getClass(item.isUp)") {{ item.price }}
-    div(:class="getClass(item.isUp)")
-      awesome-icon.icon(:icon="getIcon(item.isUp)")
-      span {{ item.change }}
-    div(:class="getClass(item.isUp)")
-      awesome-icon.icon(:icon="getIcon(item.isUp)")
-      span {{ item.changePercent }}
-    div.down {{ item.low }}
-    div.up {{ item.high }}
+  .thead-item
+    div(v-for="column of columns" :key="column.prop") {{ column.label }}
+
+  .table-item(v-for="item of data" :key="item.id")
+    div(v-for="column of columns" :key="column.prop")
+      span(:class="column.class ? column.class(item.isUp) : null") {{ item[column.prop] }}
+      span.id(v-if="column.prop === 'name'") {{ item.id }}
 </template>
 
 <script>
@@ -28,6 +15,11 @@ export default {
 
   props: {
     data: {
+      type: Array,
+      default: () => [],
+    },
+
+    columns: {
       type: Array,
       default: () => [],
     },
@@ -47,21 +39,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.index-list {
+.thead-item {
+  display: flex;
+  height: 44px;
+  color: $dark-font;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 43px;
+  border-bottom: 1px solid #555;
 
-  & > .index-item:first-child {
-    height: 44px;
-    color: $dark-font;
-    font-size: 14px;
-    font-weight: normal;
+  div:first-child {
+    width: 280px;
+    text-align: left;
+  }
 
-    &:hover {
-      background-color: none;
-    }
+  div:not(:first-child) {
+    width: 20%;
+    text-align: right;
   }
 }
 
-.index-item {
+.table-item {
   display: flex;
   justify-content: space-between;
   height: 56px;
@@ -72,25 +70,13 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    width: 256px;
+    width: 280px;
     text-align: left;
-    font-size: 16px;
-
-    span:first-child {
-      color: $active;
-    }
-
-    span:nth-child(2) {
-      font-size: 14px;
-    }
   }
 
   div:not(:first-child) {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
     width: 20%;
+    line-height: 56px;
     text-align: right;
   }
 
@@ -98,6 +84,14 @@ export default {
     transition: all .4s;
     background-color: $active-background;
   }
+}
+
+.name {
+  color: $active;
+}
+
+.id {
+  font-size: 14px;
 }
 
 .up {
