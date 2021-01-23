@@ -1,5 +1,5 @@
 <template lang="pug">
-.index-list(v-loading="data.length === 0")
+.index-list(v-loading="data.length === 0" :style="style")
   .thead-item
     div(v-for="column of columns" :key="column.prop") {{ column.label }}
 
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 export default {
   name: 'price-table',
 
@@ -23,13 +24,20 @@ export default {
       type: Array,
       default: () => [],
     },
+
+    height: {
+      type: String,
+    },
   },
 
-  setup () {
+  setup (props) {
     const getClass = (value) => value ? 'up' : 'down'
     const getIcon = (value) => value ? ['fas', 'caret-up'] : ['fas', 'caret-down']
+    const style = computed(() => ({ height: props.height }))
 
     return {
+      style,
+
       getClass,
       getIcon,
     }
