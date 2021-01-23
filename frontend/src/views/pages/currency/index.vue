@@ -5,7 +5,12 @@
       awesome-icon.icon(:icon="['fas', 'dollar-sign']")
       h3.title 外幣匯率
     .content
-      button(v-for="key of Object.keys(tableData)" @click="handleActive(key)") {{  key === 'foreign' ? '1外幣兌台幣' : '1台幣兌外幣' }}
+      .switch
+        div(
+          v-for="key of Object.keys(tableData)"
+          :class="{ 'active' : activeTable === key }"
+          @click="handleActive(key)"
+          ) {{  mapping[key] }}
       price-table(:data="tableData[activeTable]" :columns="columns" height="600px")
 </template>
 
@@ -21,10 +26,16 @@ export default {
   },
 
   setup () {
+    const mapping = {
+      foreign: '外幣 ➜ 新台幣',
+      local: '新台幣 ➜ 外幣',
+    }
     const { tableData, columns, getExchangeList, activeTable, handleActive } = useTable()
     getExchangeList()
 
     return {
+      mapping,
+
       tableData,
       columns,
 
@@ -34,3 +45,24 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.switch {
+  margin: 12px 0;
+  display: flex;
+  width: fit-content;
+  border-radius: 8px;
+  background-color: $active-background;
+
+  div {
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .4s;
+  }
+}
+
+.active {
+  background-color: $active;
+}
+</style>
