@@ -68,6 +68,7 @@ export default {
   width: 244px;
   height: 100vh;
   z-index: 2;
+  text-align: center;
   background-color: $active-background;
   box-shadow: 0 0 8px 0 #333;
 }

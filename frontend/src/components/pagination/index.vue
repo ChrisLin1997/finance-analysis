@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { onBeforeUnmount } from 'vue'
 import { getRandom } from '@/helper'
 
 export default {
@@ -42,13 +43,15 @@ export default {
     }
     const startInterval = () => getTimer()
     const stopInterval = (page) => {
-      context.emit('update:modelValue', page)
+      page && context.emit('update:modelValue', page)
       clearInterval(timer)
     }
     const handlePage = (page) => { context.emit('update:modelValue', page) }
 
     let timer = null
     if (props.auto) getTimer()
+
+    onBeforeUnmount(() => stopInterval())
 
     return {
       handlePage,

@@ -48,7 +48,6 @@ export default {
 
   div:first-child {
     width: 280px;
-    text-align: left;
   }
 
   div:not(:first-child) {
@@ -69,7 +68,6 @@ export default {
     flex-direction: column;
     justify-content: center;
     width: 280px;
-    text-align: left;
   }
 
   div:not(:first-child) {

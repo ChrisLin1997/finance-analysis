@@ -53,7 +53,6 @@ export default {
 
 .type-title {
   font-size: 20px;
-  text-align: left;
 }
 
 main {
@@ -80,7 +79,6 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    text-align: left;
     font-size: 14px;
 
     &:hover {

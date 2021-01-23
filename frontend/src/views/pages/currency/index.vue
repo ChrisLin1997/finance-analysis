@@ -5,7 +5,7 @@
       awesome-icon.icon(:icon="['fas', 'dollar-sign']")
       h3.title 外幣匯率
     .content
-      button(v-for="key of Object.keys(tableData)" @click="handleActive(key)") {{  key === 'foreign' ? '外幣換台幣' : '台幣換外幣' }}
+      button(v-for="key of Object.keys(tableData)" @click="handleActive(key)") {{  key === 'foreign' ? '1外幣兌台幣' : '1台幣兌外幣' }}
       price-table(:data="tableData[activeTable]" :columns="columns")
 </template>
 

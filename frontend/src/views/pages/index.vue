@@ -46,7 +46,6 @@ footer {
   margin-top: 36px;
   padding: 8px 24px;
   font-size: 12px;
-  text-align: left;
   color: #777;
 }
 

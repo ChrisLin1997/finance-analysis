@@ -41,7 +41,6 @@ export default {
 <style lang="scss" scoped>
 .price-card-list {
   width: 100%;
-  text-align: left;
 }
 
 section {
