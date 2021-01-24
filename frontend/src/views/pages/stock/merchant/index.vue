@@ -66,6 +66,7 @@ export default {
 .merchant {
   padding: 12px 24px;
   background-color: #292d31;
+  text-align: center;
 }
 
 .merchant-type {

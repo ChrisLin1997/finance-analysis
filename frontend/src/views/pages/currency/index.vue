@@ -30,8 +30,8 @@ export default {
       foreign: '外幣 ➜ 新台幣',
       local: '新台幣 ➜ 外幣',
     }
-    const { tableData, columns, getExchangeList, activeTable, handleActive } = useTable()
-    getExchangeList()
+    const { tableData, columns, getCurrencyIndex, activeTable, handleActive } = useTable()
+    getCurrencyIndex()
 
     return {
       mapping,
@@ -57,12 +57,14 @@ export default {
   div {
     padding: 12px 16px;
     border-radius: 8px;
+    color: $active;
     cursor: pointer;
     transition: all .4s;
   }
 }
 
 .active {
+  color: #fff !important;
   background-color: $active;
 }
 </style>

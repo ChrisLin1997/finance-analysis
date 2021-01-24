@@ -1,25 +1,25 @@
 import { ref, reactive } from 'vue'
-import { getCurrencyExchange } from '@/api/currency'
+import { getCurrencyIndexService } from '@/api/currency'
 
 const tableData = reactive({
   foreign: [],
   local: [],
 })
 
-const getExchangeList = async () => {
-  const result = await getCurrencyExchange()
+const getCurrencyIndex = async () => {
+  const result = await getCurrencyIndexService()
   tableData.foreign = result.foreign
   tableData.local = result.local
 }
 
-const columns = ref([
+const columns = [
   { label: '幣別', prop: 'name', class: () => 'name' },
   { label: '價格', prop: 'price', class: (value) => value ? 'up' : 'down' },
   { label: '漲跌幅', prop: 'change', class: (value) => value ? 'up' : 'down' },
   { label: '漲跌幅百分比', prop: 'changePercent', class: (value) => value ? 'up' : 'down' },
   { label: '買進', prop: 'buy' },
   { label: '賣出', prop: 'sell' },
-])
+]
 
 const activeTable = ref('foreign')
 const handleActive = (value) => {
@@ -30,7 +30,7 @@ export function useTable () {
   return {
     tableData,
     columns,
-    getExchangeList,
+    getCurrencyIndex,
 
     activeTable,
     handleActive,

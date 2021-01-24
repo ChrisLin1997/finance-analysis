@@ -91,7 +91,7 @@ export default {
 }
 
 .name {
-  color: $active;
+  color: $active-color;
 }
 
 .id {

@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import json
 
-def currency (request):
+def index (request):
     mapping = {
       'USDTWD=X': '美元',
       'CNYTWD=X': '人民幣',

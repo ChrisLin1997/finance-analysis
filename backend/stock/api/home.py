@@ -7,7 +7,7 @@ newsLength = 50
 
 CORS = 'https://cors-anywhere.herokuapp.com/'
 
-def majorIndex (request):
+def index (request):
     mapping = {
       '^GSPC': 'S&P 500指數',
       '^DJI': '道瓊工業指數',

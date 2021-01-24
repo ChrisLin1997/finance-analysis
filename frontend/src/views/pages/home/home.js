@@ -3,7 +3,7 @@ import {
   getGoogleNewsService,
   getPttService,
   getMajorIndexService,
-} from '@/api/info'
+} from '@/api/home'
 
 // global
 const allGlobalNews = ref([])
@@ -76,7 +76,7 @@ export function useNews () {
   }
 }
 
-const indexColumns = [
+const columns = [
   { label: '名稱', prop: 'name', class: () => 'name' },
   { label: '價格', prop: 'price', class: (value) => value ? 'up' : 'down' },
   { label: '漲跌幅', prop: 'change', class: (value) => value ? 'up' : 'down' },
@@ -94,7 +94,7 @@ const getMajorIndex = async () => {
 export function useIndex () {
   return {
     majorIndexList,
-    indexColumns,
+    columns,
 
     getMajorIndex,
   }

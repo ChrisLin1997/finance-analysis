@@ -2,10 +2,11 @@ from django.contrib import admin
 from django.urls import path
 from .index import index
 
-import stock.api.info as info
+import stock.api.home as home
 import stock.api.twstock as twstock
 import stock.api.usstock as usstock
 import stock.api.currency as currency
+import stock.api.virtual as virtual
 
 
 urlpatterns = [
@@ -14,12 +15,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     #info
-    path('info/googleNews', info.googleNews),
-    path('info/ptt', info.ptt),
-    path('info/majorIndex', info.majorIndex),
+    path('home/googleNews', home.googleNews),
+    path('home/ptt', home.ptt),
+    path('home/index', home.index),
 
     # twstock
     path('twstock/hot', twstock.hot),
+
     path('twstock/info', twstock.info),
     path('twstock/price', twstock.price),
     path('twstock/merchant', twstock.merchant),
@@ -29,6 +31,9 @@ urlpatterns = [
     # usstock
     path('usstock/info', usstock.info),
 
-    #currency
-    path('currency/exchange', currency.currency)
+    # currency
+    path('currency/index', currency.index)
+
+    # virtual
+    # path('virtual/index', virtual.exchange)
 ]

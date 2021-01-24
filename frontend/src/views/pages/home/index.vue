@@ -18,7 +18,7 @@
       awesome-icon.icon(:icon="['fas', 'chart-line']")
       h3.title 主要指數
     .content
-      price-table(:data="majorIndexList" :columns="indexColumns" height="700px")
+      price-table(:data="majorIndexList" :columns="columns" height="700px")
 
 </template>
 
@@ -36,7 +36,7 @@ export default {
   },
 
   setup () {
-    const { majorIndexList, indexColumns, getMajorIndex } = useIndex()
+    const { majorIndexList, columns, getMajorIndex } = useIndex()
     const { newsTypeList, getAllNews } = useNews()
 
     getMajorIndex()
@@ -44,7 +44,7 @@ export default {
 
     return {
       majorIndexList,
-      indexColumns,
+      columns,
 
       newsTypeList,
     }

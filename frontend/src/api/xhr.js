@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { apiUrl } from '../config'
+import { apiUrl, CORS } from '../config'
 
 export const xhr = (options) => {
   options.url = apiUrl + options.url
@@ -15,14 +15,28 @@ export const xhr = (options) => {
 }
 
 export const test = async () => {
-  const params = {
-    stockNo: '2330.TW',
+  const data = {
+    filter: [
+      { left: 'market_cap_calc', operation: 'nempty' },
+      { left: 'sector', operation: 'nempty' },
+      { left: 'name', operation: 'match', right: 'USD$' }],
+    options: {
+      lang: 'zh_TW',
+    },
+    symbols: {
+      query: { types: [] },
+      tickers: [],
+    },
+    columns: ['base_currency_logoid', 'sector', 'close', 'change'],
+    sort: { sortBy: 'market_cap_calc', sortOrder: 'desc' },
+    range: [0, 10],
   }
-  const url = apiUrl + 'usstock/info'
+
+  const url = CORS + 'https://scanner.tradingview.com/crypto/scan'
   const options = {
     methods: 'get',
     url,
-    params,
+    data,
   }
   return await new Promise((resolve, reject) => {
     axios(options)

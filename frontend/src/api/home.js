@@ -6,7 +6,7 @@ export const getGoogleNewsService = (formData) => {
   }
   return xhr({
     method: 'get',
-    url: 'info/googleNews',
+    url: 'home/googleNews',
     params,
   })
     .then(res => res)
@@ -16,7 +16,7 @@ export const getGoogleNewsService = (formData) => {
 export const getPttService = () => {
   return xhr({
     method: 'get',
-    url: 'info/ptt',
+    url: 'home/ptt',
   })
     .then(res => res)
     .catch(() => [])
@@ -25,7 +25,7 @@ export const getPttService = () => {
 export const getMajorIndexService = () => {
   return xhr({
     method: 'get',
-    url: 'info/majorIndex',
+    url: 'home/index',
   })
     .then(res => res)
     .catch(() => [])

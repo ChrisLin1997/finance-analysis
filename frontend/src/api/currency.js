@@ -1,9 +1,9 @@
 import { xhr } from './xhr'
 
-export const getCurrencyExchange = () => {
+export const getCurrencyIndexService = () => {
   return xhr({
     mehtod: 'get',
-    url: 'currency/exchange',
+    url: 'currency/index',
   })
     .then(res => res)
     .catch(() => ({ foreign: [], local: [] }))
