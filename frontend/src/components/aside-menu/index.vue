@@ -30,7 +30,7 @@ export default {
   name: 'aside-menu',
 
   setup () {
-    const returnHomePage = () => router.push('/')
+    const returnHomePage = () => router.push({ name: 'home' })
 
     const menuList = [
       { name: '股市', path: 'stock-market', icon: ['fas', 'landmark'] },

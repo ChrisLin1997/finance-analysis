@@ -9,14 +9,15 @@ CORS = 'https://cors-anywhere.herokuapp.com/'
 
 def index (request):
     mapping = {
-      '^GSPC': 'S&P 500指數',
-      '^DJI': '道瓊工業指數',
       '^IXIC': 'NASDAQ指數',
       '^SOX': '費城半導體指數',
-      '^VIX': 'VIX恐懼指數',
+      '^NYFANG': 'FANG+ 指數',
+      '^GSPC': 'S&P 500指數',
+      '^DJI': '道瓊工業指數',
       '^TWII': '臺灣加權指數',
-      '^N225': '日經指數',
+      '^VIX': 'VIX恐懼指數',
       '^HSI': '香港恆生指數',
+      '^N225': '日經指數',
       '^KS11': '韓國綜合指數',
       '^FTSE': '英國股市',
       '^GDAXI': '德國股市',

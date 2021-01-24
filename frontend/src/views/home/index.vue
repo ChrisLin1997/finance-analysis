@@ -18,7 +18,7 @@
       awesome-icon.icon(:icon="['fas', 'chart-line']")
       h3.title 主要指數
     .content
-      price-table(:data="majorIndexList" :columns="columns" height="700px")
+      price-table(:data="majorIndexList" :columns="columns" height="760px")
 
 </template>
 

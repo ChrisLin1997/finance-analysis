@@ -4,7 +4,9 @@
   main
     header-bar
     article
-      router-view.view
+      router-view.view(v-slot="{ Component }")
+        transition(name="view" mode="out-in")
+          component(:is="Component")
       footer Copyright © Chris Lin 1.0.0
 </template>
 
@@ -54,5 +56,20 @@ footer {
   min-width: 1444px;
   min-height: calc(100vh - 120px);
   overflow: auto;
+}
+
+.view-enter-from,
+.view-leave-to {
+   opacity: 0;
+}
+
+.view-leave-from,
+.view-enter-to {
+   opacity: 1;
+}
+
+.view-enter-active,
+.view-leave-active {
+  transition: opacity .2s;
 }
 </style>
