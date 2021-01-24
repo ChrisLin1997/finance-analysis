@@ -35,7 +35,7 @@ export default {
     const menuList = [
       { name: '股市', path: 'stock-market', icon: ['fas', 'landmark'] },
       { name: '外匯', path: 'currency', icon: ['fas', 'coins'] },
-      { name: '虛擬貨幣', path: 'virtual', icon: ['fas', 'donate'] },
+      { name: '加密貨幣', path: 'virtual', icon: ['fas', 'donate'] },
       { name: '原物料', path: 'goods', icon: ['fas', 'cubes'] },
     ]
 

@@ -3,7 +3,7 @@
   .area
     .headline
       awesome-icon.icon(:icon="['fas', 'donate']")
-      h3.title 虛擬貨幣
+      h3.title 加密貨幣
     .content
       price-table(:data="tableData" :columns="columns" height="600px")
 </template>
