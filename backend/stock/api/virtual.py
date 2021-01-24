@@ -25,6 +25,7 @@ def index (request):
     virtualList = []
     for item in data:
       currencyItem = {
+        'avatar': item['shortName'].split(' ')[0],
         'id': mapping[item['symbol']],
         'name': item['shortName'].split(' ')[0],
         'price': item['regularMarketPrice']['fmt'],

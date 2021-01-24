@@ -5,9 +5,15 @@
 
   .table-item(v-for="item of data" :key="item.id")
     div(v-for="column of columns" :key="column.prop")
-      awesome-icon.icon(v-if="column.icon" :icon="getIcon(item.isUp)" :class="getClass(item.isUp)")
-      span(:class="column.class ? column.class(item.isUp) : null") {{ item[column.prop] }}
-      span.id(v-if="column.prop === 'name'") {{ item.id }}
+      template(v-if="column.prop === 'name'")
+        .avatar(v-if="item.avatar")
+          img(:src="require(`../../assets/png/${item.avatar}.png`)")
+        .text
+          span(:class="column.class ? column.class(item.isUp) : null") {{ item[column.prop] }}
+          span {{ item.id }}
+      template(v-else)
+        awesome-icon.icon(v-if="column.icon" :icon="getIcon(item.isUp)" :class="getClass(item.isUp)")
+        span(:class="column.class ? column.class(item.isUp) : null") {{ item[column.prop] }}
 </template>
 
 <script>
@@ -73,10 +79,29 @@ export default {
   border-bottom: 1px solid #555;
 
   div:first-child {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     width: 280px;
+    display: flex;
+    justify-content: flex-start;
+
+    .avatar {
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .text {
+      padding-left: 8px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+
+      * {
+        line-height: 24px;
+        text-align: left;
+      }
+    }
   }
 
   div:not(:first-child) {
@@ -105,5 +130,10 @@ export default {
 
 .down {
   color: $down;
+}
+
+img {
+  width: 24px;
+  height: 24px;
 }
 </style>

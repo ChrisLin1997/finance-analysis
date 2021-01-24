@@ -121,16 +121,15 @@ export default {
 
   .icon {
     margin-right: 24px;
-    font-size: 20px;
   }
 
   &:hover {
-    font-size: 18px;
+    transform: translateY(-4px);
   }
 }
 
 .active {
-  color: $active;
+  color: $active-color;
 }
 
 .links {
