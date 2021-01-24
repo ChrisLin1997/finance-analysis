@@ -5,6 +5,7 @@
 
   .table-item(v-for="item of data" :key="item.id")
     div(v-for="column of columns" :key="column.prop")
+      awesome-icon.icon(v-if="column.icon" :icon="getIcon(item.isUp)" :class="getClass(item.isUp)")
       span(:class="column.class ? column.class(item.isUp) : null") {{ item[column.prop] }}
       span.id(v-if="column.prop === 'name'") {{ item.id }}
 </template>

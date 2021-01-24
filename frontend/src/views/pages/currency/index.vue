@@ -51,12 +51,13 @@ export default {
   margin: 12px 0;
   display: flex;
   width: fit-content;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: $active-background;
 
   div {
-    padding: 12px 16px;
-    border-radius: 8px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
     color: $active;
     cursor: pointer;
     transition: all .4s;

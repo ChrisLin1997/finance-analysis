@@ -78,9 +78,9 @@ export function useNews () {
 
 const columns = [
   { label: '名稱', prop: 'name', class: () => 'name' },
-  { label: '價格', prop: 'price', class: (value) => value ? 'up' : 'down' },
-  { label: '漲跌幅', prop: 'change', class: (value) => value ? 'up' : 'down' },
-  { label: '漲跌幅百分比', prop: 'changePercent', class: (value) => value ? 'up' : 'down' },
+  { label: '價格', prop: 'price', icon: true, class: (value) => value ? 'up' : 'down' },
+  { label: '漲跌幅', prop: 'change', icon: true, class: (value) => value ? 'up' : 'down' },
+  { label: '漲跌幅百分比', prop: 'changePercent', icon: true, class: (value) => value ? 'up' : 'down' },
   { label: '當日最低價', prop: 'low', class: () => 'down' },
   { label: '當日最高價', prop: 'high', class: () => 'up' },
 ]

@@ -32,8 +32,8 @@ urlpatterns = [
     path('usstock/info', usstock.info),
 
     # currency
-    path('currency/index', currency.index)
+    path('currency/index', currency.index),
 
     # virtual
-    # path('virtual/index', virtual.exchange)
+    path('virtual/index', virtual.index),
 ]
