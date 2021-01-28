@@ -10,7 +10,7 @@ const allGlobalNews = ref([])
 const globalPage = ref(1)
 const preGlobalPage = ref(0)
 const getGlobalNews = async () => {
-  const submitData = { type: 'global' }
+  const submitData = { type: 'technology' }
   allGlobalNews.value = await getGoogleNewsService(submitData)
 }
 
@@ -19,7 +19,7 @@ const allFinanceNews = ref([])
 const financePage = ref(1)
 const prevFinancePage = ref(0)
 const getFinanceNews = async () => {
-  const submitData = { type: 'finance' }
+  const submitData = { type: 'business' }
   allFinanceNews.value = await getGoogleNewsService(submitData)
 }
 

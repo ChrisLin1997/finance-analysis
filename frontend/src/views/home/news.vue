@@ -7,8 +7,8 @@
     template(v-for="num of 5")
       transition(name="news" mode="out-in")
         .news-list(v-if="options.page === num")
-          .news-item(v-for="item of options.list.slice((num - 1) * 10, num * 10)" :key="item.id")
-            a.title(:href="item.href" target="_blank") {{ item.title }}
+          .news-item(v-for="item of options.list.slice((num - 1) * 10, num * 10)" :key="item.title")
+            a.title(:href="item.url" target="_blank") {{ item.title }}
             span(v-if="item.amount !== undefined") {{ item.amount || 0 }}
   pagination(v-if="options.list.length" v-model="options.page" :page-size="5" :interval="getRandom(8000, 10000)" auto)
 </template>

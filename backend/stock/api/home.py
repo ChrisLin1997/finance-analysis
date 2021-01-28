@@ -1,4 +1,5 @@
 from stock.api.globals import CORS, NewsApiKey, newsLength
+from newsapi import NewsApiClient
 from django.http import HttpResponse
 from bs4 import BeautifulSoup
 import requests
@@ -51,23 +52,15 @@ def index (request):
 
 def googleNews (request):
   newsType = request.GET['type']
+  newsapi = NewsApiClient(api_key='00942a082b944507982c1e8c2cbba299')
+  top_headlines = newsapi.get_top_headlines(
+    category = newsType,
+    language = 'zh',
+    country = 'tw',
+    page_size = 50,
+  )
 
-  typeMapping = {
-    'global': 'CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx1YlY4U0JYcG9MVlJYR2dKVVZ5Z0FQAQ',
-    'finance': 'CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx6TVdZU0JYcG9MVlJYR2dKVVZ5Z0FQAQ',
-  }
-  res = requests.get(f'https://news.google.com/topics/{typeMapping[newsType]}?hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant')
-  data = BeautifulSoup(res.content, 'lxml').select('article > h3 > a', limit = newsLength)
-
-  financeNewsList = []
-  for index, item in enumerate(data):
-    financeNewsList.append({
-      'id': index,
-      'title': item.text,
-      'href': item.get('href').replace('.', 'https://news.google.com', 1),
-    })
-
-  result = json.dumps(financeNewsList)
+  result = json.dumps(top_headlines['articles'])
   return HttpResponse(result)
 
 def ptt (request):
