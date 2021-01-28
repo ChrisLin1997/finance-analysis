@@ -83,7 +83,6 @@ main {
 
     &:hover {
       color: $active;
-      font-weight: bold;
       transition: all .2s;
     }
   }

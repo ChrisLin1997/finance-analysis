@@ -60,6 +60,18 @@ def googleNews (request):
     page_size = 50,
   )
 
+  for item in top_headlines['articles']:
+    type1 = item['title'].split('｜ ')
+    type2 = item['title'].split('| ')
+    type3 = item['title'].split('- ')
+
+    if len(type1) != 1:
+      item['title'] = type1[0]
+    elif len(type2) != 1:
+      item['title'] = type2[0]
+    else:
+      item['title'] = type3[0]
+
   result = json.dumps(top_headlines['articles'])
   return HttpResponse(result)
 
