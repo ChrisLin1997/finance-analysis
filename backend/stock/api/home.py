@@ -1,11 +1,8 @@
+from stock.api.globals import CORS, NewsApiKey, newsLength
 from django.http import HttpResponse
 from bs4 import BeautifulSoup
 import requests
 import json
-
-newsLength = 50
-
-CORS = 'https://cors-anywhere.herokuapp.com/'
 
 def index (request):
     mapping = {

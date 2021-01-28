@@ -1,6 +1,4 @@
 from django.http import HttpResponse
-from datetime import datetime, date
-from bs4 import BeautifulSoup
 import requests
 import json
 

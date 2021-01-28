@@ -1,17 +1,10 @@
+from stock.api.globals import CORS, ROCyear, month
 from django.http import HttpResponse
-from datetime import datetime, date
+from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
 import json
 import twstock
-import time
-
-CORS = 'https://cors-anywhere.herokuapp.com/'
-today = date.today()
-year = int(today.strftime('%Y'))
-ROCyear = year - 1911
-month = int(today.strftime('%m'))
-
 
 def convertToFixed (value):
     if type(value) == list: 
