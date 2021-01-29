@@ -10,7 +10,7 @@
           v-for="news of newsTypeList"
           :key="news.code"
           :options="news"
-          v-loading="news.list.length === 0"
+          v-loading="news.isLoading"
         )
 
   .area

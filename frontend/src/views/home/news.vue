@@ -3,13 +3,18 @@
   .type-title
     awesome-icon.icon(:icon="options.icon")
     span {{ options.name }}
-  main
+  main(v-if="options.list.length")
     template(v-for="num of 5")
       transition(name="news" mode="out-in")
         .news-list(v-if="options.page === num")
           .news-item(v-for="item of options.list.slice((num - 1) * 10, num * 10)" :key="item.title")
             a.title(:href="item.url" target="_blank") {{ item.title }}
             span(v-if="item.amount !== undefined") {{ item.amount || 0 }}
+
+  .no-data(v-else)
+    awesome-icon.icon(:icon="['fas', 'exclamation-circle']")
+    span 暫無數據
+
   pagination(v-if="options.list.length" v-model="options.page" :page-size="5" :interval="getRandom(8000, 10000)" auto)
 </template>
 
@@ -43,9 +48,6 @@ export default {
 <style lang="scss" scoped>
 .news {
   padding: 8px 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   width: 31%;
   height: 420px;
   background-color: $active-background;
@@ -56,6 +58,7 @@ export default {
 }
 
 main {
+  margin: 12px 0;
   position: relative;
   display: flex;
   overflow: hidden;
@@ -90,6 +93,15 @@ main {
   span {
     width: 24px;
   }
+}
+
+.no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 52px);
+  font-size: 20px;
+  color: $dark-font;
 }
 
 .news-enter-from {

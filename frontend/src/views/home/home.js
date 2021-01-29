@@ -1,34 +1,37 @@
 import { ref } from 'vue'
-import {
-  getGoogleNewsService,
-  getPttService,
-  getMajorIndexService,
-} from '@/api/home'
+import { getGoogleNewsService, getPttService, getMajorIndexService } from '@/api/home'
+import { useLoading } from '@/use/loading'
 
 // global
 const allGlobalNews = ref([])
 const globalPage = ref(1)
-const preGlobalPage = ref(0)
+const globalLoader = useLoading()
 const getGlobalNews = async () => {
   const submitData = { type: 'technology' }
+  globalLoader.load()
   allGlobalNews.value = await getGoogleNewsService(submitData)
+  globalLoader.unload()
 }
 
 // finance
 const allFinanceNews = ref([])
 const financePage = ref(1)
-const prevFinancePage = ref(0)
+const financeLoader = useLoading()
 const getFinanceNews = async () => {
   const submitData = { type: 'business' }
+  financeLoader.load()
   allFinanceNews.value = await getGoogleNewsService(submitData)
+  financeLoader.unload()
 }
 
 // ptt
 const allPttNews = ref([])
 const pttPage = ref(1)
-const prevPttPage = ref(0)
+const pttLoader = useLoading()
 const getPttNews = async () => {
+  pttLoader.load()
   allPttNews.value = await getPttService()
+  pttLoader.unload()
 }
 
 const getAllNews = () => {
@@ -42,25 +45,25 @@ const newsTypeList = ref([
     code: 'global',
     name: '國際',
     icon: ['fas', 'globe'],
+    isLoading: globalLoader.isLoading,
     list: allGlobalNews,
     page: globalPage,
-    prePage: preGlobalPage,
   },
   {
     code: 'finance',
     name: '商業',
     icon: ['fas', 'coins'],
+    isLoading: financeLoader.isLoading,
     list: allFinanceNews,
     page: financePage,
-    prePage: prevFinancePage,
   },
   {
     code: 'ptt',
     name: 'PTT',
     icon: ['fas', 'newspaper'],
+    isLoading: pttLoader.isLoading,
     list: allPttNews,
     page: pttPage,
-    prePage: prevPttPage,
   },
 ])
 
