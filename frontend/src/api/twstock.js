@@ -4,9 +4,8 @@ export const getTwstockHotService = () => {
   return xhr({
     method: 'get',
     url: 'twstock/hot',
+    defaultData: { data: [], date: '' },
   })
-    .then(res => res)
-    .catch(() => ({ data: [], date: '' }))
 }
 
 export const getTwstockInfoService = (formData) => {
@@ -17,9 +16,8 @@ export const getTwstockInfoService = (formData) => {
     method: 'get',
     url: 'twstock/info',
     params,
+    defaultData: {},
   })
-    .then(res => res)
-    .catch(() => ({}))
 }
 
 export const getTwstockPriceService = (formData) => {
@@ -30,9 +28,8 @@ export const getTwstockPriceService = (formData) => {
     method: 'get',
     url: 'twstock/price',
     params,
+    defaultData: { date: [], price: [] },
   })
-    .then(res => res)
-    .catch(() => ({ date: [], price: [] }))
 }
 
 export const getTwstockMerchantService = (formData) => {
@@ -45,9 +42,8 @@ export const getTwstockMerchantService = (formData) => {
     method: 'get',
     url: 'twstock/merchant',
     params,
+    defaultData: { stock: { buy: [], sell: [] }, odd: { buy: [], sell: [] } },
   })
-    .then(res => res)
-    .catch(() => ({ stock: { buy: [], sell: [] }, odd: { buy: [], sell: [] } }))
 }
 
 export const getTwstockIncomeService = (formData) => {
@@ -58,9 +54,8 @@ export const getTwstockIncomeService = (formData) => {
     method: 'get',
     url: 'twstock/income',
     params,
+    defaultData: { month: [], income: [] },
   })
-    .then(res => res)
-    .catch(() => ({ month: [], income: [] }))
 }
 
 export const getTwstockEpsService = (formData) => {
@@ -71,7 +66,6 @@ export const getTwstockEpsService = (formData) => {
     method: 'get',
     url: 'twstock/eps',
     params,
+    defaultData: { season: [], eps: [] },
   })
-    .then(res => res)
-    .catch(() => ({ season: [], eps: [] }))
 }

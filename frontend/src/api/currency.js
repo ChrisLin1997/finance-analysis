@@ -4,7 +4,6 @@ export const getCurrencyIndexService = () => {
   return xhr({
     mehtod: 'get',
     url: 'currency/index',
+    defaultData: { foreign: [], local: [] },
   })
-    .then(res => res)
-    .catch(() => ({ foreign: [], local: [] }))
 }

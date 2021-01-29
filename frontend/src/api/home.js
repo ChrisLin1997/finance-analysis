@@ -4,29 +4,27 @@ export const getGoogleNewsService = (formData) => {
   const params = {
     type: formData.type,
   }
+
   return xhr({
     method: 'get',
     url: 'home/googleNews',
     params,
+    defaultData: [],
   })
-    .then(res => res)
-    .catch(() => [])
 }
 
 export const getPttService = () => {
   return xhr({
     method: 'get',
     url: 'home/ptt',
+    defaultData: [],
   })
-    .then(res => res)
-    .catch(() => [])
 }
 
 export const getMajorIndexService = () => {
   return xhr({
     method: 'get',
     url: 'home/index',
+    defaultData: [],
   })
-    .then(res => res)
-    .catch(() => [])
 }
