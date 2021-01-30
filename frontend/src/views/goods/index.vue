@@ -6,8 +6,20 @@
 </template>
 
 <script>
+import { useTable } from './goods'
 export default {
   name: 'goods',
+
+  setup () {
+    const { tableData, columns, getGoodsIndex } = useTable()
+    getGoodsIndex()
+
+    return {
+      tableData,
+      columns,
+      getGoodsIndex,
+    }
+  },
 }
 </script>
 

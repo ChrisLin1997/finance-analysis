@@ -7,6 +7,7 @@ import stock.api.twstock as twstock
 import stock.api.usstock as usstock
 import stock.api.currency as currency
 import stock.api.virtual as virtual
+import stock.api.goods as goods
 
 
 urlpatterns = [
@@ -36,4 +37,7 @@ urlpatterns = [
 
     # virtual
     path('virtual/index', virtual.index),
+
+    # goods
+    path('goods/index', goods.index),
 ]
