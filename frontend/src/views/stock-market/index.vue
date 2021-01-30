@@ -5,7 +5,14 @@
       awesome-icon.icon(:icon="['fas', 'fire-alt']")
       h3.title 臺股熱門
     .content
-      PriceCardList(:data="hotStockList.data")
+      price-card-list(:data="hotStockList.data")
+
+  .area
+    .headline
+      awesome-icon.icon(:icon="['fas', 'balance-scale']")
+      h3.title 臺股市值排行
+    //- .content
+      price-table(:data="hotStockList.data")
 
   .area
     .headline
@@ -18,7 +25,7 @@
 <script>
 import { ref } from 'vue'
 import { getTwstockHotService } from '@/api/twstock'
-import PriceCardList from '@/components/price-card-list'
+import PriceCardList from './price-card-list'
 
 export default {
   name: 'stock-market',

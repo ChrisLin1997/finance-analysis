@@ -51,8 +51,8 @@ section {
 
 .card-item {
   padding: 8px 16px;
-  width: 15%;
-  min-width: 220px;
+  // width: 15%;
+  width: 260px;
   height: 76px;
   display: flex;
   justify-content: space-between;
