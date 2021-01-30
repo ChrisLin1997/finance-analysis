@@ -29,7 +29,7 @@ def index (request):
     virtualList = []
     for item in data:
       currencyItem = {
-        'id': item['shortName'],
+        'id': ' '.join(item['shortName'].split(' ')[0:-2]),
         'name': mapping[item['symbol']],
         'price': item['regularMarketPrice']['fmt'],
         'change': item['regularMarketChange']['fmt'],
