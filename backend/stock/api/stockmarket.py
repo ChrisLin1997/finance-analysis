@@ -91,7 +91,7 @@ def twMarketValue (request):
     twWeightList = []
     for item in data:
       currencyItem = {
-        'id': item['symbol'],
+        'id': item['symbol'][0:-3],
         'name': mapping[item['symbol']],
         'price': item['regularMarketPrice']['fmt'],
         'change': item['regularMarketChange']['fmt'],

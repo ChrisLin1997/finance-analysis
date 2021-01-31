@@ -1,5 +1,5 @@
 module.exports = {
-  // publicPath: '/finance-analysis/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/finance-analysis/' : '/',
   css: {
     loaderOptions: {
       scss: {

@@ -40,7 +40,7 @@ section {
 
 .card-item {
   padding: 8px 16px;
-  width: 260px;
+  min-width: 264px;
   height: 76px;
   display: flex;
   justify-content: space-between;
