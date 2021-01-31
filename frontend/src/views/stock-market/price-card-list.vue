@@ -5,10 +5,9 @@
       .title
         .name {{ item.name }}
         .id {{ item.id }}
-      .price(:class="item.variation ? 'up' : 'down'")
-        .close {{ item.close }}
-        .variation
-          span {{ calcPercent(item) }}
+      .price(:class="item.isUp ? 'up' : 'down'")
+        .close {{ item.price }}
+        .variation {{ item.change }} ( {{ item.changePercent }} )
 
 </template>
 
@@ -24,16 +23,6 @@ export default {
   },
 
   setup () {
-    const convertSign = (value) => value ? '+' : '-'
-    const calcPercent = (item) => {
-      const spread = item.variation ? item.spread : -item.spread
-      const sign = convertSign(item.variation)
-      return `${sign}${item.spread} (${(item.spread / (parseFloat(item.close) + parseFloat(spread))).toFixed(2)}%)`
-    }
-
-    return {
-      calcPercent,
-    }
   },
 }
 </script>

@@ -1,25 +1,33 @@
 import { xhr } from './xhr'
 
-export const getTwHotService = () => {
+export const getTwETFService = () => {
   return xhr({
     method: 'get',
-    url: 'stockmarket/tw/hot',
-    defaultData: { data: [], date: '' },
-  })
-}
-
-export const getTwWeightService = () => {
-  return xhr({
-    method: 'get',
-    url: 'stockmarket/tw/weight',
+    url: 'stockmarket/tw/etf',
     defaultData: [],
   })
 }
 
-export const getUsHotService = () => {
+export const getTwHotService = () => {
   return xhr({
     method: 'get',
-    url: 'stockmarket/us/hot',
+    url: 'stockmarket/tw/hot',
+    defaultData: [],
+  })
+}
+
+export const getTwMarketValueService = () => {
+  return xhr({
+    method: 'get',
+    url: 'stockmarket/tw/marketValue',
+    defaultData: [],
+  })
+}
+
+export const getUsMarketValueService = () => {
+  return xhr({
+    method: 'get',
+    url: 'stockmarket/us/marketValue',
     defaultData: [],
   })
 }

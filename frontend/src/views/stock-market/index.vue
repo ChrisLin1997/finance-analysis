@@ -1,26 +1,26 @@
 <template lang="pug">
 .stock-market(v-loading="isLoading")
-  .area
+  //- .area
     .tip {{ twHotList.date }}
     .headline
       awesome-icon.icon(:icon="['fas', 'chart-line']")
       h3.title 綜合指數
     .content
-      price-card-list(:data="twHotList.data")
+      price-card-list(:data="twHotList")
 
-  .area
+  //- .area
     .headline
       awesome-icon.icon(:icon="['fas', 'money-bill-wave']")
       h3.title 臺股熱門ETF
     .content
-      price-card-list(:data="twHotList.data")
+      price-card-list(:data="twHotList")
 
   .area
     .headline
       awesome-icon.icon(:icon="['fas', 'fire-alt']")
       h3.title 臺股成交排行
     .content
-      price-card-list(:data="twHotList.data")
+      price-card-list(:data="twHotList")
 
   .stock-area
     .area
@@ -28,20 +28,20 @@
         awesome-icon.icon(:icon="['fas', 'balance-scale']")
         h3.title 臺股市值
       .content
-        price-table(:data="twWeightList" :columns="columns")
+        price-table(:data="twMarketValueList" :columns="columns")
 
     .area
       .headline
         awesome-icon.icon(:icon="['fas', 'balance-scale']")
         h3.title 美股市值
       .content
-        price-table(:data="usHotList" :columns="columns")
+        price-table(:data="usMarketValueList" :columns="columns")
 
 </template>
 
 <script>
 import { ref } from 'vue'
-import { getTwHotService, getTwWeightService, getUsHotService } from '@/api/stock-market'
+import { getTwETFService, getTwHotService, getTwMarketValueService, getUsMarketValueService } from '@/api/stock-market'
 import { useLoading } from '@/use/loading'
 import PriceCardList from './price-card-list'
 import PriceTable from '@/components/price-table'
@@ -66,8 +66,18 @@ export default {
       { label: '最高價', prop: 'high', class: () => 'up' },
     ]
 
-    // hot stock
-    const twHotList = ref({ data: [], date: '' })
+    // index
+    const twETFList = ref([])
+    const getTwETFList = async () => {
+      loader.load()
+      twETFList.value = await getTwETFService()
+      loader.unload()
+    }
+    getTwETFList()
+
+    // tw etf
+    // tw hot
+    const twHotList = ref([])
     const getTwHotList = async () => {
       loader.load()
       twHotList.value = await getTwHotService()
@@ -75,19 +85,20 @@ export default {
     }
     getTwHotList()
 
-    // twse wight
-    const twWeightList = ref([])
+    // tw marketValue
+    const twMarketValueList = ref([])
     const getTwWeight = async () => {
       loader.load()
-      twWeightList.value = await getTwWeightService()
+      twMarketValueList.value = await getTwMarketValueService()
       loader.unload()
     }
     getTwWeight()
-    // us hot
-    const usHotList = ref([])
+
+    // us marketValue
+    const usMarketValueList = ref([])
     const getUsHotList = async () => {
       loader.load()
-      usHotList.value = await getUsHotService()
+      usMarketValueList.value = await getUsMarketValueService()
       loader.unload()
     }
     getUsHotList()
@@ -97,8 +108,8 @@ export default {
       columns,
 
       twHotList,
-      twWeightList,
-      usHotList,
+      twMarketValueList,
+      usMarketValueList,
     }
   },
 }

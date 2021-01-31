@@ -22,9 +22,10 @@ urlpatterns = [
     path('home/index', home.index),
 
     # stock-market
-    path('stockmarket/tw/hot', stockmarket.twhot),
-    path('stockmarket/tw/weight', stockmarket.weight),
-    path('stockmarket/us/hot', stockmarket.ushot),
+    path('stockmarket/tw/hot', stockmarket.twHot),
+    path('stockmarket/tw/etf', stockmarket.twETF),
+    path('stockmarket/tw/marketValue', stockmarket.twMarketValue),
+    path('stockmarket/us/marketValue', stockmarket.usMarketValue),
 
     # twstock
     path('twstock/info', twstock.info),
