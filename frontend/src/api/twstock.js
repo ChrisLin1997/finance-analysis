@@ -1,13 +1,5 @@
 import { xhr } from './xhr'
 
-export const getTwstockHotService = () => {
-  return xhr({
-    method: 'get',
-    url: 'twstock/hot',
-    defaultData: { data: [], date: '' },
-  })
-}
-
 export const getTwstockInfoService = (formData) => {
   const params = {
     stockNo: formData.stockNo,

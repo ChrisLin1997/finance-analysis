@@ -3,6 +3,7 @@ from django.urls import path
 from .index import index
 
 import stock.api.home as home
+import stock.api.stockmarket as stockmarket
 import stock.api.twstock as twstock
 import stock.api.usstock as usstock
 import stock.api.currency as currency
@@ -20,9 +21,12 @@ urlpatterns = [
     path('home/ptt', home.ptt),
     path('home/index', home.index),
 
-    # twstock
-    path('twstock/hot', twstock.hot),
+    # stock-market
+    path('stockmarket/tw/hot', stockmarket.twhot),
+    path('stockmarket/tw/weight', stockmarket.weight),
+    path('stockmarket/us/hot', stockmarket.ushot),
 
+    # twstock
     path('twstock/info', twstock.info),
     path('twstock/price', twstock.price),
     path('twstock/merchant', twstock.merchant),

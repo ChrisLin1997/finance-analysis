@@ -1,56 +1,101 @@
 <template lang="pug">
-.stock-market(v-loading="loadStatus !== 0")
+.stock-market(v-loading="isLoading")
   .area
     .headline
       awesome-icon.icon(:icon="['fas', 'fire-alt']")
-      h3.title 臺股熱門
+      h3.title 臺股成交排行
     .content
-      price-card-list(:data="hotStockList.data")
+      .tip {{ twHotList.date }}
+      price-card-list(:data="twHotList.data")
 
-  .area
-    .headline
-      awesome-icon.icon(:icon="['fas', 'balance-scale']")
-      h3.title 臺股市值排行
-    //- .content
-      price-table(:data="hotStockList.data")
+  .te
+    .area
+      .headline
+        awesome-icon.icon(:icon="['fas', 'balance-scale']")
+        h3.title 臺股市值
+      .content
+        price-table(:data="twWeightList" :columns="columns")
 
-  .area
-    .headline
-      awesome-icon.icon(:icon="['fas', 'fire-alt']")
-      h3.title 美股熱門
-    .content
+    .area
+      .headline
+        awesome-icon.icon(:icon="['fas', 'balance-scale']")
+        h3.title 美股市值
+      .content
+        price-table(:data="usHotList" :columns="columns")
 
 </template>
 
 <script>
 import { ref } from 'vue'
-import { getTwstockHotService } from '@/api/twstock'
+import { getTwHotService, getTwWeightService, getUsHotService } from '@/api/stock-market'
+import { useLoading } from '@/use/loading'
 import PriceCardList from './price-card-list'
+import PriceTable from '@/components/price-table'
 
 export default {
   name: 'stock-market',
 
   components: {
     PriceCardList,
+    PriceTable,
   },
 
   setup () {
-    const loadStatus = ref(0)
+    const loader = useLoading()
+
+    const columns = [
+      { label: '名稱', prop: 'name', class: () => 'name' },
+      { label: '價格', prop: 'price', icon: true, class: (value) => value ? 'up' : 'down' },
+      { label: '漲跌幅', prop: 'change', icon: true, class: (value) => value ? 'up' : 'down' },
+      { label: '漲跌幅百分比', prop: 'changePercent', icon: true, class: (value) => value ? 'up' : 'down' },
+      { label: '最低價', prop: 'low', class: () => 'down' },
+      { label: '最高價', prop: 'high', class: () => 'up' },
+    ]
+
     // hot stock
-    const hotStockList = ref({ data: [], date: '' })
-    const getHotTwstock = async () => {
-      loadStatus.value++
-      hotStockList.value = await getTwstockHotService()
-      loadStatus.value--
+    const twHotList = ref({ data: [], date: '' })
+    const getTwHotList = async () => {
+      loader.load()
+      twHotList.value = await getTwHotService()
+      loader.unload()
     }
-    getHotTwstock()
+    getTwHotList()
+
+    // twse wight
+    const twWeightList = ref([])
+    const getTwWeight = async () => {
+      loader.load()
+      twWeightList.value = await getTwWeightService()
+      loader.unload()
+    }
+    getTwWeight()
+    // us hot
+    const usHotList = ref([])
+    const getUsHotList = async () => {
+      loader.load()
+      usHotList.value = await getUsHotService()
+      loader.unload()
+    }
+    getUsHotList()
 
     return {
-      loadStatus,
+      isLoading: loader.isLoading,
+      columns,
 
-      hotStockList,
-      getHotTwstock,
+      twHotList,
+      twWeightList,
+      usHotList,
     }
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.te {
+  display: flex;
+  justify-content: space-between;
+  .area {
+    width: 48%;
+  }
+}
+</style>

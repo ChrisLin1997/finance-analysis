@@ -51,13 +51,13 @@ section {
 
 .card-item {
   padding: 8px 16px;
-  // width: 15%;
   width: 260px;
   height: 76px;
   display: flex;
   justify-content: space-between;
   background-color: $active-background;
   border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
 }
 
