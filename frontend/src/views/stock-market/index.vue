@@ -1,14 +1,28 @@
 <template lang="pug">
 .stock-market(v-loading="isLoading")
   .area
+    .tip {{ twHotList.date }}
+    .headline
+      awesome-icon.icon(:icon="['fas', 'chart-line']")
+      h3.title 綜合指數
+    .content
+      price-card-list(:data="twHotList.data")
+
+  .area
+    .headline
+      awesome-icon.icon(:icon="['fas', 'money-bill-wave']")
+      h3.title 臺股熱門ETF
+    .content
+      price-card-list(:data="twHotList.data")
+
+  .area
     .headline
       awesome-icon.icon(:icon="['fas', 'fire-alt']")
       h3.title 臺股成交排行
     .content
-      .tip {{ twHotList.date }}
       price-card-list(:data="twHotList.data")
 
-  .te
+  .stock-area
     .area
       .headline
         awesome-icon.icon(:icon="['fas', 'balance-scale']")
@@ -91,11 +105,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.te {
+.stock-area {
   display: flex;
   justify-content: space-between;
   .area {
     width: 48%;
   }
+}
+
+.tip {
+  text-align: right;
 }
 </style>
