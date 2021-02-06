@@ -21,8 +21,9 @@ module.exports = {
       activeGray: '#393e44',
       primary: '#181c20',
       dark: '#b5b5b5',
-      up: 'ff3737',
-      down: '6fda1a',
+      up: '#ff3737',
+      down: '#6fda1a',
+      loading: '#181c20aa',
 
       black: colors.black,
       white: colors.white,
@@ -77,7 +78,7 @@ module.exports = {
       spin: 'spin 1s linear infinite',
       ping: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
       pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      bounce: 'bounce 1s infinite',
+      line: 'line 1s infinite',
     },
     backgroundColor: (theme) => theme('colors'),
     backgroundImage: {
@@ -374,6 +375,7 @@ module.exports = {
       '5/6': '83.333333%',
       full: '100%',
       screen: '100vh',
+      fit: 'fit-content',
     }),
     inset: (theme, { negative }) => ({
       auto: 'auto',
@@ -411,14 +413,13 @@ module.exports = {
           opacity: '.5',
         },
       },
-      bounce: {
-        '0%, 100%': {
-          transform: 'translateY(-25%)',
-          animationTimingFunction: 'cubic-bezier(0.8,0,1,1)',
-        },
+      line: {
         '50%': {
-          transform: 'none',
-          animationTimingFunction: 'cubic-bezier(0,0,0.2,1)',
+          transform: 'scaleY(1.4)',
+          'background-color': '#3ca9c0',
+        },
+        '80%': {
+          transform: 'scaleY(1)',
         },
       },
     },
@@ -485,12 +486,15 @@ module.exports = {
       0: '0px',
       full: '100%',
       screen: '100vh',
+      layout: 'calc(100vh - 120px)',
     },
     minWidth: {
       0: '0px',
       full: '100%',
       min: 'min-content',
       max: 'max-content',
+      symbol: '100px',
+      layout: '1444px',
     },
     objectPosition: {
       bottom: 'bottom',
@@ -686,7 +690,9 @@ module.exports = {
     width: (theme) => ({
       auto: 'auto',
       '31%': '31%',
+      '45%': '45%',
       '48%': '48%',
+      '55%': '55%',
       ...theme('spacing'),
       '1/2': '50%',
       '1/3': '33.333333%',
@@ -719,6 +725,7 @@ module.exports = {
       min: 'min-content',
       max: 'max-content',
       fit: 'fit-content',
+      layout: 'calc(100vw - 240px)',
     }),
     zIndex: {
       auto: 'auto',

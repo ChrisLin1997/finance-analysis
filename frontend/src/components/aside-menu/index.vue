@@ -1,5 +1,5 @@
 <template lang="pug">
-.aside-menu(class="flex flex-col w-72 h-screen text-center bg-activeGray z-20")
+.aside-menu(class="flex flex-col w-60 h-screen text-center bg-activeGray z-20")
   .title(@click="returnHomePage" class="py-4 w-full text-2xl font-bold cursor-pointer bg-primary select-none transition-all duration-200 active:text-2xl hover:text-hover" )
     span(class=" text-activeColor") Finance
     span Analysis

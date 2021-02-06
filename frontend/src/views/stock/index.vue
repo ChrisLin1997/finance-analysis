@@ -1,29 +1,30 @@
 <template lang="pug">
 .stock
-  .area
-    .content
-      main
-        fa-chart.chart(:options="priceChartOption" color="blue")
-          .info
-            .title
+  area-theme(class="mt-12")
+    template(#content)
+      article(class="flex justify-between h-96")
+        fa-chart(:options="priceChartOption" color="blue" class="w-55%")
+          article(class="w-fit")
+            div(class="my-1")
               span {{ stockInfo.name }}
-              span.price {{ stockInfo.price }}
-              span.currency {{ stockInfo.currency }}
-            .subtitle
+              span(class="ml-12") {{ stockInfo.price }}
+              span(class="mt-2 ml-1 text-xs") {{ stockInfo.currency }}
+            div(class="flex justify-between text-sm")
               span {{ stockInfo.id }}
               span {{ stockInfo.change }} ({{ stockInfo.changePercent }})
-        merchant.merchant(:stockNo="userSearch")
+        merchant(:stockNo="userSearch" class="w-45%")
 
-  .area
-    .content
-      main
-        fa-chart.chart-item(
+  area-theme(class="mt-12")
+    template(#content)
+      article(class="flex justify-between h-80")
+        fa-chart(
           v-for="chart of chartList"
           :key="chart.code"
+          class="w-48%"
           :color="chart.color"
           :options="chart.option"
         )
-          awesome-icon(:icon="chart.icon")
+          awesome-icon(:icon="chart.icon" class="mr-2 ")
           span {{ chart.label }}
 
 </template>
@@ -31,6 +32,7 @@
 <script>
 import { ref, watchEffect } from 'vue'
 import router from '@/router'
+import AreaTheme from '@/components/area-theme'
 import FaChart from '@/components/fa-chart'
 import useStock from './stock-info'
 import Merchant from './merchant/index'
@@ -39,6 +41,7 @@ export default {
   name: 'stock',
 
   components: {
+    AreaTheme,
     FaChart,
     Merchant,
   },
@@ -65,51 +68,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.content {
-  padding-top: 32px;
-}
-
-main {
-  display: flex;
-  justify-content: space-between;
-  height: 360px;
-}
-
-.chart {
-  width: 55%;
-}
-
-.merchant {
-  width: 45%;
-}
-
-.info {
-  width: fit-content;
-
-  .title,
-  .subtitle {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-
-    &:first-child {
-      font-size: 24px;
-    }
-  }
-
-  .price {
-    margin-left: 48px;
-  }
-
-  .currency {
-    margin: 12px 0 0 4px;
-    font-size: 12px;
-  }
-}
-
-.chart-item {
-  width: 48%;
-}
-</style>

@@ -5,7 +5,7 @@
       section(class=" my-3 flex w-fit rounded bg-activeGray")
         div(
           v-for="key of Object.keys(tableData)"
-          :class="{ 'active' : activeTable === key }"
+          :class="{ 'active bg-active' : activeTable === key }"
           class=" px-2 py-1 text-activeColor rounded cursor-pointer transition-colors duration-400"
           @click="handleActive(key)"
           ) {{  mapping[key] }}
@@ -46,9 +46,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .active {
   color: #fff !important;
-  background-color: $active;
 }
 </style>

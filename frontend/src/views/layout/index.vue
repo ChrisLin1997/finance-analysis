@@ -1,13 +1,13 @@
 <template lang="pug">
-.layout
+.layout(class="flex")
   aside-menu
-  main
+  main(class="flex flex-col w-layout h-screen")
     header-bar
-    article
-      router-view.view(v-slot="{ Component }")
+    article(class="w-full overflow-auto")
+      router-view(v-slot="{ Component }" class="px-6 min-w-layout min-h-layout overflow-auto")
         transition(name="view" mode="out-in")
           component(:is="Component")
-      footer Copyright © Chris Lin 1.0.0
+      footer(class="mt-10 py-2 px-6 text-xs text-dark") Copyright © Chris Lin 1.0.0
 </template>
 
 <script>
@@ -28,36 +28,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.layout {
-  display: flex;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  width: calc(100vw - 244px);
-  height: 100vh;
-}
-
-article {
-  width: calc(100vw - 244px);
-  overflow: auto;
-}
-
-footer {
-  margin-top: 36px;
-  padding: 8px 24px;
-  font-size: 12px;
-  color: #777;
-}
-
-.view {
-  padding: 0px 24px;
-  min-width: 1444px;
-  min-height: calc(100vh - 120px);
-  overflow: auto;
-}
-
 .view-enter-from,
 .view-leave-to {
    opacity: 0;

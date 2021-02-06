@@ -1,5 +1,5 @@
 <template lang="pug">
-.header-bar(class="flex px-6 py-2 h-12 leading-loose z-10")
+.header-bar(class="flex px-6 py-2 w-full h-12 leading-loose z-10")
   search
 
 </template>

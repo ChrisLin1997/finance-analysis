@@ -38,7 +38,7 @@ export default {
   },
 
   setup (props) {
-    const getClass = (value) => value ? 'up' : 'down'
+    const getClass = (value) => value ? 'text-up' : 'text-down'
     const getIcon = (value) => value ? ['fas', 'caret-up'] : ['fas', 'caret-down']
     const style = computed(() => ({ height: props.height }))
 
@@ -122,14 +122,6 @@ export default {
 
 .id {
   font-size: 14px;
-}
-
-.up {
-  color: $up;
-}
-
-.down {
-  color: $down;
 }
 
 img {

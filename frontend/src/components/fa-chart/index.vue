@@ -1,8 +1,8 @@
 <template lang="pug">
-.fa-chart
-  .symbol(ref="symbolElement")
+.fa-chart(class="pt-12 px-6 pb-3 relative bg-activeGray rounded-lg")
+  .symbol(ref="symbolElement" class="py-2 px-4 w-fit h-fit min-w-symbol absolute flex justify-evenly items-center -top-6 left-4 text-xl leading-5 font-bold rounded")
     slot
-  canvas.canvas(ref="canvasElement")
+  canvas(ref="canvasElement")
 </template>
 
 <script>
@@ -56,28 +56,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.fa-chart {
-  padding: 48px 24px 12px;
-  position: relative;
-  background-color: $active-background;
-  border-radius: 8px;
-}
-
-.symbol {
-  position: absolute;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  top: -24px;
-  left: 16px;
-  padding: 8px 16px;
-  width: fit-content;
-  min-width: 100px;
-  height: fit-content;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 4px;
-}
-</style>

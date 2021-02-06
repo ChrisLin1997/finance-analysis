@@ -1,10 +1,10 @@
 <template lang="pug">
-.loading(ref="loadingElement")
-  .line
-  .line
-  .line
-  .line
-  .line
+.loading(ref="loadingElement" class=" absolute top-0 left-0 w-full h-full flex justify-center items-center bg-loading")
+  .line(class="mr-1 inline-block w-2 h-8 animate-line bg-gray-800")
+  .line(class="mr-1 inline-block w-2 h-8 animate-line bg-gray-800")
+  .line(class="mr-1 inline-block w-2 h-8 animate-line bg-gray-800")
+  .line(class="mr-1 inline-block w-2 h-8 animate-line bg-gray-800")
+  .line(class="mr-1 inline-block w-2 h-8 animate-line bg-gray-800")
 </template>
 
 <script>
@@ -31,36 +31,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.loading {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #181c20aa;
-}
-
-.line {
-  display: inline-block;
-  margin: 2px;
-  width: 6px;
-  height: 28px;
-  background-color: #333;
-  animation: line 1s infinite;
-}
-
-@keyframes line {
-  50% {
-    transform: scaleY(1.4);
-    background-color: $active;
-  }
-  80% {
-    transform: scaleY(1)
-  }
-}
-</style>

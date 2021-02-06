@@ -1,8 +1,9 @@
 <template lang="pug">
-.pagination
+.pagination(class="flex justify-center w-full")
   span(
     v-for="num of pageSize"
-    :class="{ 'active' : modelValue === num}"
+    :class="{ 'text-activeColor font-bold' : modelValue === num}"
+    class="mx-1 pt-2 px-1 cursor-pointer transition-colors duration-200"
     @click="handlePage(num)"
     @mouseover="stopInterval(num)"
     @mouseleave="startInterval()"
@@ -61,24 +62,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.pagination {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-
-  span {
-    margin: 0 4px;
-    padding: 2px 4px 0;
-    cursor: pointer;
-    transition: all .2s;
-  }
-}
-
-.active {
-  color: $active;
-  font-weight: bold;
-  transform: scale(1.2);
-}
-</style>
