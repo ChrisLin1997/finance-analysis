@@ -14,7 +14,7 @@
       :to="item.path"
       :class="{ 'active' : activePage === item.path }"
     )
-      awesome-icon.icon(:icon="item.icon")
+      awesome-icon(class="mr-2" :icon="item.icon")
       span {{ item.name }}
 
   .links

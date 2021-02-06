@@ -1,6 +1,6 @@
 <template lang="pug">
 .search
-  awesome-icon.icon(:icon="['fas', 'search']" @click="handleEnter")
+  awesome-icon(class="mr-2 cursor-pointer" :icon="['fas', 'search']" @click="handleEnter")
   input(v-model="search" @keypress.enter="handleEnter")
 </template>
 

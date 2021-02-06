@@ -12,7 +12,7 @@
           span(:class="column.class ? column.class(item.isUp) : null") {{ item[column.prop] }}
           span {{ item.id }}
       template(v-else)
-        awesome-icon.icon(v-if="column.icon" :icon="getIcon(item.isUp)" :class="getClass(item.isUp)")
+        awesome-icon(class="mr-2" v-if="column.icon" :icon="getIcon(item.isUp)" :class="getClass(item.isUp)")
         span(:class="column.class ? column.class(item.isUp) : null") {{ item[column.prop] }}
 </template>
 

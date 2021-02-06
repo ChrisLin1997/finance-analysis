@@ -3,7 +3,7 @@
   header(class="text-left")
     slot(name="pretitle")
     awesome-icon(:icon="['fas', icon]" class="mr-2")
-    h3(class="inline-block text-xl") {{ title }}
+    span {{ title }}
     slot(name="posttitle")
   article(class="mt-2")
     slot(name="content")

@@ -3,38 +3,29 @@
   //- .area
     .tip {{ twHotList.date }}
     .headline
-      awesome-icon.icon(:icon="['fas', 'chart-line']")
+      awesome-icon(class="mr-2" :icon="['fas', 'chart-line']")
       h3.title 綜合指數
     .content
       price-card-list(:data="twHotList")
 
   //- .area
     .headline
-      awesome-icon.icon(:icon="['fas', 'money-bill-wave']")
+      awesome-icon(class="mr-2" :icon="['fas', 'money-bill-wave']")
       h3.title 臺股熱門ETF
     .content
       price-card-list(:data="twHotList")
 
-  .area
-    .headline
-      awesome-icon.icon(:icon="['fas', 'fire-alt']")
-      h3.title 臺股成交排行
-    .content
+  area-theme(icon="fire-alt" title="臺股成交排行")
+    template(#content)
       price-card-list(:data="twHotList")
 
-  .stock-area
-    .area
-      .headline
-        awesome-icon.icon(:icon="['fas', 'balance-scale']")
-        h3.title 臺股市值
-      .content
+  div(class="flex justify-between")
+    area-theme(icon="balance-scale" title="臺股市值" class="w-48%")
+      template(#content)
         price-table(:data="twMarketValueList" :columns="columns")
 
-    .area
-      .headline
-        awesome-icon.icon(:icon="['fas', 'balance-scale']")
-        h3.title 美股市值
-      .content
+    area-theme(icon="balance-scale" title="美股大型" class="w-48%")
+      template(#content)
         price-table(:data="usMarketValueList" :columns="columns")
 
 </template>
@@ -43,6 +34,7 @@
 import { ref } from 'vue'
 import { getTwETFService, getTwHotService, getTwMarketValueService, getUsMarketValueService } from '@/api/stock-market'
 import { useLoading } from '@/use/loading'
+import AreaTheme from '@/components/area-theme'
 import PriceCardList from './price-card-list'
 import PriceTable from '@/components/price-table'
 
@@ -50,6 +42,7 @@ export default {
   name: 'stock-market',
 
   components: {
+    AreaTheme,
     PriceCardList,
     PriceTable,
   },
@@ -114,17 +107,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.stock-area {
-  display: flex;
-  justify-content: space-between;
-  .area {
-    width: 48%;
-  }
-}
-
-.tip {
-  text-align: right;
-}
-</style>

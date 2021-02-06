@@ -1,7 +1,7 @@
 <template lang="pug">
 .news(class="py-2 px-3 w-31% h-420px bg-activeGray")
   div(class="text-xl")
-    awesome-icon.icon(:icon="options.icon")
+    awesome-icon(class="mr-2" :icon="options.icon")
     span {{ options.name }}
   main(v-if="options.list.length" class="my-3 relative flex overflow-hidden")
     template(v-for="num of 5")
@@ -16,7 +16,7 @@
             span(v-if="item.amount !== undefined" class="w-7") {{ item.amount || 0 }}
 
   .no-data(v-else class="flex justify-center items-center h-full text-dark text-lg")
-    awesome-icon.icon(:icon="['fas', 'exclamation-circle']")
+    awesome-icon(class="mr-2" :icon="['fas', 'exclamation-circle']")
     span 暫無數據
 
   pagination(v-if="options.list.length" v-model="options.page" :page-size="5" :interval="getRandom(8000, 10000)" auto)
