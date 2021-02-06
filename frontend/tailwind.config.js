@@ -16,6 +16,13 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
 
+      active: '#3ca9c0',
+      activeColor: '#35d1ec',
+      activeGray: '#393e44',
+      dark: '#b5b5b5',
+      up: 'ff3737',
+      down: '6fda1a',
+
       black: colors.black,
       white: colors.white,
       gray: colors.coolGray,
@@ -345,6 +352,7 @@ module.exports = {
     },
     height: (theme) => ({
       auto: 'auto',
+      '420px': '420px',
       ...theme('spacing'),
       '1/2': '50%',
       '1/3': '33.333333%',
@@ -623,6 +631,7 @@ module.exports = {
       150: '150ms',
       200: '200ms',
       300: '300ms',
+      400: '400ms',
       500: '500ms',
       700: '700ms',
       1000: '1000ms',
@@ -673,6 +682,7 @@ module.exports = {
     }),
     width: (theme) => ({
       auto: 'auto',
+      '30%': '30%',
       ...theme('spacing'),
       '1/2': '50%',
       '1/3': '33.333333%',

@@ -1,17 +1,21 @@
 <template lang="pug">
-.news
-  .type-title
+.news(class="py-2 px-3 w-30% h-420px bg-activeGray")
+  div(class="text-xl")
     awesome-icon.icon(:icon="options.icon")
     span {{ options.name }}
-  main(v-if="options.list.length")
+  main(v-if="options.list.length" class="my-3 relative flex overflow-hidden")
     template(v-for="num of 5")
       transition(name="news" mode="out-in")
-        .news-list(v-if="options.page === num")
-          .news-item(v-for="item of options.list.slice((num - 1) * 10, num * 10)" :key="item.title")
-            a.title(:href="item.url" target="_blank") {{ item.title }}
-            span(v-if="item.amount !== undefined") {{ item.amount || 0 }}
+        section(v-if="options.page === num" class="inline-flex flex-col justify-between w-full h-80")
+          div(
+            v-for="item of options.list.slice((num - 1) * 10, num * 10)"
+            :key="item.title"
+            class="flex justify-between"
+          )
+            a(:href="item.url" target="_blank" class="block text-dark text-sm overflow-hidden overflow-ellipsis whitespace-nowrap hover:text-activeColor") {{ item.title }}
+            span(v-if="item.amount !== undefined" class="w-7") {{ item.amount || 0 }}
 
-  .no-data(v-else)
+  .no-data(v-else class="flex justify-center items-center h-full text-dark text-lg")
     awesome-icon.icon(:icon="['fas', 'exclamation-circle']")
     span 暫無數據
 
@@ -45,65 +49,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.news {
-  padding: 8px 12px;
-  width: 31%;
-  height: 420px;
-  background-color: $active-background;
-}
-
-.type-title {
-  font-size: 20px;
-}
-
-main {
-  margin: 12px 0;
-  position: relative;
-  display: flex;
-  overflow: hidden;
-}
-
-.news-list {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: 330px;
-}
-
-.news-item {
-  display: flex;
-  justify-content: space-between;
-
-  .title {
-    color: $dark-font;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 14px;
-
-    &:hover {
-      color: $active;
-      transition: all .2s;
-    }
-  }
-
-  span {
-    width: 24px;
-  }
-}
-
-.no-data {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100% - 52px);
-  font-size: 20px;
-  color: $dark-font;
-}
-
+<style scoped>
 .news-enter-from {
   transform: translateX(100%)
 }
@@ -122,9 +68,7 @@ main {
   transform: translateX(-100%)
 }
 
-.news-enter-active {
-  transition: transform .4s;
-}
+.news-enter-active,
 .news-leave-active {
   transition: transform .4s;
 }

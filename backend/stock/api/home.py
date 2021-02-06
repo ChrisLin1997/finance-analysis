@@ -96,7 +96,7 @@ def ptt (request):
       pttNewsList.append({
         'id': id,
         'title': item.text,
-        'href': domain + item.get('href'),
+        'url': domain + item.get('href'),
         'amount': amount[index].text
       })
   
