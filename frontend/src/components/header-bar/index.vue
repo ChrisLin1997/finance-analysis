@@ -1,5 +1,5 @@
 <template lang="pug">
-.header-bar
+.header-bar(class="flex px-6 py-2 h-12 leading-loose z-10")
   search
 
 </template>
@@ -18,12 +18,6 @@ export default {
 
 <style lang="scss" scoped>
 .header-bar {
-  padding: 0 24px;
-  display: flex;
-  min-width: 1444px;
-  height: 52px;
-  line-height: 52px;
-  z-index: 1;
   box-shadow: 0 0 8px 2px #666;
 }
 </style>

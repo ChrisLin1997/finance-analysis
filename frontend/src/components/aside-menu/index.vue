@@ -1,24 +1,22 @@
 <template lang="pug">
-.aside-menu
-  .title(@click="returnHomePage")
-    span Finance
+.aside-menu(class="flex flex-col w-72 h-screen text-center bg-activeGray z-20")
+  .title(@click="returnHomePage" class="py-4 w-full text-2xl font-bold cursor-pointer bg-primary select-none transition-all duration-200 active:text-2xl hover:text-hover" )
+    span(class=" text-activeColor") Finance
     span Analysis
 
-  .name
-    h3 Chris Lin
-
-  .menu
-    router-link.menu-item(
+  section(class="h-full overflow-auto")
+    router-link(
       v-for="item of menuList"
       :key="item.name"
+      class="pl-9 flex items-center h-14 font-bold transition-transform duration-400 border-b border-gray-600 transform hover:-translate-y-1"
       :to="item.path"
-      :class="{ 'active' : activePage === item.path }"
+      :class="{ ' text-activeColor' : activePage === item.path }"
     )
-      awesome-icon(class="mr-2" :icon="item.icon")
+      awesome-icon(class="mr-4" :icon="item.icon")
       span {{ item.name }}
 
-  .links
-    a.link-item(v-for="link of linkList" :key="link.code" :href="link.href" target="_blank")
+  footer(class="flex justify-evenly items-center w-full h-14 border-t border-gray-600")
+    a(v-for="link of linkList" :key="link.code" :href="link.href" target="_blank" class=" text-xl")
       awesome-icon(:icon="link.icon")
 </template>
 
@@ -60,89 +58,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.aside-menu {
-  display: flex;
-  flex-direction: column;
-  width: 244px;
-  height: 100vh;
-  z-index: 2;
-  text-align: center;
-  background-color: $active-background;
-  box-shadow: 0 0 8px 0 #333;
-}
-
-.title {
-  width: 244px;
-  line-height: 64px;
-  font-size: 24px;
-  font-weight: bold;
-  background-color: $primary-background;
-  user-select: none;
-  cursor: pointer;
-  z-index: 10;
-  transition: all .4s;
-
-  & > span:first-child {
-    display: inline;
-    color: $active;
-  }
-
-  &:hover {
-    font-size: 25px;
-  }
-
-  &:active {
-    transform: translateY(-4px);
-  }
-}
-
-.name {
-  height: 50px;
-  line-height: 50px;
-  background-color: $active;
-}
-
-.menu {
-  height: 100%;
-  overflow: auto;
-}
-
-.menu-item {
-  padding-left: 36px;
-  display: flex;
-  align-items: center;
-  height: 56px;
-  color: #fff;
-  font-weight: 600;
-  border-bottom: 1px solid #666;
-  transition: all .4s;
-
-  .icon {
-    margin-right: 24px;
-  }
-
-  &:hover {
-    transform: translateY(-4px);
-  }
-}
-
-.active {
-  color: $active-color;
-}
-
-.links {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  height: 56px;
-  border-top: 1px solid #666;
-}
-
-.link-item {
-  font-size: 24px;
-  color: #fff;
-}
-</style>
