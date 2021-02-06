@@ -1,5 +1,5 @@
 <template lang="pug">
-.news(class="py-2 px-3 w-30% h-420px bg-activeGray")
+.news(class="py-2 px-3 w-31% h-420px bg-activeGray")
   div(class="text-xl")
     awesome-icon.icon(:icon="options.icon")
     span {{ options.name }}

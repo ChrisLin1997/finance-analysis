@@ -682,7 +682,7 @@ module.exports = {
     }),
     width: (theme) => ({
       auto: 'auto',
-      '30%': '30%',
+      '31%': '31%',
       ...theme('spacing'),
       '1/2': '50%',
       '1/3': '33.333333%',
@@ -714,6 +714,7 @@ module.exports = {
       screen: '100vw',
       min: 'min-content',
       max: 'max-content',
+      fit: 'fit-content',
     }),
     zIndex: {
       auto: 'auto',

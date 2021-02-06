@@ -1,20 +1,19 @@
 <template lang="pug">
 .currency
-  .area
-    .headline
-      awesome-icon.icon(:icon="['fas', 'dollar-sign']")
-      h3.title 外幣匯率
-    .content
-      .switch
+  area-theme(icon="dollar-sign" title="外幣匯率")
+    template(#content)
+      section(class=" my-3 flex w-fit rounded bg-activeGray")
         div(
           v-for="key of Object.keys(tableData)"
           :class="{ 'active' : activeTable === key }"
+          class=" px-2 py-1 text-activeColor rounded cursor-pointer transition-colors duration-400"
           @click="handleActive(key)"
           ) {{  mapping[key] }}
       price-table(:data="tableData[activeTable]" :columns="columns" height="600px")
 </template>
 
 <script>
+import AreaTheme from '@/components/area-theme'
 import PriceTable from '@/components/price-table'
 import { useTable } from './currency'
 
@@ -22,6 +21,7 @@ export default {
   name: 'currency',
 
   components: {
+    AreaTheme,
     PriceTable,
   },
 
@@ -47,23 +47,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.switch {
-  margin: 12px 0;
-  display: flex;
-  width: fit-content;
-  border-radius: 4px;
-  background-color: $active-background;
-
-  div {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 14px;
-    color: $active;
-    cursor: pointer;
-    transition: all .4s;
-  }
-}
-
 .active {
   color: #fff !important;
   background-color: $active;

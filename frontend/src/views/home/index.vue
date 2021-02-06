@@ -1,28 +1,22 @@
 <template lang="pug">
 .home
-  .area
-    .headline
-      awesome-icon.icon(:icon="['fas', 'paper-plane']")
-      h3.title 即時新聞
-    .content
-      .news-layout
+  area-theme(icon="paper-plane" title="即時新聞")
+    template(#content)
+      article(class="mt-3 flex justify-between")
         news(
           v-for="news of newsTypeList"
           :key="news.code"
           :options="news"
           v-loading="news.isLoading"
         )
-
-  .area
-    .headline
-      awesome-icon.icon(:icon="['fas', 'chart-line']")
-      h3.title 主要指數
-    .content
+  area-theme(icon="chart-line" title="主要指數")
+    template(#content)
       price-table(:data="majorIndexList" :columns="columns" height="760px")
 
 </template>
 
 <script>
+import AreaTheme from '@/components/area-theme'
 import PriceTable from '@/components/price-table'
 import News from './news'
 import { useIndex, useNews } from './home'
@@ -31,6 +25,7 @@ export default {
   name: 'home',
 
   components: {
+    AreaTheme,
     News,
     PriceTable,
   },
@@ -51,11 +46,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.news-layout {
-  margin-top: 12px;
-  display: flex;
-  justify-content: space-between;
-}
-</style>
