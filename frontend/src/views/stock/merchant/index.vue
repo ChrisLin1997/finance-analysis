@@ -1,17 +1,18 @@
 <template lang="pug">
-.merchant
-  .merchant-type
-    .type-item(
+.merchant(class="py-3 px-6 text-center")
+  .type(class="m-auto w-2/5 flex bg-activeGray")
+    button(
       v-for="type of merchantType"
       :key="type.code"
-      :class="{ 'active' : type.code === activeMerchant }"
+      :class="{ 'bg-activeColor' : type.code === activeMerchant }"
+      class="py-1 w-1/2 h-auto leading-7 rounded select-none cursor-pointer transition-colors duration-400 focus:outline-none"
       @click="handleMerchant(type.code)"
     ) {{ type.label }}
-  .merchant-list(v-for="item of merchantList" :key="item.code")
+  section(v-for="item of merchantList" :key="item.code" class="inline-flex flex-col justify-around w-1/2 h-80")
     h3(:class="item.code") {{ item.label }}
-    .merchant-item(v-for="(node, index) of merchantInfo[activeMerchant][item.code]" :key="index" :class="item.code")
-      .price {{ convertPrice(node.price) }}
-      .amount {{ node.amount || '-' }}
+    article(v-for="(node, index) of merchantInfo[activeMerchant][item.code]" :key="index" :class="item.code" class="pb-2 flex justify-between text-right border-b border-activeGray")
+      div(class="w-31%") {{ convertPrice(node.price) }}
+      div(class="w-31%") {{ node.amount || '-' }}
 </template>
 
 <script>
@@ -63,55 +64,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.merchant {
-  padding: 12px 24px;
-  background-color: #292d31;
-  text-align: center;
-}
-
-.merchant-type {
-  margin: 0 auto;
-  display: flex;
-  width: 40%;
-  background-color: $active-background;
-
-  .type-item {
-    width: 50%;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 4px;
-    transition: all .2s;
-    cursor: pointer;
-    user-select: none;
-
-    &:hover {
-      background-color: #666;
-    }
-  }
-
-  .active {
-    background-color: $active;
-  }
-}
-
-.merchant-list {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 50%;
-  height: 310px;
-}
-
-.merchant-item {
-  display: flex;
-  justify-content: space-between;
-  text-align: right;
-  border-bottom: 1px solid $active-background;
-  * {
-    width: 30%;
-  }
-}
-
 .buy {
   flex-direction: row-reverse;
   color: $up;
