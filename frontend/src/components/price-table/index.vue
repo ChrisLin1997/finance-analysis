@@ -1,16 +1,16 @@
 <template lang="pug">
-.index-list(v-loading="data.length === 0" :style="style")
-  .thead-item
+.price-table(v-loading="data.length === 0" :style="style")
+  .thead(class="flex text-sm text-dark leading-7 border-b border-activeGray")
     div(v-for="column of columns" :key="column.prop") {{ column.label }}
 
-  .table-item(v-for="item of data" :key="item.id")
-    div(v-for="column of columns" :key="column.prop")
+  .tbody(v-for="item of data" :key="item.id" class="flex justify-between h-14 font-bold border-b border-activeGray hover:bg-activeGray transition-colors")
+    div(v-for="column of columns" :key="column.prop" )
       template(v-if="column.prop === 'name'")
-        .avatar(v-if="item.avatar")
-          img(:src="require(`../../assets/png/${item.avatar}.png`)")
-        .text
-          span(:class="column.class ? column.class(item.isUp) : null") {{ item[column.prop] }}
-          span {{ item.id }}
+        div(class="w-60 h-full flex items-center")
+          img(v-if="item.avatar" class=" w-6 h-auto mx-4 " :src="require(`../../assets/png/${item.avatar}.png`)")
+          div(class="h-full flex flex-col justify-around")
+            div(class="text-activeColor") {{ item[column.prop] }}
+            div(class="text-sm") {{ item.id }}
       template(v-else)
         awesome-icon(class="mr-2" v-if="column.icon" :icon="getIcon(item.isUp)" :class="getClass(item.isUp)")
         span(:class="column.class ? column.class(item.isUp) : null") {{ item[column.prop] }}
@@ -54,15 +54,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.thead-item {
-  display: flex;
-  color: $dark-font;
-  font-size: 14px;
-  line-height: 28px;
-  border-bottom: 1px solid #555;
-
-  div:first-child {
-    width: 280px;
+.thead {
+  & > div:first-child {
+    width: 288px;
   }
 
   div:not(:first-child) {
@@ -71,61 +65,11 @@ export default {
   }
 }
 
-.table-item {
-  display: flex;
-  justify-content: space-between;
-  height: 56px;
-  font-weight: bold;
-  border-bottom: 1px solid #555;
-
-  div:first-child {
-    width: 280px;
-    display: flex;
-    justify-content: flex-start;
-
-    .avatar {
-      width: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .text {
-      padding-left: 8px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-
-      * {
-        line-height: 24px;
-        text-align: left;
-      }
-    }
-  }
-
-  div:not(:first-child) {
+.tbody {
+  & > div:not(:first-child) {
     width: 20%;
     line-height: 56px;
     text-align: right;
   }
-
-  &:hover {
-    transition: all .4s;
-    background-color: $active-background;
-  }
-}
-
-.name {
-  color: $active-color;
-}
-
-.id {
-  font-size: 14px;
-}
-
-img {
-  width: 24px;
-  height: 24px;
 }
 </style>
