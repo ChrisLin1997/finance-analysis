@@ -11,7 +11,7 @@
         )
   area-theme(icon="chart-line" title="主要指數")
     template(#content)
-      price-table(:data="majorIndexList" :columns="columns" height="760px")
+      price-table(:data="majorIndexList" :columns="columns" height="770px")
 
 </template>
 

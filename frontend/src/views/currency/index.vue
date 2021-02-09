@@ -2,14 +2,14 @@
 .currency
   area-theme(icon="dollar-sign" title="外幣匯率")
     template(#content)
-      section(class=" my-3 flex w-fit rounded bg-activeGray")
+      section(class=" my-3 flex w-fit rounded bg-grayPrimary")
         div(
           v-for="key of Object.keys(tableData)"
           :class="{ 'active bg-active' : activeTable === key }"
-          class=" px-2 py-1 text-activeColor rounded cursor-pointer transition-colors duration-400"
+          class=" px-2 py-1 text-active rounded cursor-pointer transition-colors duration-400"
           @click="handleActive(key)"
           ) {{  mapping[key] }}
-      price-table(:data="tableData[activeTable]" :columns="columns" height="600px")
+      price-table(:data="tableData[activeTable]" :columns="columns" height="604px")
 </template>
 
 <script>

@@ -15,9 +15,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.header-bar {
-  box-shadow: 0 0 8px 2px #666;
-}
-</style>

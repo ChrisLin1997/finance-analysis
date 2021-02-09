@@ -22,11 +22,11 @@
   div(class="flex justify-between")
     area-theme(icon="balance-scale" title="臺股市值" class="w-48%")
       template(#content)
-        price-table(:data="twMarketValueList" :columns="columns")
+        price-table(:data="twMarketValueList" :columns="columns" height="604px")
 
     area-theme(icon="balance-scale" title="美股大型" class="w-48%")
       template(#content)
-        price-table(:data="usMarketValueList" :columns="columns")
+        price-table(:data="usMarketValueList" :columns="columns" height="604px")
 
 </template>
 

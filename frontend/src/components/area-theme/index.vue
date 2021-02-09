@@ -1,6 +1,6 @@
 <template lang="pug">
 .area(class="mt-4 mb-6")
-  header(class="text-left")
+  header(class="px-2 text-left font-bold text-xl")
     slot(name="pretitle")
     awesome-icon(:icon="['fas', icon]" class="mr-2")
     span {{ title }}

@@ -1,16 +1,16 @@
 <template lang="pug">
-.merchant(class="py-3 px-6 text-center")
-  .type(class="m-auto w-2/5 flex bg-activeGray")
+.merchant(class="py-3 px-6 text-center bg-grayPrimary")
+  .type(class="m-auto w-2/5 flex bg-darkFont rounded")
     button(
       v-for="type of merchantType"
       :key="type.code"
-      :class="{ 'bg-activeColor' : type.code === activeMerchant }"
+      :class="{ 'bg-active' : type.code === activeMerchant }"
       class="py-1 w-1/2 h-auto leading-7 rounded select-none cursor-pointer transition-colors duration-400 focus:outline-none"
       @click="handleMerchant(type.code)"
     ) {{ type.label }}
   section(v-for="item of merchantList" :key="item.code" class="inline-flex flex-col justify-around w-1/2 h-80")
     h3(:class="item.code") {{ item.label }}
-    article(v-for="(node, index) of merchantInfo[activeMerchant][item.code]" :key="index" :class="item.code" class="pb-2 flex justify-between text-right border-b border-activeGray")
+    article(v-for="(node, index) of merchantInfo[activeMerchant][item.code]" :key="index" :class="item.code" class="pb-2 flex justify-between text-right border-b border-graySecondary")
       div(class="w-31%") {{ convertPrice(node.price) }}
       div(class="w-31%") {{ node.amount || '-' }}
 </template>

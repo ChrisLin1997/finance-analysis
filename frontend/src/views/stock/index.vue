@@ -2,8 +2,8 @@
 .stock
   area-theme(class="mt-12")
     template(#content)
-      article(class="flex justify-between h-96")
-        fa-chart(:options="priceChartOption" color="blue" class="w-55%")
+      article(class="flex justify-around h-96")
+        fa-chart(:options="priceChartOption" color="blue" class="w-48%")
           article(class="w-fit")
             div(class="my-1")
               span {{ stockInfo.name }}
@@ -12,11 +12,12 @@
             div(class="flex justify-between text-sm")
               span {{ stockInfo.id }}
               span {{ stockInfo.change }} ({{ stockInfo.changePercent }})
-        merchant(:stockNo="userSearch" class="w-45%")
+
+        merchant(:stockNo="userSearch" class="w-48%")
 
   area-theme(class="mt-12")
     template(#content)
-      article(class="flex justify-between h-80")
+      article(class="flex justify-around h-80")
         fa-chart(
           v-for="chart of chartList"
           :key="chart.code"

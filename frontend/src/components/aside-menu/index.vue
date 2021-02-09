@@ -1,21 +1,21 @@
 <template lang="pug">
-.aside-menu(class="flex flex-col w-60 h-screen text-center bg-activeGray z-20")
-  .title(@click="returnHomePage" class="py-4 w-full text-2xl font-bold cursor-pointer bg-primary select-none transition-all duration-200 active:text-2xl hover:text-hover" )
-    span(class=" text-activeColor") Finance
+.aside-menu(class="flex flex-col w-60 h-screen text-center bg-grayPrimary z-20")
+  .title(@click="returnHomePage" class="py-4 w-full text-2xl font-bold cursor-pointer select-none transition-all duration-200 active:text-2xl hover:text-hover" )
+    span(class="text-active") Finance
     span Analysis
 
-  section(class="h-full overflow-auto")
+  section(class="h-full overflow-auto border-t border-b border-graySecondary")
     router-link(
       v-for="item of menuList"
       :key="item.name"
-      class="pl-9 flex items-center h-14 font-bold transition-transform duration-400 border-b border-gray-600 transform hover:-translate-y-1"
+      class="pl-9 flex items-center h-14 font-bold transition-transform duration-400 border-b border-graySecondary transform hover:-translate-y-1"
       :to="item.path"
-      :class="{ ' text-activeColor' : activePage === item.path }"
+      :class="{ ' text-active' : activePage === item.path }"
     )
       awesome-icon(class="mr-4" :icon="item.icon")
       span {{ item.name }}
 
-  footer(class="flex justify-evenly items-center w-full h-14 border-t border-gray-600")
+  footer(class="flex justify-evenly items-center w-full h-14")
     a(v-for="link of linkList" :key="link.code" :href="link.href" target="_blank" class=" text-xl")
       awesome-icon(:icon="link.icon")
 </template>
@@ -58,3 +58,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.aside-menu {
+  // box-shadow: 0 0 8px 0px #333;
+}
+</style>

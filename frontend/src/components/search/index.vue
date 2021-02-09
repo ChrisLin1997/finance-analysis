@@ -1,7 +1,7 @@
 <template lang="pug">
 .search
   awesome-icon(:icon="['fas', 'search']" @click="handleSearch" class="mr-2 cursor-pointer")
-  input(v-model="search" @keypress.enter="handleSearch" class="px-2 py-1 w-48 h-8 border-none bg-activeGray")
+  input(v-model="search" @keypress.enter="handleSearch" class="px-2 py-1 w-48 h-8 border-none bg-grayPrimary")
 </template>
 
 <script>

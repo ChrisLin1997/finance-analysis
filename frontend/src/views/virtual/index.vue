@@ -2,7 +2,7 @@
 .virtual
   area-theme(icon="donate" title="加密貨幣")
     template(#content)
-      price-table(:data="tableData" :columns="columns" height="600px")
+      price-table(:data="tableData" :columns="columns" height="604px")
 </template>
 
 <script>

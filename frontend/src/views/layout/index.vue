@@ -1,13 +1,13 @@
 <template lang="pug">
 .layout(class="flex")
   aside-menu
-  main(class="flex flex-col w-layout h-screen")
+  main(class="flex flex-col w-layout h-screen bg-graySecondary")
     header-bar
     article(class="w-full overflow-auto")
       router-view(v-slot="{ Component }" class="px-6 min-w-layout min-h-layout overflow-auto")
         transition(name="view" mode="out-in")
           component(:is="Component")
-      footer(class="mt-10 py-2 px-6 text-xs text-dark") Copyright © Chris Lin 1.0.0
+      footer(class="mt-10 py-2 px-6 text-xs text-darkFont") Copyright © Chris Lin 1.0.0
 </template>
 
 <script>

@@ -2,7 +2,7 @@
 .goods
   area-theme(icon="cubes" title="原物料")
     template(#content)
-      price-table(:data="tableData.data" :columns="columns" height="820px")
+      price-table(:data="tableData.data" :columns="columns" height="826px")
 </template>
 
 <script>

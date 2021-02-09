@@ -2,7 +2,7 @@
 .pagination(class="flex justify-center w-full")
   span(
     v-for="num of pageSize"
-    :class="{ 'text-activeColor font-bold' : modelValue === num}"
+    :class="{ 'text-active font-bold' : modelValue === num}"
     class="mx-1 pt-2 px-1 cursor-pointer transition-colors duration-200"
     @click="handlePage(num)"
     @mouseover="stopInterval(num)"

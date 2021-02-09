@@ -1,6 +1,6 @@
 <template lang="pug">
-.news(class="py-2 px-3 w-31% h-420px bg-activeGray")
-  div(class="text-xl")
+.news(class="py-2 px-4 w-31% h-420px bg-grayPrimary rounded-xl")
+  div(class="text-xl text-active")
     awesome-icon(class="mr-2" :icon="options.icon")
     span {{ options.name }}
   main(v-if="options.list.length" class="my-3 relative flex overflow-hidden")
@@ -12,10 +12,10 @@
             :key="item.title"
             class="flex justify-between"
           )
-            a(:href="item.url" target="_blank" class="block text-dark text-sm overflow-hidden overflow-ellipsis whitespace-nowrap hover:text-activeColor") {{ item.title }}
+            a(:href="item.url" target="_blank" class="block text-sm overflow-hidden overflow-ellipsis whitespace-nowrap hover:text-active") {{ item.title }}
             span(v-if="item.amount !== undefined" class="w-7") {{ item.amount || 0 }}
 
-  .no-data(v-else class="flex justify-center items-center h-full text-dark text-lg")
+  .no-data(v-else class="flex justify-center items-center h-full text-darkFont text-lg")
     awesome-icon(class="mr-2" :icon="['fas', 'exclamation-circle']")
     span 暫無數據
 

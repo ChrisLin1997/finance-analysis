@@ -1,15 +1,15 @@
 <template lang="pug">
-.price-table(v-loading="data.length === 0" :style="style")
-  .thead(class="flex justify-between text-sm text-dark leading-7 border-b border-activeGray")
+.price-table(v-loading="data.length === 0" :style="style" class="py-2 bg-grayPrimary rounded-xl")
+  .thead(class="mx-4 flex justify-between text-sm text-graySecondary leading-7")
     div(v-for="column of columns" :key="column.prop") {{ column.label }}
 
-  .tbody(v-for="item of data" :key="item.id" class="flex justify-between h-14 font-bold border-b border-activeGray hover:bg-activeGray transition-colors")
+  .tbody(v-for="item of data" :key="item.id" class="mx-4 flex justify-between h-14 font-bold border-t border-graySecondary hover:bg-graySecondary transition-colors")
     div(v-for="column of columns" :key="column.prop" )
       template(v-if="column.prop === 'name'")
         div(class="h-full flex items-center")
           img(v-if="item.avatar" class=" w-6 h-auto mx-4 " :src="require(`../../assets/png/${item.avatar}.png`)")
           div(class="flex flex-col")
-            div(class="text-activeColor") {{ item[column.prop] }}
+            div(class="text-active") {{ item[column.prop] }}
             div(class="text-sm") {{ item.id }}
       template(v-else)
         awesome-icon(class="mr-2" v-if="column.icon" :icon="getIcon(item.isUp)" :class="getClass(item.isUp)")

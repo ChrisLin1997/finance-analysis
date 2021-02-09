@@ -1,5 +1,3 @@
-const colors = require('tailwindcss/colors')
-
 module.exports = {
   purge: { content: ['./public/**/*.html', './src/**/*.vue'] },
   presets: [],
@@ -16,25 +14,15 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
 
-      active: '#3ca9c0',
-      activeColor: '#35d1ec',
-      activeGray: '#393e44',
+      active: '#03b7f2',
+      accent: '#faa515',
       primary: '#181c20',
-      dark: '#b5b5b5',
+      darkFont: '#b5b5b5',
+      grayPrimary: '#393e44',
+      graySecondary: '#2a3137',
       up: '#ff3737',
       down: '#6fda1a',
       loading: '#181c20aa',
-
-      black: colors.black,
-      white: colors.white,
-      gray: colors.coolGray,
-      red: colors.red,
-      yellow: colors.amber,
-      green: colors.emerald,
-      blue: colors.blue,
-      indigo: colors.indigo,
-      purple: colors.violet,
-      pink: colors.pink,
     },
     spacing: {
       px: '1px',
